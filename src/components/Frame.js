@@ -34,10 +34,41 @@ const theme = createMuiTheme({
     }
   },
 });
+const themeList = createMuiTheme({
+  palette: {
+    primary: {
+        main:"#003c50"
+    },
+    secondary:{
+        main:"#ffffff"
+    }
+  },
+  overrides: {
+    // Style sheet name ⚛️
+    MuiListItem: {
+      // Name of the rule
+      "root": {
+        "&$selected": {
+          "color": "white",
+          "backgroundColor": "#00a6b4"
+        },
+        "&$selected:hover": {
+          "color": "white",
+          "backgroundColor": "#00a6b4"
+        }
+      }
+    },
+  },
+});
+
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     
+  },
+  list:{
+    padding:15
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -79,31 +110,44 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-function ResponsiveDrawer(props) {
+function Frame(props) {
   const { container } = props;
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  const handleListItemClick = (event, index) => {
+    setSelectedIndex(index);
+  };
 
   const drawer = (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={themeList}>
       <div className={classes.toolbar}>
         <img src={logo} className={classes.logo}/>
       </div>
       <Divider />
-      <List>
-          <ListItem button >
+      <List className={classes.list}>
+          <ListItem 
+          button 
+          selected={selectedIndex === 0}
+          onClick={event => handleListItemClick(event, 0)}
+          >
             <ListItemIcon ><DashboardOutlinedIcon color="secondary"/></ListItemIcon>
             <ListItemText primary={"Dashboard"} />
           </ListItem>
-          <ListItem button >
+          <ListItem 
+          button
+          selected={selectedIndex === 1}
+          onClick={event => handleListItemClick(event, 1)} >
             <ListItemIcon><MapOutlinedIcon color="secondary"/></ListItemIcon>
             <ListItemText primary={"Map"} />
           </ListItem>
-          <ListItem button >
+          <ListItem 
+          button
+          selected={selectedIndex === 2}
+          onClick={event => handleListItemClick(event, 2)} >
             <ListItemIcon><AssignmentOutlinedIcon color="secondary"/></ListItemIcon>
             <ListItemText primary={"Table"} />
           </ListItem>
@@ -177,7 +221,7 @@ function ResponsiveDrawer(props) {
   );
 }
 
-ResponsiveDrawer.propTypes = {
+Frame.propTypes = {
   /**
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
@@ -185,4 +229,4 @@ ResponsiveDrawer.propTypes = {
   container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element),
 };
 
-export default ResponsiveDrawer;
+export default Frame;
