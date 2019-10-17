@@ -14,9 +14,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
-import MapOutlinedIcon from '@material-ui/icons/MapOutlined';
-import DashboardOutlinedIcon from '@material-ui/icons/DashboardOutlined';
-import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined';
+import MapIcon from '@material-ui/icons/Map';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import Typography from '@material-ui/core/Typography';
 import { createMuiTheme, makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
 
@@ -50,7 +50,10 @@ const themeList = createMuiTheme({
       "root": {
         "&$selected": {
           "color": "white",
-          "backgroundColor": "#00a6b4"
+          "backgroundColor": "#00a6b4",
+          // "background":"linear-gradient(45deg, #495657 10%, #00a6b4 70%)",
+          "border-radius":"3px",
+          "boxShadow": '0 3px 5px 2px rgba(0, 166, 180, .2)',
         },
         "&$selected:hover": {
           "color": "white",
@@ -134,21 +137,21 @@ function Frame(props) {
           selected={selectedIndex === 0}
           onClick={event => handleListItemClick(event, 0)}
           >
-            <ListItemIcon ><DashboardOutlinedIcon color="secondary"/></ListItemIcon>
+            <ListItemIcon ><DashboardIcon color="secondary"/></ListItemIcon>
             <ListItemText primary={"Dashboard"} />
           </ListItem>
           <ListItem 
           button
           selected={selectedIndex === 1}
           onClick={event => handleListItemClick(event, 1)} >
-            <ListItemIcon><MapOutlinedIcon color="secondary"/></ListItemIcon>
+            <ListItemIcon><MapIcon color="secondary"/></ListItemIcon>
             <ListItemText primary={"Map"} />
           </ListItem>
           <ListItem 
           button
           selected={selectedIndex === 2}
           onClick={event => handleListItemClick(event, 2)} >
-            <ListItemIcon><AssignmentOutlinedIcon color="secondary"/></ListItemIcon>
+            <ListItemIcon><AssignmentIcon color="secondary"/></ListItemIcon>
             <ListItemText primary={"Table"} />
           </ListItem>
       </List>
