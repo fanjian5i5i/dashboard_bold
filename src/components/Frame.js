@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useEffect}from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -19,7 +19,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import Typography from '@material-ui/core/Typography';
 import { createMuiTheme, makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
-
+import { withAuth } from '@okta/okta-react';
 import Appbar from './Appbar';
 import logo from '../assets/img/logo.png';
 
@@ -118,11 +118,25 @@ function Frame(props) {
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [user, setUser] = React.useState()
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const checkUser = async () => {
+    let authUser = await props.auth.getUser();
+    if (authUser) {
+      setUser(authUser);
+    }
+  }
+
+  useEffect(()=>{
+    checkUser()
+  },[user])
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
+    
+    console.log(user);
   };
 
   const drawer = (
@@ -231,4 +245,4 @@ Frame.propTypes = {
   container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element),
 };
 
-export default Frame;
+export default withAuth(Frame);

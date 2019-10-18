@@ -90,18 +90,13 @@ const classes = useStyles();
 
   const checkAuthentication = async () => {
     const isAuthenticated = await props.auth.isAuthenticated();
-    console.log("out");
-    console.log(isAuthenticated);
-    console.log(authenticated);
+
     if (isAuthenticated !== authenticated) {
-      console.log("in");
-      console.log(isAuthenticated);
-      console.log(authenticated);
       setAuthenticated(isAuthenticated);
     }
   }
   
-  useEffect( () => { 
+  useEffect(() => { 
     
     checkAuthentication()
    }, [authenticated] );
@@ -113,9 +108,12 @@ const classes = useStyles();
       username:username,
       password:password
     })
-    .then(res => setSessionToken({
+    .then(res => {
+      setSessionToken({
       sessionToken: res.sessionToken
-    }))
+      })
+      
+    })
     .catch(err => console.log('Found an error', err));
    }
 
@@ -127,11 +125,11 @@ const classes = useStyles();
    }
 
 
-          if (sessionToken) {
+  if (sessionToken) {
 
-            props.auth.redirect(sessionToken);
-            return null;
-          }
+    props.auth.redirect(sessionToken);
+    return null;
+  }
 return  authenticated ? 
         <Redirect to={{ pathname: '/protected' }}/> :
         (
