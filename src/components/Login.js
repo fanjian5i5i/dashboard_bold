@@ -17,7 +17,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { createMuiTheme, makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
-
+import Hero from '../assets/img/login.jpg'
 const theme = createMuiTheme({
     palette: {
       primary: {
@@ -46,10 +46,11 @@ function Copyright() {
       height: '100vh',
     },
     image: {
-      backgroundImage: 'url(https://source.unsplash.com/random)',
+      backgroundImage: "url(" +Hero +")",
       backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
+      // backgroundSize: 'contain',
+      width:"100%",
+      backgroundPosition: 'top',
     },
     paper: {
       margin: theme.spacing(8, 4),
@@ -90,7 +91,6 @@ const classes = useStyles();
 
   const checkAuthentication = async () => {
     const isAuthenticated = await props.auth.isAuthenticated();
-
     if (isAuthenticated !== authenticated) {
       setAuthenticated(isAuthenticated);
     }

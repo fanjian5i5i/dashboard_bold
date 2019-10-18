@@ -107,7 +107,13 @@ function Appbar(props) {
 
       useEffect(()=>{
         checkUser()
-      })
+      });
+
+      const logout = () =>{
+        props.auth.logout()
+      }
+
+
       // <IconButton
       // aria-label="account of current user"
       // aria-controls="menu-appbar"
@@ -141,7 +147,7 @@ function Appbar(props) {
                         <NotificationsIcon />
                     </IconButton>
 
-                    <Button color="primary">{user.name}</Button>
+                    <Button color="primary" onClick={logout}>{user.name}</Button>
                 </div>
                 
                 
