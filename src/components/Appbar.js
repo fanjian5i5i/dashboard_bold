@@ -138,7 +138,7 @@ function Appbar(props) {
                 color="primary"
                 aria-label="open drawer"
                 edge="start"
-                onClick={handleDrawerToggle}
+                onClick={() => dispatch({ type: 'TAGGLE_MOBILE_OPEN' })}
                 className={classes.menuButton}
             >
                 <MenuIcon />
@@ -148,7 +148,7 @@ function Appbar(props) {
             <div className={classes.sectionDesktop}>
                 {authenticated && (
                     <div>
-                    <IconButton aria-label="show 4 new mails" color="primary" onClick={() => dispatch({ type: 'TAGGLE_MOBILE_OPEN' })}>
+                    <IconButton aria-label="show 4 new mails" color="primary">
                         <MailIcon />
                     </IconButton>
                     <IconButton aria-label="show 17 new notifications" color="primary">

@@ -23,6 +23,12 @@ import { withAuth } from '@okta/okta-react';
 import Appbar from './Appbar';
 import logo from '../assets/img/logo.png';
 
+
+
+import { connect } from 'react-redux';
+import { taggleMobileOpen } from '../redux/actions';
+import { useDispatch, useSelector } from 'react-redux'
+
 const drawerWidth = 240;
 const theme = createMuiTheme({
   palette: {
@@ -116,12 +122,17 @@ const useStyles = makeStyles(theme => ({
 function Frame(props) {
   const { container } = props;
   const classes = useStyles();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const dispatch = useDispatch();
+  // const [mobileOpen, setMobileOpen] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const [user, setUser] = React.useState()
   const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
+    // setMobileOpen(!mobileOpen);
+    // dispatch(())
+    
   };
+  const mobileOpen = useSelector(state => state.mobileOpen)
+
 
   const checkUser = async () => {
     let authUser = await props.auth.getUser();
@@ -184,7 +195,8 @@ function Frame(props) {
             variant="temporary"
             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
             open={mobileOpen}
-            onClose={handleDrawerToggle}
+            onClose={() => dispatch({ type: 'TAGGLE_MOBILE_OPEN' })}
+              
             classes={{
               paper: classes.drawerPaper,
             }}
@@ -245,4 +257,17 @@ Frame.propTypes = {
   container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element),
 };
 
-export default withAuth(Frame);
+
+const mapStateToProps = (state /*, ownProps*/) => {
+  return {
+    reducerState: state
+  }
+}
+
+const mapDispatchToProps = { taggleMobileOpen }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withAuth(Frame))
+
