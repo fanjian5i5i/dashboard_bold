@@ -16,6 +16,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme, createMuiTheme,ThemeProvider  } from '@material-ui/core/styles';
 
+import { connect } from 'react-redux';
+import { taggleMobileOpen } from '../redux/actions';
+import { useDispatch } from 'react-redux'
+
+
 
 const drawerWidth = 240;
 
@@ -54,13 +59,13 @@ const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
   sectionDesktop: {
     display: 'none',
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('sm')]: {
       display: 'flex',
     },
   },
   sectionMobile: {
     display: 'flex',
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
   },
@@ -83,9 +88,11 @@ function Appbar(props) {
   
     const handleDrawerToggle = () => {
       setMobileOpen(!mobileOpen);
+      taggleMobileOpen();
     };
     const handleMenu = () => {
         setMobileOpen(!mobileOpen);
+        taggleMobileOpen();
       };
       const checkUser = async () => {
         let authUser = await props.auth.getUser();
@@ -108,6 +115,7 @@ function Appbar(props) {
       useEffect(()=>{
         checkUser()
       });
+      const dispatch = useDispatch();
 
       const logout = () =>{
         props.auth.logout()
@@ -140,7 +148,7 @@ function Appbar(props) {
             <div className={classes.sectionDesktop}>
                 {authenticated && (
                     <div>
-                    <IconButton aria-label="show 4 new mails" color="primary">
+                    <IconButton aria-label="show 4 new mails" color="primary" onClick={() => dispatch({ type: 'TAGGLE_MOBILE_OPEN' })}>
                         <MailIcon />
                     </IconButton>
                     <IconButton aria-label="show 17 new notifications" color="primary">
@@ -168,5 +176,17 @@ Appbar.propTypes = {
      */
     container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element),
   };
+
+
+  const mapStateToProps = (state /*, ownProps*/) => {
+    return {
+      reducerState: state
+    }
+  }
+
+  const mapDispatchToProps = { taggleMobileOpen }
   
-  export default withAuth(Appbar);
+  export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(withAuth(Appbar))
