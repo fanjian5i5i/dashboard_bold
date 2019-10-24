@@ -1,6 +1,7 @@
 import * as ActionTypes from './actionTypes';
 const initialState = {
     mobileOpen: false,
+    layout:"dashboard",
     // count2: 0,
   };
    const reducer = (state = initialState, action) => {
@@ -8,6 +9,8 @@ const initialState = {
     switch (action.type) {
       case ActionTypes.TAGGLE_MOBILE_OPEN:
         return { ...state, mobileOpen: !state.mobileOpen };
+      case ActionTypes.CHANGE_LAYOUT:
+        return { ...state, layout: action.payload.layout };
       default:
         // throw new Error('Unexpected action');
         return state
