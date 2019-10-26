@@ -3,9 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import PieChart from '../components/charts/Pie';
+import RecentProect from './RecentProject2';
+import StatusChart from './StatusChart';
+import Area from './Area';
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   paper: {
     padding: theme.spacing(2),
@@ -19,27 +22,25 @@ export default function AutoGrid() {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
-        <Grid item xs>
-          <Paper className={classes.paper}>
-            <PieChart/>
-          </Paper>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={5}>
+          <StatusChart/>
         </Grid>
-        <Grid item xs>
-          <Paper className={classes.paper}>xs</Paper>
+        <Grid item xs={12} md={4}>
+          <RecentProect/>
         </Grid>
-        <Grid item xs>
-          <Paper className={classes.paper}>xs</Paper>
+        <Grid item xs={12} md={3} >
+          <Area/>
         </Grid>
       </Grid>
-      <Grid container spacing={3}>
-        <Grid item xs>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
           <Paper className={classes.paper}>xs</Paper>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <Paper className={classes.paper}>xs=6</Paper>
         </Grid>
-        <Grid item xs>
+        <Grid item xs={12}>
           <Paper className={classes.paper}>xs</Paper>
         </Grid>
       </Grid>

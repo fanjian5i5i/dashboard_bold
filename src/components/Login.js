@@ -48,7 +48,7 @@ function Copyright() {
     image: {
       backgroundImage: "url(" +Hero +")",
       backgroundRepeat: 'no-repeat',
-      // backgroundSize: 'contain',
+      backgroundSize: 'cover',
       width:"100%",
       backgroundPosition: 'top',
     },

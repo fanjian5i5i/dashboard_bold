@@ -3,31 +3,52 @@ import {Pie} from 'react-chartjs-2';
 
 const data = {
 	labels: [
-		'Red',
-		'Blue',
-		'Yellow'
+		'Available',
+		'Hold',
+		'Conveyed'
 	],
 	datasets: [{
-		data: [300, 50, 100],
+		data: [120, 50, 20],
 		backgroundColor: [
-		'#FF6384',
-		'#36A2EB',
-		'#FFCE56'
+			'#36A2EB',
+			'#FFCE56',
+			'#FF6384'
 		],
 		hoverBackgroundColor: [
-		'#FF6384',
-		'#36A2EB',
-		'#FFCE56'
+			'#36A2EB',
+			'#FFCE56',
+			'#FF6384'
 		]
 	}]
 };
 
+const options ={
+		title: {
+		  display: true,
+		  text: 'Bold projects by status'
+		},
+		layout: {
+            padding: {
+                left: 0,
+                right: 0,
+                top: 10,
+                bottom: 0
+            }
+		},
+		legend: {
+            display: true,
+            labels: {
+                // fontColor: 'rgb(255, 99, 132)'
+			},
+			position:'left'
+        }
+}
+
 function PieChart(props){
     return (
-        <div>
-        <h2>Pie Example</h2>
-        <Pie data={data} />
-      </div>
+        
+        <Pie data={data} options={options}/>
+      
     )
 }
 export default PieChart;

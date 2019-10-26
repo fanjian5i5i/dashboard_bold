@@ -124,7 +124,7 @@ function Frame(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   // const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [user, setUser] = React.useState()
   const handleDrawerToggle = () => {
     // setMobileOpen(!mobileOpen);
