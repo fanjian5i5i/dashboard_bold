@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import MostRecentImg from '../assets/img/most_recent.jpg';
-import Pie from '../components/charts/Pie';
+import PieNeighborhood from '../components/charts/PieNeighborhood';
 import BusinessOutlinedIcon from '@material-ui/icons/BusinessOutlined';
 const useStyles = makeStyles({
   card: {
@@ -33,7 +33,7 @@ export default function MediaCard() {
       <CardActionArea>
     
         <CardContent>
-          <Pie/>
+          <PieNeighborhood/>
           
           
         </CardContent>

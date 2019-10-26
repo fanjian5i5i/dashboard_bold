@@ -29,6 +29,7 @@ const useStyles = makeStyles({
   },
   paper:{
     background:"linear-gradient(60deg, #ef5350, #e53935)",
+    boxShadow:" 0 4px 20px 0 rgba(0, 0, 0,.14), 0 7px 10px -5px rgba(244, 67, 54,.4)",
     textAlign:"center",
     margin: 15,
     marginBottom: 35,
