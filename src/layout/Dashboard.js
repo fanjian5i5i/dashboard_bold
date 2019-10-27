@@ -8,10 +8,11 @@ import RecentProject from './RecentProject';
 import StatusChart from './StatusChart';
 import Area from './Area';
 import Area2 from './Area2';
-import Area3 from './Area3';
+import Value from './Value';
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    // padding: theme.spacing(2),
   },
   paper: {
     padding: theme.spacing(2),
@@ -30,7 +31,7 @@ export default function AutoGrid() {
           <Area/>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Area3/>
+          <Value/>
         </Grid>
         <Grid item xs={12} md={6}>
           <RecentProject/>

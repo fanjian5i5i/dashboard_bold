@@ -145,6 +145,19 @@ function Appbar(props) {
             </IconButton>
      
             <div className={classes.grow} />
+            <div className={classes.sectionMobile}>
+              {authenticated && (
+                    <div>
+                    <IconButton aria-label="show 17 new notifications" color="primary">
+                        <NotificationsIcon />
+                    </IconButton>
+
+                    <Button color="primary" onClick={logout}>{user.name}</Button>
+                </div>
+                
+                
+                )}  
+            </div>
             <div className={classes.sectionDesktop}>
                 {authenticated && (
                     <div>

@@ -23,6 +23,7 @@ import { withAuth } from '@okta/okta-react';
 import Appbar from './Appbar';
 import logo from '../assets/img/logo.png';
 import Dashboard from '../layout/Dashboard';
+import Map from '../layout/Map';
 
 
 import { connect } from 'react-redux';
@@ -194,7 +195,10 @@ function Frame(props) {
           <Dashboard/>
         )
         break;
-    
+      case "map":
+        return (
+          <Map/>
+        )
       default:
         break;
     }

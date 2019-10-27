@@ -11,7 +11,7 @@ import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import MostRecentImg from '../assets/img/most_recent.jpg';
 import UpdateOutlinedIcon from '@material-ui/icons/UpdateOutlined';
-import StoreIcon from '@material-ui/icons/Store';
+import AssessmentIcon from '@material-ui/icons/Assessment';
 const useStyles = makeStyles({
   card: {
     // maxWidth: 345,
@@ -48,11 +48,11 @@ export default function MediaCard() {
         
         <CardContent>
           <Paper className={classes.paper}>
-          <StoreIcon className={classes.icon} />
+          <AssessmentIcon className={classes.icon} />
           </Paper>
           
           <Typography variant="body2" color="textSecondary" component="p">
-            Total Sqft: 100,000,000
+            Total Assessed Value: $100,000,000
           </Typography>
         </CardContent>
       </CardActionArea>
