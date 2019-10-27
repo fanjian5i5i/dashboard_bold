@@ -24,6 +24,7 @@ import Appbar from './Appbar';
 import logo from '../assets/img/logo.png';
 import Dashboard from '../layout/Dashboard';
 import Map from '../layout/Map';
+import ListView from '../layout/List';
 
 
 import { connect } from 'react-redux';
@@ -196,9 +197,11 @@ function Frame(props) {
         )
         break;
       case "map":
-        return (
-          <Map/>
-        )
+        return <Map/>
+          break;
+      case "table":
+        return <ListView/>
+        break;
       default:
         break;
     }
