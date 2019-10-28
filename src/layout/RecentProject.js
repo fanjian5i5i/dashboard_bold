@@ -41,7 +41,7 @@ export default function MediaCard() {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={MostRecentImg}
+          image={"https://bold.bostonplans.org/api/image/f7e87c3f70ac879cfaa143d0b601dc5c.jpg"}
           title="811 MASSACHUSETTS AV"
         />
         <CardContent>

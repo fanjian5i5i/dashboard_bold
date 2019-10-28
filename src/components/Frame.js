@@ -147,7 +147,7 @@ function Frame(props) {
   const drawer = (
     <ThemeProvider theme={themeList}>
       <div className={classes.toolbar}>
-        <img src={logo} className={classes.logo}/>
+        <img src={"http://www.bostonplans.org//images/assets/BPDA-MobileLogo.png?bpda"} className={classes.logo}/>
       </div>
       <Divider />
       <List className={classes.list}>
