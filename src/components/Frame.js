@@ -19,7 +19,6 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import Typography from '@material-ui/core/Typography';
 import { createMuiTheme, makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
-import { withAuth } from '@okta/okta-react';
 import Appbar from './Appbar';
 import logo from '../assets/img/logo.png';
 import Dashboard from '../layout/Dashboard';
@@ -135,17 +134,7 @@ function Frame(props) {
   };
   const mobileOpen = useSelector(state => state.mobileOpen)
 
-  
-  const checkUser = async () => {
-    let authUser = await props.auth.getUser();
-    if (authUser) {
-      setUser(authUser);
-    }
-  }
 
-  useEffect(()=>{
-    checkUser()
-  },[user])
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
     const indexArr = [
@@ -273,5 +262,5 @@ const mapDispatchToProps = { taggleMobileOpen }
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withAuth(Frame))
+)(Frame)
 

@@ -19,17 +19,7 @@ function App() {
   return (
     <Provider store={store}>
     <Router >
-      <Security issuer='https://bostontest.okta.com/oauth2/default'
-                  clientId='0oa1lcice3pBtcAiE357'
-                  redirectUri={window.location.origin + '/implicit/callback'}
-                  onAuthRequired={onAuthRequired}
-                  pkce={false}>
-        {/* <Route path='/' exact={true} render={() => <div>M</div>}/> */}
-        <Route path='/' exact={true} render={() => <Login baseUrl='https://bostontest.okta.com' />} />
-        <SecureRoute path='/protected' component={Home} />
-        <Route path='/login' render={() => <Login baseUrl='https://bostontest.okta.com' />} />
-        <Route path='/implicit/callback' component={ImplicitCallback}/>
-      </Security>
+        <Route path='/' component={Home} />
     </Router>
     </Provider>
   );

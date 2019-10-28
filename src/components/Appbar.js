@@ -78,7 +78,7 @@ function Appbar(props) {
     const { container } = props;
     const classes = useStyles();
     const [authenticated, setAuthenticated] = React.useState(false);
-    const [user, setUser] = React.useState();
+    const [user, setUser] = React.useState({name:"admin"});
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -94,42 +94,8 @@ function Appbar(props) {
         setMobileOpen(!mobileOpen);
         taggleMobileOpen();
       };
-      const checkUser = async () => {
-        let authUser = await props.auth.getUser();
-        if (authUser) {
-          setUser(authUser);
-        }
-        const isAuthenticated = await props.auth.isAuthenticated();
-        if (isAuthenticated !== authenticated) {
-          setAuthenticated(isAuthenticated);
-        }
-      }
-
-      const checkAuthentication = async () => {
-        const isAuthenticated = await props.auth.isAuthenticated();
-        if (isAuthenticated !== authenticated) {
-          setAuthenticated(isAuthenticated);
-        }
-      }
-
-      useEffect(()=>{
-        checkUser()
-      });
       const dispatch = useDispatch();
 
-      const logout = () =>{
-        props.auth.logout()
-      }
-
-
-      // <IconButton
-      // aria-label="account of current user"
-      // aria-controls="menu-appbar"
-      // aria-haspopup="true"
-      // onClick={handleMenu}
-      // color="primary">
-      //     <AccountCircle />
-      // </IconButton>
     const appbar = (
         <ThemeProvider theme={theme}>
             <AppBar position="fixed" className={classes.appBar}>
@@ -146,21 +112,14 @@ function Appbar(props) {
      
             <div className={classes.grow} />
             <div className={classes.sectionMobile}>
-              {authenticated && (
-                    <div>
                     <IconButton aria-label="show 17 new notifications" color="primary">
                         <NotificationsIcon />
                     </IconButton>
 
-                    <Button color="primary" onClick={logout}>{user.name}</Button>
-                </div>
-                
-                
-                )}  
+                    <Button color="primary">{user.name}</Button>
             </div>
             <div className={classes.sectionDesktop}>
-                {authenticated && (
-                    <div>
+               
                     <IconButton aria-label="show 4 new mails" color="primary">
                         <MailIcon />
                     </IconButton>
@@ -168,12 +127,8 @@ function Appbar(props) {
                         <NotificationsIcon />
                     </IconButton>
 
-                    <Button color="primary" onClick={logout}>{user.name}</Button>
-                </div>
-                
-                
-                )}
-                
+                    <Button color="primary" >{user.name}</Button>
+               
             </div>
             </Toolbar>
             </AppBar>
