@@ -23,7 +23,7 @@ function App() {
                   clientId='0oa1lcice3pBtcAiE357'
                   redirectUri={window.location.origin + '/implicit/callback'}
                   onAuthRequired={onAuthRequired}
-                  pkce={true}>
+                  pkce={false}>
         {/* <Route path='/' exact={true} render={() => <div>M</div>}/> */}
         <Route path='/' exact={true} render={() => <Login baseUrl='https://bostontest.okta.com' />} />
         <SecureRoute path='/protected' component={Home} />
