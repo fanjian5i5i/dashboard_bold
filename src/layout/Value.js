@@ -52,7 +52,10 @@ export default function MediaCard() {
           </Paper>
           
           <Typography variant="body2" color="textSecondary" component="p">
-            Total Assessed Value: $100,000,000
+            Total Assessed Value: <br/>
+          </Typography>
+          <Typography variant="h4" color="textPrimary" component="p">
+            $100,000,000
           </Typography>
         </CardContent>
       </CardActionArea>

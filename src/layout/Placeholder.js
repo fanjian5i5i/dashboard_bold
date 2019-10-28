@@ -9,9 +9,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
-import MostRecentImg from '../assets/img/most_recent.jpg';
-import UpdateOutlinedIcon from '@material-ui/icons/UpdateOutlined';
-import StoreIcon from '@material-ui/icons/Store';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 const useStyles = makeStyles({
   card: {
     // maxWidth: 345,
@@ -30,6 +29,7 @@ const useStyles = makeStyles({
   paper:{
     background: "linear-gradient(60deg, #66bb6a, #43a047)",
     boxShadow: "0 4px 20px 0 rgba(0, 0, 0,.14), 0 7px 10px -5px rgba(76, 175, 80,.4)",
+    textAlign:"center",
     margin: 15,
     marginBottom: 35,
     marginTop: 8,
@@ -46,19 +46,22 @@ export default function MediaCard() {
         
         <CardContent>
           <Paper className={classes.paper}>
-          <StoreIcon className={classes.icon} />
+          <CheckCircleIcon className={classes.icon} />
           </Paper>
           
           <Typography variant="body2" color="textSecondary" component="p">
-            Total Sqft: 100,000,000
+            Designated Projects: <br/> 
+          </Typography>
+          <Typography variant="h4" color="textPrimary" component="p">
+            -2
           </Typography>
         </CardContent>
       </CardActionArea>
       <Divider/>
       <CardActions className={classes.actions}>
-        <UpdateOutlinedIcon/>
-        <Typography variant="caption"gutterBottom>
-        Last updated: Aug 20 2019
+        <DateRangeIcon/>
+        <Typography variant="caption" gutterBottom>
+        Since Last month
         </Typography>
       </CardActions>
     </Card>

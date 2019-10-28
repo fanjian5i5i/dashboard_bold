@@ -7,8 +7,9 @@ import NeighborhoodChart from './NeighborhoodChart';
 import RecentProject from './RecentProject';
 import StatusChart from './StatusChart';
 import Area from './Area';
-import Area2 from './Area2';
+import Placeholder from './Placeholder';
 import Value from './Value';
+import { placeholder } from '@babel/types';
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -26,22 +27,25 @@ export default function AutoGrid() {
 
   return (
     <div className={classes.root}>
+      
       <Grid container spacing={2}>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={4} lg={3}>
           <Area/>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={4} lg={3}>
           <Value/>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={4} lg={3}>
+          <Placeholder/>
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
           <RecentProject/>
         </Grid>
-      </Grid>
-      <Grid container spacing={2}>
-      <Grid item xs={12} md={6} >
+
+        <Grid item xs={12} md={6} lg={4} >
           <StatusChart/>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} lg={4}>
           <NeighborhoodChart/>
         </Grid>
 

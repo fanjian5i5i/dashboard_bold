@@ -51,7 +51,10 @@ export default function MediaCard() {
           </Paper>
           
           <Typography variant="body2" color="textSecondary" component="p">
-            Total Sqft: 100,000,000
+            Total Sqft: <br/>
+          </Typography>
+          <Typography variant="h4" color="textPrimary" component="p">
+            13,312,088
           </Typography>
         </CardContent>
       </CardActionArea>
