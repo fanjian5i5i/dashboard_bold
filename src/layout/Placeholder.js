@@ -53,7 +53,7 @@ export default function MediaCard() {
             Designated Projects: <br/> 
           </Typography>
           <Typography variant="h4" color="textPrimary" component="p">
-            -2
+            2
           </Typography>
         </CardContent>
       </CardActionArea>

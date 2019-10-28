@@ -9,6 +9,7 @@ import StatusChart from './StatusChart';
 import Area from './Area';
 import Placeholder from './Placeholder';
 import Value from './Value';
+import NeighborhoodTable from './NeighborhoodTable';
 import { placeholder } from '@babel/types';
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,8 +46,11 @@ export default function AutoGrid() {
         <Grid item xs={12} md={6} lg={4} >
           <StatusChart/>
         </Grid>
-        <Grid item xs={12} md={6} lg={4}>
+        <Grid item xs={12} md={6} lg={6}>
           <NeighborhoodChart/>
+        </Grid>
+        <Grid item xs={12} md={6} lg={6}>
+          <NeighborhoodTable/>
         </Grid>
 
         
