@@ -23,7 +23,8 @@ import Appbar from './Appbar';
 import logo from '../assets/img/logo.png';
 import Dashboard from '../layout/Dashboard';
 import Map from '../layout/Map';
-import ListView from '../layout/List';
+// import ListView from '../layout/List';
+import NeighborhoodTable from '../layout/NeighborhoodTable';
 
 
 import { connect } from 'react-redux';
@@ -125,7 +126,7 @@ function Frame(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   // const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [selectedIndex, setSelectedIndex] = React.useState(2);
   const [user, setUser] = React.useState()
   const handleDrawerToggle = () => {
     // setMobileOpen(!mobileOpen);
@@ -189,7 +190,7 @@ function Frame(props) {
         return <Map/>
           break;
       case "table":
-        return <ListView/>
+        return <NeighborhoodTable/>
         break;
       default:
         break;

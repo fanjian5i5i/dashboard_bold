@@ -157,4 +157,4 @@ Appbar.propTypes = {
   export default connect(
     mapStateToProps,
     mapDispatchToProps
-  )(withAuth(Appbar))
+  )(Appbar)

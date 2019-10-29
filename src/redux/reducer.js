@@ -1,7 +1,7 @@
 import * as ActionTypes from './actionTypes';
 const initialState = {
     mobileOpen: false,
-    layout:"dashboard",
+    layout:"table",
     // count2: 0,
   };
    const reducer = (state = initialState, action) => {
