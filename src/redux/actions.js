@@ -1,4 +1,4 @@
-import { TAGGLE_MOBILE_OPEN, CHANGE_LAYOUT } from './actionTypes'
+import { TAGGLE_MOBILE_OPEN, CHANGE_LAYOUT,UPDATE_DATA } from './actionTypes'
 
 export const taggleMobileOpen = () => ({
   type: TAGGLE_MOBILE_OPEN,
@@ -12,5 +12,12 @@ export const changeLayout = (layout) => ({
   type: CHANGE_LAYOUT,
   payload: {
     layout
+  }
+})
+
+export const updateData = (data) => ({
+  type: UPDATE_DATA,
+  payload: {
+    data
   }
 })
