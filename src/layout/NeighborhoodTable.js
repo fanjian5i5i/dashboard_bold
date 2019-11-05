@@ -12,35 +12,23 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
-import DeleteIcon from '@material-ui/icons/Delete';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import Popover from '@material-ui/core/Popover';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import ListItemText from '@material-ui/core/ListItemText';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Select from '@material-ui/core/Select';
-
 import { connect, useDispatch, useSelector  } from 'react-redux';
-import { updateData } from '../redux/actions';
+import { updateData, resetData, createOriginal } from '../redux/actions';
 
 
-import axios from 'axios';
-
-const createData = (neighborhood, lot_size, parcels ) => {
-  return { neighborhood, lot_size, parcels };
-}
+// import axios from 'axios';
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -65,17 +53,12 @@ function stableSort(array, cmp) {
 function getSorting(order, orderBy) {
   return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
 }
+// Hold for the meeting to happen
 
-const headCells = [
-  { id: 'neighborhood', numeric: false, disablePadding: true, label: 'Neighborhood' },
-  { id: 'lot_size', numeric: true, disablePadding: false, label: 'Total Lot Size (sqft)' },
-  { id: 'value', numeric: true, disablePadding: false, label: 'Total Assessed Value' },
-  { id: 'commercial', numeric: true, disablePadding: false, label: 'Total Commercial (sqft)' },
-  { id: 'residential', numeric: true, disablePadding: false, label: 'Total Residential (sqft)' },
-  { id: 'parcels', numeric: true, disablePadding: false, label: 'No. of Parcels' },
-
-];
-
+// { id: 'commercial', numeric: true, disablePadding: false, label: 'Total Commercial (sqft)' },
+// { id: 'residential', numeric: true, disablePadding: false, label: 'Total Residential (sqft)' },
+// <TableCell align="right">{Math.floor(Math.random()*10000000)}</TableCell>
+// <TableCell align="right">{Math.floor(Math.random()*10000000)}</TableCell>
 function EnhancedTableHead(props) {
   const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
   const createSortHandler = property => event => {
@@ -85,7 +68,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        {headCells.map(headCell => (
+        {props.tableHeads.map(headCell => (
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'left'}
@@ -120,166 +103,31 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-const useToolbarStyles = makeStyles(theme => ({
-  root: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
-  },
-  highlight:
-    theme.palette.type === 'light'
-      ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
-      : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
-  title: {
-    flex: '1 1 100%',
-  },
-  formControl:{
-    minWidth:150,
-    marginBottom:theme.spacing(2)
-  },
-  
-  paper:{
-    padding:theme.spacing(2)
-  }
-}));
-
-const EnhancedTableToolbar = props => {
-  const classes = useToolbarStyles();
-  const theme = useTheme();
-  const dispatch = useDispatch();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [checked, setChecked] = React.useState(false);
-  
-  const [status, setStatus] = React.useState([]);
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleStautsChange = event => {
-    setStatus(event.target.value);
-  };
-
-  const handleChange = event =>{
-    setChecked(!checked)
-  }
-  const handleSumbit = event =>{
-    console.log("submit");
-    console.log(props)
-    let result = []
-    // axios.get("http://mapservices.bostonredevelopmentauthority.org/arcproxy/arcgis/rest/services/Maps/BOLD/FeatureServer/query?layerDefs={layerId:0,where:projectstatus='Available'}&returnGeometry=false&f=json")
-    // .then(result =>{
-    //   dispatch(updateData(result.data.layers[0].features))
-
-    // })
-    let temp = props.data;
-    temp.forEach(record =>{
-
-      if(record.attributes.projectstatus == "Available"){
-        console.log(record)
-        result.push(record)
-      }
-    })
-    console.log(result)
-    dispatch(updateData(result))
-
-  }
-  
-  
-  const statuses = ["Available","Not Available","Leased"];
-
-  function getStyles(status, statuses, theme) {
-    return {
-      fontWeight:
-        statuses.indexOf(status) === -1
-          ? theme.typography.fontWeightRegular
-          : theme.typography.fontWeightMedium,
-    };
-  }
-  return (
-    <Toolbar className={classes.root}>
-        <Typography className={classes.title} variant="h6" id="tableTitle">
-          Parcels by Neighborhoods
-        </Typography>
-        
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list" onClick={handleClick}>
-            <FilterListIcon />
-          </IconButton>
-          
-        </Tooltip>
-        <Popover
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-          >
-            <Card className={classes.card}>
-            <CardHeader
-            title="Filters"
-            />
-            <CardContent  className={classes.paper}>
-            <FormControl className={classes.formControl}>
-              <InputLabel id="demo-mutiple-name-label">Project Statuses</InputLabel>
-              <Select
-                id="mutiple-checkbox"
-                multiple
-                value={status}
-                renderValue={selected => selected.join(', ')}
-                onChange={handleStautsChange}
-                input={<Input />}
-              >
-                {statuses.map(name => (
-                  <MenuItem key={name} value={name} style={getStyles(name, status, theme)}>
-                    <Checkbox checked={status.indexOf(name) > -1} />
-                    <ListItemText primary={name} />
-                  </MenuItem>
-                ))}
-              </Select>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={checked}
-                    onChange={handleChange}
-                    value="checked"
-                   
-                  />
-                }
-                label="BRA Owned"
-              />
-            </FormControl>
-            
-            </CardContent>
-
-            <CardActions>
-              <Button fullWidth onClick={handleSumbit}>Submit</Button>
-            </CardActions>
-            </Card>
-          </Popover>
-    </Toolbar>
-  );
-};
-
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
+
+    paddingTop: theme.spacing(2)
+  },
+  grow:{
+    flexGrow: 1,
+    justifyContent:" flex-end"
+  },
+  title: {
+    // flex: '1 1 100%',
+    background:" linear-gradient(60deg, #194F61, #003c50)",
+    boxShadow: "0 4px 20px 0 rgba(0, 0, 0,.14), 0 7px 10px -5px rgba(	0, 60, 80,.4)",
+    borderRadius:3,
+    position:"absolute",
+    padding:15,
+    top:-15,
+    color:"white"
+  },
+  formControl:{
+    marginLeft:theme.spacing(2),
+    marginRight:theme.spacing(2),
+    minWidth:150,
+    marginBottom:theme.spacing(2)
   },
   paper: {
     width: '100%',
@@ -298,27 +146,62 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     top: 20,
     width: 1,
-  },
+  }
 }));
 
 function EnhancedTable(props) {
   const classes = useStyles();
+  const theme = useTheme();
   const [order, setOrder] = React.useState('desc');
   const [orderBy, setOrderBy] = React.useState('parcels');
+  const [checked, setChecked] = React.useState(false);
+
+  const [status, setStatus] = React.useState([]);
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const dispatch = useDispatch();
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const [data, setData] = React.useState([{"neighborhood":"loading"}]);
+  const handleStautsChange = event => {
+    setStatus(event.target.value);
+  };
 
-  const getNeighborhoods = (items) =>{
+  const handleCheck = event =>{
+    setChecked(!checked)
+  }
+  const handleSumbit = event =>{
+    console.log("submit");
+    let result = []
+    props.reducerState.originalData.forEach(record =>{
+      status.forEach(s=>{
+
+        if(record.attributes.projectstatus == s){
+
+          if(checked){
+            if(record.attributes.owner_1 ==  "Boston Redevelopment Authority" ){
+              result.push(record)
+            }
+          }else{
+              result.push(record)
+          }
+          
+        }
+      })
+    })
+    console.log(result);
+    setData(processData(result));
+     
+    // dispatch(updateData(result))
+
+  }
+  const getFieldValues = (items,fieldName) =>{
     var lookup = {};
     var items = items;
     var result = [];
   
     for (var item, i = 0; item = items[i++];) {
-      var name = item.attributes.neighborhood;
+      var name = item.attributes[fieldName];
     
       if (!(name in lookup)) {
         lookup[name] = 1;
@@ -327,45 +210,41 @@ function EnhancedTable(props) {
     }
     return result
    }
-  React.useEffect(() => {
-    axios.get("http://mapservices.bostonredevelopmentauthority.org/arcproxy/arcgis/rest/services/Maps/BOLD/FeatureServer/query?layerDefs={'layerId':'0','where':'1=1'}&returnGeometry=false&f=json")
-    .then(result =>{
-      dispatch(updateData(result.data.layers[0].features))
+  
 
-    })
-  },[]);
+  const processData = (data) =>{
+    let results = [];
+    let arr = getFieldValues(data,props.fieldName);
+    arr.forEach(field=>{
+      let parcels = 0;
+      let lot_size = 0;
+      let value = 0;
+      data.forEach(record=>{
+        if(field == record.attributes[props.fieldName]){
+                parcels += 1;
+                lot_size += record.attributes.lot_size;
+                value += record.attributes.land_value;
+              } 
+      });
+      results.push({field,parcels,lot_size,value});
+
+    });
+
+    return results
+  }
+  // React.useEffect(() => {
+  //   axios.get("http://mapservices.bostonredevelopmentauthority.org/arcproxy/arcgis/rest/services/Maps/BOLD/FeatureServer/query?layerDefs={'layerId':'0','where':'1=1'}&returnGeometry=false&f=json")
+  //   .then(result =>{
+  //     dispatch(updateData(result.data.layers[0].features))
+  //     dispatch(createOriginal(result.data.layers[0].features))
+  //   })
+  // },[]);
 
   React.useEffect(()=>{
-    let results = [];
-    let temp = props.reducerState.data;
-    
-    // if(temp.length >= 0){
-      let neighborhoodArr = getNeighborhoods(temp);
-      neighborhoodArr.forEach(neighborhood=>{
-        let parcels = 0;
-        let lot_size = 0;
-        let value = 0;
-        temp.forEach(field=>{
-          if(neighborhood == field.attributes.neighborhood){
-                  parcels += 1;
-                  lot_size += field.attributes.lot_size;
-                  value += field.attributes.land_value;
-                } 
-        });
-        results.push({neighborhood,parcels,lot_size,value})
-  
-      });
-      setData(results);
-    // }
-    // setData(results);
-    
-    // console.log(props.reducerState.data)
-    // const counter = useSelector(state => state.counter)
-    // setData(props.reducerState.data)
 
-
+    setData(processData(props.data));
     
-  },[props.reducerState.data])
+  },[props.data])
   const handleRequestSort = (event, property) => {
     const isDesc = orderBy === property && order === 'desc';
     setOrder(isDesc ? 'asc' : 'desc');
@@ -409,14 +288,64 @@ function EnhancedTable(props) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  const isSelected = name => selected.indexOf(name) !== -1;
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+  const statuses = ["Available","Not Available","Leased"];
+
+  function getStyles(status, statuses, theme) {
+    return {
+      fontWeight:
+        statuses.indexOf(status) === -1
+          ? theme.typography.fontWeightRegular
+          : theme.typography.fontWeightMedium,
+    };
+  }
 
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar data={props.reducerState.data}/>
+        
+      <Toolbar >
+        <Typography className={classes.title} variant="h6" id="tableTitle">
+          Parcels by {props.name}
+        </Typography>
+        </Toolbar>
+        <Toolbar className={classes.grow}>
+        <FormControl required className={classes.formControl}>
+            
+              <InputLabel id="demo-mutiple-name-label">Project Statuses</InputLabel>
+              <Select
+                id="mutiple-checkbox"
+                multiple
+                value={status}
+                renderValue={selected => selected.join(', ')}
+                onChange={handleStautsChange}
+                input={<Input />}
+              >
+                {statuses.map(name => (
+                  <MenuItem key={name} value={name} style={getStyles(name, status, theme)}>
+                    <Checkbox checked={status.indexOf(name) > -1} />
+                    <ListItemText primary={name} />
+                  </MenuItem>
+                ))}
+              </Select>
+              <FormHelperText>Required</FormHelperText>
+          </FormControl>
+
+          <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={checked}
+                    onChange={handleCheck}
+                    value="checked"
+                   
+                  />
+                }
+                label="BRA Owned"
+              />
+
+            <Button variant="outlined"  onClick={handleSumbit} color="primary"><strong>Filter</strong></Button>
+
+        </Toolbar>
         <div className={classes.tableWrapper}>
           <Table
             className={classes.table}
@@ -432,6 +361,7 @@ function EnhancedTable(props) {
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={data.length}
+              tableHeads={props.tableHeads}
             />
             <TableBody>
               {stableSort(data, getSorting(order, orderBy))
@@ -444,15 +374,14 @@ function EnhancedTable(props) {
                       onClick={event => handleClick(event, row.name)}
                       role="checkbox"
                       tabIndex={-1}
-                      key={row.neighborhood}
+                      key={index}
                     >
                       <TableCell component="th" scope="row">
-                        {row.neighborhood}
+                        {row.field}
                       </TableCell>
                       <TableCell align="right">{row.lot_size}</TableCell>
                       <TableCell align="right">{row.value}</TableCell>
-                      <TableCell align="right">{Math.floor(Math.random()*10000000)}</TableCell>
-                      <TableCell align="right">{Math.floor(Math.random()*10000000)}</TableCell>
+
                       <TableCell align="right">{row.parcels}</TableCell>
                     </TableRow>
                   );

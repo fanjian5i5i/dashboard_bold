@@ -45,7 +45,7 @@ export default function MediaCard() {
           title="811 MASSACHUSETTS AV"
         />
         <CardContent>
-          <Typography variant="subtitle2" component="h2" color="Primary">
+          <Typography variant="subtitle2" component="h2" color="primary">
             Most Recent Project
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">

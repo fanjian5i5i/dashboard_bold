@@ -1,8 +1,9 @@
 import * as ActionTypes from './actionTypes';
 const initialState = {
     mobileOpen: false,
-    layout:"table",
-    data:[]
+    layout:"dashboard",
+    data:[],
+    originalData:[]
     // count2: 0,
   };
    const reducer = (state = initialState, action) => {
@@ -14,6 +15,11 @@ const initialState = {
         return { ...state, layout: action.payload.layout };
       case ActionTypes.UPDATE_DATA:
         return { ...state, data: action.payload.data };
+      case ActionTypes.CREATE_ORIGINAL:
+        return { ...state, originalData: action.payload.data };
+      case ActionTypes.RESET_DATA:
+        console.log(state.originalData)
+        return { ...state, data: state.originalData };
       default:
         // throw new Error('Unexpected action');
         return state

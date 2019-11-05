@@ -126,7 +126,7 @@ function Frame(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   // const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [selectedIndex, setSelectedIndex] = React.useState(2);
+  const [selectedIndex, setSelectedIndex] = React.useState(0); //dashboard index
   const [user, setUser] = React.useState()
   const handleDrawerToggle = () => {
     // setMobileOpen(!mobileOpen);
@@ -190,7 +190,7 @@ function Frame(props) {
         return <Map/>
           break;
       case "table":
-        return <NeighborhoodTable/>
+        // return <NeighborhoodTable/>
         break;
       default:
         break;
