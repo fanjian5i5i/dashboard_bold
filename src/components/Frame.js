@@ -22,6 +22,8 @@ import { createMuiTheme, makeStyles, ThemeProvider, useTheme } from '@material-u
 import Appbar from './Appbar';
 import logo from '../assets/img/logo.png';
 import Dashboard from '../layout/Dashboard';
+import Dashboard2 from '../layout/Dashboard2';
+
 import Map from '../layout/Map';
 // import ListView from '../layout/List';
 import NeighborhoodTable from '../layout/NeighborhoodTable';
@@ -139,7 +141,7 @@ function Frame(props) {
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
     const indexArr = [
-      "dashboard","map","table"
+      "dashboard","dashboard2","map","table"
     ]
     dispatch(changeLayout(indexArr[index]))
     // console.log(user);
@@ -164,13 +166,20 @@ function Frame(props) {
           button
           selected={selectedIndex === 1}
           onClick={event => handleListItemClick(event, 1)} >
-            <ListItemIcon><MapIcon color="secondary"/></ListItemIcon>
-            <ListItemText primary={"Map"} />
+            <ListItemIcon><DashboardIcon color="secondary"/></ListItemIcon>
+            <ListItemText primary={"Enhanced Dashboard"} />
           </ListItem>
           <ListItem 
           button
           selected={selectedIndex === 2}
           onClick={event => handleListItemClick(event, 2)} >
+            <ListItemIcon><MapIcon color="secondary"/></ListItemIcon>
+            <ListItemText primary={"Map"} />
+          </ListItem>
+          <ListItem 
+          button
+          selected={selectedIndex === 3}
+          onClick={event => handleListItemClick(event, 3)} >
             <ListItemIcon><AssignmentIcon color="secondary"/></ListItemIcon>
             <ListItemText primary={"Table"} />
           </ListItem>
@@ -188,6 +197,9 @@ function Frame(props) {
         break;
       case "map":
         return <Map/>
+          break;
+      case "dashboard2":
+        return <Dashboard2/>
           break;
       case "table":
         // return <NeighborhoodTable/>

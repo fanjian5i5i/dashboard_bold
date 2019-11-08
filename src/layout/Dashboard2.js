@@ -78,6 +78,16 @@ export default function AutoGrid() {
     <div className={classes.root}>
       
       <Grid container spacing={2}>
+        <Grid item xs={12} md={4} lg={3}>
+          <Area/>
+        </Grid>
+        <Grid item xs={12} md={4} lg={3}>
+          <Value/>
+        </Grid>
+        <Grid item xs={12} md={4} lg={6}>
+          <RecentProject/>
+        </Grid>
+
         <Grid item xs={12} md={6} lg={6}>
           <NeighborhoodTable tableHeads={neighborhoodTableHead} name={"Neighborhoods"} fieldName={"neighborhood"} data={data}/>
         </Grid>
@@ -89,7 +99,13 @@ export default function AutoGrid() {
         </Grid>
         <Grid item xs={12} md={6} lg={6}>
           <NeighborhoodTable tableHeads={statusTableHead} name={"Project Statuses"} fieldName={"projectstatus"} data={data}/>
-        </Grid>       
+        </Grid>
+        <Grid item xs={12} md={6} lg={6}>
+          <PieChart tableHeads={neighborhoodTableHead} name={"Neighborhoods"} fieldName={"neighborhood"} data={data}/>
+        </Grid>
+        
+
+        
       </Grid>
       
     </div>

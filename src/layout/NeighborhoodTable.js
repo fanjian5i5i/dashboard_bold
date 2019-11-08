@@ -289,7 +289,7 @@ function EnhancedTable(props) {
     setPage(0);
   };
 
-  const statuses = ["Available","Not Available","Leased"];
+  const statuses = getFieldValues(props.data,"projectstatus")
 
   function getStyles(status, statuses, theme) {
     return {
@@ -310,7 +310,7 @@ function EnhancedTable(props) {
         </Typography>
         </Toolbar>
         <Toolbar className={classes.grow}>
-        <FormControl required className={classes.formControl}>
+        <FormControl className={classes.formControl}>
             
               <InputLabel id="demo-mutiple-name-label">Project Statuses</InputLabel>
               <Select
@@ -328,7 +328,6 @@ function EnhancedTable(props) {
                   </MenuItem>
                 ))}
               </Select>
-              <FormHelperText>Required</FormHelperText>
           </FormControl>
 
           <FormControlLabel
@@ -379,8 +378,8 @@ function EnhancedTable(props) {
                       <TableCell component="th" scope="row">
                         {row.field}
                       </TableCell>
-                      <TableCell align="right">{row.lot_size}</TableCell>
-                      <TableCell align="right">{row.value}</TableCell>
+                      <TableCell align="right">{row.lot_size?row.lot_size.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'):""}</TableCell>
+                      <TableCell align="right">{row.value?row.value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'):""}</TableCell>
 
                       <TableCell align="right">{row.parcels}</TableCell>
                     </TableRow>
