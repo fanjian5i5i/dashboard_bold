@@ -7,7 +7,9 @@ import ProjectDetail from './ProjectDetail';
 import HomeIcon from '@material-ui/icons/Home';
 import { useDispatch  } from 'react-redux';
 import { updateData, resetData, createOriginal } from '../redux/actions';
-
+import {
+  useParams 
+} from "react-router-dom";
 import axios from 'axios';
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,6 +30,7 @@ export default function AutoGrid() {
   const classes = useStyles();
   const [data, setData] = React.useState([]);
   const dispatch = useDispatch();
+  let {pid} = useParams();
   React.useEffect(() => {
     axios.get("http://mapservices.bostonredevelopmentauthority.org/arcproxy/arcgis/rest/services/Maps/BOLD/FeatureServer/query?layerDefs={'layerId':'0','where':'1=1'}&returnGeometry=false&f=json")
     .then(result =>{
@@ -42,7 +45,7 @@ export default function AutoGrid() {
       
       <Grid container spacing={2}>
         <Grid item xs={12} md={6} lg={6}>
-          <ProjectDetail/>
+          {pid}
         </Grid>   
         <Grid item xs={12} md={6} lg={6}>
           <ProjectDetail/>
