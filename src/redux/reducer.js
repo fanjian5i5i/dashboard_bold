@@ -1,7 +1,7 @@
 import * as ActionTypes from './actionTypes';
 const initialState = {
     mobileOpen: false,
-    layout:"dashboard",
+    layout:"table",
     data:[],
     originalData:[]
     // count2: 0,

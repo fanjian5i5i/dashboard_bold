@@ -23,15 +23,25 @@ import Appbar from './Appbar';
 import logo from '../assets/img/logo.png';
 import Dashboard from '../layout/Dashboard';
 import Dashboard2 from '../layout/Dashboard2';
-
+import Project from '../layout/Project';
 import Map from '../layout/Map';
-// import ListView from '../layout/List';
+import ListView from '../layout/List';
 import NeighborhoodTable from '../layout/NeighborhoodTable';
 
 
 import { connect } from 'react-redux';
 import { taggleMobileOpen,changeLayout } from '../redux/actions';
 import { useDispatch, useSelector } from 'react-redux'
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useParams,
+  Link,
+  useRouteMatch,
+  useHistory 
+} from "react-router-dom";
 
 const drawerWidth = 240;
 const theme = createMuiTheme({
@@ -78,7 +88,7 @@ const themeList = createMuiTheme({
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
-    
+    overflow: "auto"
   },
   list:{
     padding:15
@@ -110,6 +120,7 @@ const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
+    overflow:'auto'
   },
   logo:{
     height:50,
@@ -128,8 +139,11 @@ function Frame(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   // const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [selectedIndex, setSelectedIndex] = React.useState(0); //dashboard index
-  const [user, setUser] = React.useState()
+  const [selectedIndex, setSelectedIndex] = React.useState(3); //dashboard index
+  const [user, setUser] = React.useState();
+  let { id } = useParams();
+  let { path } = useRouteMatch();
+  let history = useHistory();
   const handleDrawerToggle = () => {
     // setMobileOpen(!mobileOpen);
     // dispatch(())
@@ -141,14 +155,16 @@ function Frame(props) {
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
     const indexArr = [
-      "dashboard","dashboard2","map","table"
+      "dashboard","dashboard2","map","project"
     ]
-    dispatch(changeLayout(indexArr[index]))
+    // dispatch(changeLayout(indexArr[index]));
+    history.push("/"+indexArr[index]);
+
     // console.log(user);
   };
 
   const drawer = (
-    <ThemeProvider theme={themeList}>
+    <ThemeProvider theme={themeList} >
       <div className={classes.toolbar}>
         <img src={"http://www.bostonplans.org//images/assets/BPDA-MobileLogo.png?bpda"} className={classes.logo}/>
       </div>
@@ -181,15 +197,15 @@ function Frame(props) {
           selected={selectedIndex === 3}
           onClick={event => handleListItemClick(event, 3)} >
             <ListItemIcon><AssignmentIcon color="secondary"/></ListItemIcon>
-            <ListItemText primary={"Table"} />
+            <ListItemText primary={"Projects"} />
           </ListItem>
       </List>
     </ThemeProvider>
   );
 
 
-  function layout(layout){
-    switch (layout) {
+  function layout(id){
+    switch (id) {
       case "dashboard":
         return (
           <Dashboard/>
@@ -201,8 +217,18 @@ function Frame(props) {
       case "dashboard2":
         return <Dashboard2/>
           break;
-      case "table":
-        // return <NeighborhoodTable/>
+      case "project":
+          return (
+          <Switch>
+            <Route exact path={path}>
+              <ListView />
+            </Route>
+            <Route path={`${path}/:pid`}>
+              <Project />
+            </Route>
+          </Switch>
+          )
+        
         break;
       default:
         break;
@@ -248,7 +274,21 @@ function Frame(props) {
       <main className={classes.content}>
         <div className={classes.toolbar} />
 
-        {layout(props.reducerState.layout)}
+        {layout(id)}
+{/* {        <Switch>
+          <Route exact path={path}>
+            <Dashboard />
+          </Route>
+          <Route path='dashboard2'>
+            <Dashboard2 />
+          </Route>
+          <Route path='map'>
+            <Map />
+          </Route>
+          <Route path='project'>
+            <ListView />
+          </Route>
+        </Switch>} */}
       </main>
     </div>
     </ThemeProvider>

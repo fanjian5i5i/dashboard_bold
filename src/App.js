@@ -14,13 +14,16 @@ function onAuthRequired({history}) {
   history.push('/login');
 }
 
-
+  
 function App() {
   return (
     <Provider store={store}>
     <Router >
-        <Route path='/' component={Home} />
+      <Switch>
+        <Route path="/:id" children={<Home />}/>
+      </Switch>
     </Router>
+    
     </Provider>
   );
 }
