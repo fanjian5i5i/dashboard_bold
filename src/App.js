@@ -6,7 +6,7 @@ import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import store from './redux';
-import Home from './components/Frame';
+import Frame from './components/Frame';
 import Login from './components/Login';
 import Logout from './components/Logout';
 
@@ -20,7 +20,8 @@ function App() {
     <Provider store={store}>
     <Router >
       <Switch>
-        <Route path="/:id" children={<Home />}/>
+
+        <Route path="/:id" children={<Frame />}/>
       </Switch>
     </Router>
     

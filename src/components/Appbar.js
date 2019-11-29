@@ -14,6 +14,8 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
 import { makeStyles, useTheme, createMuiTheme,ThemeProvider  } from '@material-ui/core/styles';
 
 import { connect } from 'react-redux';
@@ -69,6 +71,9 @@ const useStyles = makeStyles(theme => ({
       display: 'none',
     },
   },
+  title: {
+    flexGrow: 1,
+  },
 }));
 
 
@@ -82,10 +87,12 @@ function Appbar(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+    
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  
+
+    const regex = /(\b[a-z](?!\s))/g;
+
     const handleDrawerToggle = () => {
       setMobileOpen(!mobileOpen);
       taggleMobileOpen();
@@ -109,7 +116,21 @@ function Appbar(props) {
             >
                 <MenuIcon />
             </IconButton>
-     
+            <Breadcrumbs aria-label="breadcrumb">
+              <Link color="primary" href={props.reducerState.layout}>
+                <strong>
+              {props.reducerState.layout.replace(regex, function(x){return x.toUpperCase();})}
+                </strong>
+              </Link>
+              {props.reducerState.title?
+              <Link color="primary" href={"/project/"+props.reducerState.title+"/"}>
+              
+                  {props.reducerState.title}
+                
+              </Link>:""
+              }
+            </Breadcrumbs>
+
             <div className={classes.grow} />
             <div className={classes.sectionMobile}>
                     <IconButton aria-label="show 17 new notifications" color="primary">

@@ -157,7 +157,7 @@ function Frame(props) {
     const indexArr = [
       "dashboard","dashboard2","map","project"
     ]
-    // dispatch(changeLayout(indexArr[index]));
+    dispatch(changeLayout(indexArr[index]));
     history.push("/"+indexArr[index]);
 
     // console.log(user);
@@ -231,6 +231,9 @@ function Frame(props) {
         
         break;
       default:
+          return (
+            <Dashboard/>
+          )
         break;
     }
   }

@@ -5,6 +5,8 @@ import Paper from '@material-ui/core/Paper';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
+import { changeTitle } from '../redux/actions';
+import { useDispatch  } from 'react-redux';
 import {
   useHistory 
 } from "react-router-dom";
@@ -51,8 +53,10 @@ export default function SimpleTable() {
   const classes = useStyles();
   const [data, setData] = React.useState([]);
   const history = useHistory();
+  const dispatch = useDispatch();
   const handleClick =(rowData)=>{
     console.log(rowData);
+    dispatch(changeTitle(rowData[0]))
     history.push("/project/"+rowData[0])
   }
   React.useEffect(() => {
@@ -79,7 +83,8 @@ export default function SimpleTable() {
     responsive: "scrollFullHeight",
     selectableRows:"none",
     filter:false,
-    onRowClick:handleClick
+    onRowClick:handleClick,
+    elevation:2
   };
   return (
     <div>
@@ -94,6 +99,7 @@ export default function SimpleTable() {
           data={data}
           columns={columns}
           options={options}
+          
         />
 
     </div>
