@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme =>({
   },
   media: {
     height: 350,
-    backgroundSize: "contain"
+    backgroundSize: "cover"
   },
   margin: {
     margin: theme.spacing(1),
@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme =>({
 export default function ProjectImage(props) {
   const classes = useStyles();
   const fileInput = useRef(null);
-  const [img, setImg] = useState([]);
+  const [img, setImg] = useState(["https://via.placeholder.com/760x500.png?text=No%20Picture%20Avaliable"]);
   const [count, setCount] = useState(null)
   useEffect(() => {
 
@@ -50,7 +50,7 @@ export default function ProjectImage(props) {
       console.log(props.fields);
       const data = new FormData();
       data.append('file', fileInput.current.files[0]);
-      data.append("fields",[props.fields[11].value,props.fields[36].value,props.fields[34].value]);
+      data.append("fields",[props.fields[12].value,props.fields[1].value,props.fields[22].value]);
       axios.post('http://localhost:8000/api/images/',
       data,
       {

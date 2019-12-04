@@ -26,7 +26,7 @@ const BermudaTriangle = (props) => {
 
   useEffect(() => {
       console.log(props.pid)
-      loadModules(['esri/Graphic',"esri/layers/FeatureLayer"]).then(([Graphic,FeatureLayer]) => {
+      loadModules(['esri/Graphic',"esri/layers/FeatureLayer","esri/tasks/support/Query"]).then(([Graphic,FeatureLayer,Query]) => {
           // // Create a polygon geometry
           // const polygon = {
           //     type: "polygon", // autocasts as new Polygon()
@@ -54,11 +54,23 @@ const BermudaTriangle = (props) => {
 
           const layer = new FeatureLayer({
             // URL to the service
-            url: "http://mapservices.bostonredevelopmentauthority.org/arcproxy/arcgis/rest/services/Maps/BOLD/FeatureServer/0",
+            url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_RE_parcels/FeatureServer/0",
             // definitionExpression: "ParcelID = '"+props.pid+"'"
           });
+
+
+          const query = new Query();
+          query.where = "pid = '1403790000'";
+          // query.outSpatialReference = { wkid: 102100 };
+          query.returnGeometry = true;
+          query.outFields = [ "*" ];
+
+
+          layer.queryFeatures(query).then(function(results){
+            console.log(results.features);  // prints the array of features to the console
+          });
           if(props.pid){
-            layer.definitionExpression = "ParcelID = '"+props.pid+"'"
+            layer.definitionExpression = "pid = '"+props.pid+"'"
             props.map.layers.add(layer);
             setPid(pid);
           };
@@ -113,7 +125,7 @@ export default function ProjectMap(props) {
     <Paper className={classes.map}>
 
     <Map 
-      mapProperties={{ basemap: 'gray' }} 
+      mapProperties={{ basemap: 'gray-vector' }} 
       viewProperties={{
             center: [-71, 42],
             zoom: 6

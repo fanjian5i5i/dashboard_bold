@@ -2,6 +2,7 @@ import * as ActionTypes from './actionTypes';
 const initialState = {
     mobileOpen: false,
     layout:"project",
+    dialogOpen:false,
     data:[],
     originalData:[],
     title:""
@@ -22,7 +23,8 @@ const initialState = {
         return { ...state, data: state.originalData };
       case ActionTypes.CHANGE_TITLE:
           return { ...state, title: action.payload.title };
-        
+      case ActionTypes.OPEN_DIALOG:
+        return { ...state, dialogOpen: !state.dialogOpen };  
       default:
         // throw new Error('Unexpected action');
         return state

@@ -30,7 +30,7 @@ import NeighborhoodTable from '../layout/NeighborhoodTable';
 
 
 import { connect } from 'react-redux';
-import { taggleMobileOpen,changeLayout } from '../redux/actions';
+import { taggleMobileOpen,changeLayout,changeTitle } from '../redux/actions';
 import { useDispatch, useSelector } from 'react-redux'
 
 import {
@@ -158,6 +158,7 @@ function Frame(props) {
       "dashboard","dashboard2","map","project"
     ]
     dispatch(changeLayout(indexArr[index]));
+    dispatch(changeTitle(""));
     history.push("/"+indexArr[index]);
 
     // console.log(user);

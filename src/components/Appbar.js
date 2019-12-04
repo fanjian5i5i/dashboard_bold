@@ -9,12 +9,19 @@ import IconButton from '@material-ui/core/IconButton';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Toolbar from '@material-ui/core/Toolbar';
+import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+
+
+import Dialog from '../layout/ProjectCreateDialog';
+
+
 import Link from '@material-ui/core/Link';
 import { makeStyles, useTheme, createMuiTheme,ThemeProvider  } from '@material-ui/core/styles';
 
@@ -87,12 +94,14 @@ function Appbar(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-    
+    const dispatch = useDispatch();
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
     const regex = /(\b[a-z](?!\s))/g;
-
+    const handleAdd = () =>{
+      dispatch({ type: 'OPEN_DIALOG' })
+    }
     const handleDrawerToggle = () => {
       setMobileOpen(!mobileOpen);
       taggleMobileOpen();
@@ -101,7 +110,7 @@ function Appbar(props) {
         setMobileOpen(!mobileOpen);
         taggleMobileOpen();
       };
-      const dispatch = useDispatch();
+     
 
     const appbar = (
         <ThemeProvider theme={theme}>
@@ -117,7 +126,7 @@ function Appbar(props) {
                 <MenuIcon />
             </IconButton>
             <Breadcrumbs aria-label="breadcrumb">
-              <Link color="primary" href={props.reducerState.layout}>
+              <Link color="primary" href={"/"+props.reducerState.layout}>
                 <strong>
               {props.reducerState.layout.replace(regex, function(x){return x.toUpperCase();})}
                 </strong>
@@ -133,17 +142,23 @@ function Appbar(props) {
 
             <div className={classes.grow} />
             <div className={classes.sectionMobile}>
-                    <IconButton aria-label="show 17 new notifications" color="primary">
-                        <NotificationsIcon />
-                    </IconButton>
+                  
+                    <Tooltip title="Add Project">
+                      <IconButton aria-label="add" color="primary" onClick={() => dispatch({ type: 'OPEN_DIALOG' })}> 
+                        <NoteAddIcon />
+                      </IconButton>
+                    </Tooltip>
+  
 
                     <Button color="primary">{user.name}</Button>
             </div>
             <div className={classes.sectionDesktop}>
                
-                    <IconButton aria-label="show 4 new mails" color="primary">
-                        <MailIcon />
-                    </IconButton>
+                    <Tooltip title="Add Project">
+                      <IconButton aria-label="add" color="primary" onClick={() => dispatch({ type: 'OPEN_DIALOG' })}>
+                        <NoteAddIcon />
+                      </IconButton>
+                    </Tooltip>
                     <IconButton aria-label="show 17 new notifications" color="primary">
                         <NotificationsIcon />
                     </IconButton>
@@ -151,6 +166,7 @@ function Appbar(props) {
                     <Button color="primary" >{user.name}</Button>
                
             </div>
+            <Dialog/>
             </Toolbar>
             </AppBar>
         </ThemeProvider>
@@ -173,9 +189,7 @@ Appbar.propTypes = {
     }
   }
 
-  const mapDispatchToProps = { taggleMobileOpen }
   
   export default connect(
     mapStateToProps,
-    mapDispatchToProps
   )(Appbar)

@@ -58,10 +58,15 @@ export default function FolderList(props) {
     <List className={classes.list}>
       {
        props.fields.length>0 ? props.fields.map((field) => 
+          field.fieldName!="notes"?
           <ListItem key={field.fieldName}>
             <ListItemText primary={field.fieldName}  />
             <ListItemSecondaryAction>{field.value}</ListItemSecondaryAction>
-          </ListItem>
+          </ListItem>:
+          <ListItem key={field.fieldName} >
+          <ListItemText primary={field.fieldName}  style={{"height":150}}/>
+          <ListItemSecondaryAction style={{"paddingLeft":50}}>{field.value}</ListItemSecondaryAction>
+        </ListItem>
         ):""
       }
       

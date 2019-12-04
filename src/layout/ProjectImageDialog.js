@@ -7,12 +7,12 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+
+import AwesomeSlider from 'react-awesome-slider';
+import AwesomeSliderStyles from 'react-awesome-slider/src/styles';
+import { maxHeight } from '@material-ui/system';
 
 const styles = theme => ({
   root: {
@@ -21,10 +21,10 @@ const styles = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    overflow: 'hidden',
+    // overflow: 'hidden',
   },
   dialog:{
-    maxWidth:"none !important"  
+    maxWidth:"none !important",
   },
   closeButton: {
     position: 'absolute',
@@ -93,30 +93,32 @@ const CustomizedDialogs = withStyles(styles)(props=> {
             Images for parcel {props.pid}
         </DialogTitle>
         <DialogContent dividers>
-        <div className={classes.root}>
-            <GridList cellHeight={500} className={classes.gridList} >
-                {props.img.map(tile => (
-                <GridListTile key={tile} > 
-                    <img src={tile} alt={tile} />
-                    <GridListTileBar 
-                    classes={{
-                        root: classes.titleBar,
-                        title: classes.title,
-                      }}
-                    actionIcon={
-                        <IconButton aria-label={`info about ${tile.title}`} className={classes.title}>
-                        <DeleteIcon className={classes.title}/>
-                        </IconButton>
-                    }
-                    />
-                </GridListTile>
-                ))}
-            </GridList>
-            </div>
+        <AwesomeSlider>
+              
+                {
+                props.img.map(tile => (
+                // <GridListTile key={tile} > 
+                //     <img src={tile} alt={tile} />
+                //     <GridListTileBar 
+                //     classes={{
+                //         root: classes.titleBar,
+                //         title: classes.title,
+                //       }}
+                //     actionIcon={
+                //         <IconButton aria-label={`info about ${tile.title}`} className={classes.title}>
+                //         <DeleteIcon className={classes.title}/>
+                //         </IconButton>
+                //     }
+                //     />
+                // </GridListTile>
+                  <div key={tile} data-src={tile}/>
+                ))
+                }
+            </AwesomeSlider>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
-            Save changes
+            cancel
           </Button>
         </DialogActions>
       </Dialog>

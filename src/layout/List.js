@@ -47,7 +47,7 @@ const columns = [
      sortDirection:'asc'
     }
    },
-   "Neighborhood", "UR Area", "Site","Lot Size","Use","Status"];
+   "Neighborhood", "UR Area","Lot Size","Use","Status"];
 
 export default function SimpleTable() {
   const classes = useStyles();
@@ -60,19 +60,19 @@ export default function SimpleTable() {
     history.push("/project/"+rowData[0])
   }
   React.useEffect(() => {
-    axios.get("http://mapservices.bostonredevelopmentauthority.org/arcproxy/arcgis/rest/services/Maps/BOLD/FeatureServer/query?layerDefs={'layerId':'0','where':'1=1'}&returnGeometry=false&f=json")
+    axios.get("http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_RE_parcels/FeatureServer/query?layerDefs={'layerId':'0','where':'1=1'}&returnGeometry=false&f=json")
     .then(results =>{
       // setData(result.data.layers[0].features);
       let result = []
       results.data.layers[0].features.forEach(record=>{
-        result.push([record.attributes.ParcelID,
+        if(record.attributes.project_status != "Conveyed" && record.attributes.project_status != null)
+        result.push([record.attributes.pid,
           record.attributes.full_address,
           record.attributes.neighborhood,
           record.attributes.ur_number,
-          record.attributes.site,
           record.attributes.lot_size,
-          record.attributes.currentuse,
-          record.attributes.projectstatus,
+          record.attributes.current_use,
+          record.attributes.project_status,
         ])
       });
       setData(result)
@@ -87,13 +87,6 @@ export default function SimpleTable() {
     elevation:2
   };
   return (
-    <div>
-      <Toolbar >
-        <Typography className={classes.title} variant="h6" id="tableTitle">
-          Projects
-        </Typography>
-        </Toolbar>
-
         <MUIDataTable
           title={""}
           data={data}
@@ -101,7 +94,5 @@ export default function SimpleTable() {
           options={options}
           
         />
-
-    </div>
   );
 }

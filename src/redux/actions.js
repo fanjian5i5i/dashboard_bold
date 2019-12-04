@@ -1,4 +1,4 @@
-import { TAGGLE_MOBILE_OPEN, CHANGE_LAYOUT,UPDATE_DATA,CREATE_ORIGINAL,RESET_DATA,CHANGE_TITLE } from './actionTypes'
+import { TAGGLE_MOBILE_OPEN, CHANGE_LAYOUT,UPDATE_DATA,CREATE_ORIGINAL,RESET_DATA,CHANGE_TITLE,OPEN_DIALOG } from './actionTypes'
 
 export const taggleMobileOpen = () => ({
   type: TAGGLE_MOBILE_OPEN,
@@ -40,3 +40,6 @@ export const resetData = () => ({
   type: RESET_DATA
 })
 
+export const openDialog = () => ({
+  type: OPEN_DIALOG
+})
