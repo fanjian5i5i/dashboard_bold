@@ -13,6 +13,9 @@ import { connect, useDispatch } from 'react-redux';
 import { Map  } from '@esri/react-arcgis';
 import { loadModules } from 'esri-loader';
 import axios from 'axios';
+import {
+  useHistory 
+} from "react-router-dom";
 const styles = theme => ({
   root: {
     margin: 0,
@@ -86,108 +89,167 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
     dispatch({type:'OPEN_DIALOG'})
   };
 
+  
   const Layer = (props) =>{
+    let history = useHistory();
+    
+    const [query, setQuery] = React.useState(null);
+ 
     useEffect(() => {
       loadModules([
-        "esri/widgets/Search",
-        "esri/Graphic",
-        "esri/layers/FeatureLayer",
-        "esri/tasks/support/Query"
-    ]).then(([Search,Graphic,FeatureLayer,Query]) => {
-        var searchWidget = new Search({
-          view: props.view,
-          popupEnabled:false
-        });
-        props.view.ui.add(searchWidget, "top-right");
-        const layer = new FeatureLayer({
-          // URL to the service
-          url: "https://services.arcgis.com/sFnw0xNflSi8J0uh/ArcGIS/rest/services/Parcels19WMFull/FeatureServer/0",
-          // definitionExpression: "ParcelID = '"+props.pid+"'"
-          outFields:["*"]
-        });
-
-
+          "esri/Graphic"
+      ]).then(([Graphic]) => {
         
-        searchWidget.on("select-result",(result1)=>{
-          console.log(result1.result.feature.attributes);
-          layer.definitionExpression = "FULL_ADDRE LIKE '%"+result1.result.feature.attributes.StAddr+"%'"
-          props.map.layers.add(layer);
-          props.view.whenLayerView(layer).then(function(layerView) {
-            layerView.watch("updating", function(value) {
-              console.log(value)
-              if (!value) {
-                // wait for the layer view to finish updating
-            
-                // get all the features available for drawing.
-                layerView
-                  .queryFeatures({
-                    geometry: props.view.extent,
-                    returnGeometry: true,
-                    outFields:layerView.availableFields
-                  })
-                  .then(function(results) {
-                    // do something with the resulting graphics
-                    // graphics = results.features;
-                    console.log(results)
-                    // setFeature(results.features[0].attributes.OBJECTID);
-  
-                    // if(feature != results.features[0].attributes.OBJECTID){
-                    //   props.view.goTo({target:results.features[0].geometry});
-                    // }
-                    props.view.popup.open({
-                      //   // Set the popup's title to the coordinates of the clicked location
-                        title: results.features[0].attributes.PID_LONG,
-                        location: results.features[0].geometry.centroid,// Set the location of the popup to the clicked location
-                        content:
-                          "<strong>Address</strong>: "+results.features[0].attributes.FULL_ADDRE +
-                          "<br/> <strong>Owner</strong>: "+results.features[0].attributes.OWNER + 
-                          "<br/> <strong>Land Use</strong>: "+results.features[0].attributes.LAND_USE +
-                          "<br/> <strong>Building Value</strong>: "+results.features[0].attributes.AV_BLDG.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') +
-                          "<br/> <strong>Land Value</strong>: "+results.features[0].attributes.AV_LAND.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') +
-                          "<br/> <strong>Total Value</strong>: "+results.features[0].attributes.AV_TOTAL.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')  +
-                          "<br/> <strong>Gross Area</strong>: "+results.features[0].attributes.LIVING_ARE.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') 
-                      });
-                  });
-              }
+        if(query){
+          console.log(query);
+          props.view.graphics.removeAll();
+          const attributes = {};
+          attributes["pid"] = query.attributes.PID;
+          attributes["full_address"] = query.attributes.FULL_ADDRE;
+          attributes["lot_size"] = query.attributes.LAND_SF;
+          attributes["gross_area_19"] = query.attributes.LIVING_ARE;
+          attributes["land_value_19"] = query.attributes.AV_LAND;
+          attributes["building_value_19"] = query.attributes.AV_BLDG;
+          attributes["total_value_19"] = query.attributes.AV_TOTAL;
+          attributes["owner"] = query.attributes.OWNER;
+          let graphic = new Graphic({
+              geometry: query.geometry,
+              attributes:attributes,
+              symbol: {
+                    type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+                    color: [ 255, 128, 0, 0.5],
+                    outline: {  // autocasts as new SimpleLineSymbol()
+                      width: 1,
+                      color: "lightblue"
+                    }
+                  }
             });
-          });
+            props.view.popup.dockEnabled = true;
+            props.view.popup.dockOptions = {
+              position:"bottom-right"
+            }
 
-          // props.view.popup.open({
-          //   // Set the popup's title to the coordinates of the clicked location
-          //   title: result1.result.feature.attributes.Match_addr,
-          //   location: result1.result.feature.geometry// Set the location of the popup to the clicked location
-          // });
+            const createAction = {
+              title: "Sumbit",
+              id: "sumbit",
+              className: "esri-icon-check-mark"
+            };
 
-          // axios.get("https://services.arcgis.com/sFnw0xNflSi8J0uh/ArcGIS/rest/services/Parcels19WMFull/FeatureServer/0/query?f=json&where=(FULL_ADDRE%20LIKE%20%27%25"+
-          // result1.result.feature.attributes.StAddr
-          // +"%25%27)%20AND%20(1=1)&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=*")
-          // .then(result2 =>{
-          //   console.log(result2);
-          //   if(result2.data.features.length>0){
-              
-          //     var graphic = new Graphic({
-          //       geometry: {
-          //         type:'polygon',
-          //         rings:result2.data.features[0].geometry.rings
-          //       },
-          //       symbol: {
-          //         type: "simple-fill", // autocasts as new SimpleMarkerSymbol()
-          //         color: "red",
-          //         outline: {  // autocasts as new SimpleLineSymbol()
-          //           color: [128, 128, 128, 0.5],
-          //           width: "0.5px"
-          //         }
-          //       }
-          //       // symbol: polylineSymbol,
-          //     });
-          //     console.log(graphic)
-          //     props.view.graphics.add(graphic);
-          //   }
-          //   })
-        })
-  
+
+            
+          props.view.popup.open({
+            // Set the popup's title to the coordinates of the location
+            title: query.attributes.PID,
+            location: query.geometry.centroid,// Set the location of the popup to the clicked location
+            content: "<div><strong>Full Address</strong>: "+query.attributes.FULL_ADDRE+"</div><br/>" + 
+            "<div><strong>Lot Size</strong>: "+query.attributes.LAND_SF+"</div><br/>" + 
+            "<div><strong>Gross Area</strong>: "+query.attributes.LIVING_ARE+"</div><br/>" + 
+            "<div><strong>Land Value</strong>: "+query.attributes.AV_LAND+"</div><br/>" + 
+            "<div><strong>Building Value</strong>: "+query.attributes.AV_BLDG+"</div><br/>" + 
+            "<div><strong>Total Value</strong>: "+query.attributes.AV_TOTAL+"</div><br/>" + 
+            "<div><strong>Owner</strong>: "+query.attributes.OWNER+"</div><br/>" ,
+            actions: [createAction]
+          });  
+          props.view.graphics.add(graphic);
+
+
+        }
+      
       });
-    });
+    },[query])
+    useEffect(() => {
+      loadModules([
+        "esri/Graphic","esri/layers/FeatureLayer"
+    ]).then(([Graphic,FeatureLayer]) => {
+      const layer = new FeatureLayer({
+        // URL to the service
+        id:"parcel",
+        url: "https://services.arcgis.com/sFnw0xNflSi8J0uh/ArcGIS/rest/services/Parcels19WMFull/FeatureServer/0",
+        outFields:["*"],
+        renderer:{
+          type: "simple",  // autocasts as new SimpleRenderer()
+          symbol: {
+            type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+            color: [ 255, 128, 0, 0],
+            outline: {  // autocasts as new SimpleLineSymbol()
+              width: 1,
+              color: "lightblue"
+            }
+          }
+        }
+
+      });
+
+      props.map.layers.add(layer);
+
+
+      props.view.on("click", function(event){
+
+        var query = layer.createQuery();
+        query.geometry = event.mapPoint;
+        layer.queryFeatures(query).then(result=>{
+          console.log(result);
+          setQuery(result.features[0]);
+        })
+        
+      });
+    })
+  },[]);
+    useEffect(() => {
+      loadModules([
+        "esri/widgets/Search"
+    ]).then(([Search]) => {
+      var searchWidget = new Search({
+        view: props.view,
+        popupEnabled:false
+      });
+      searchWidget.on("select-result",(result1)=>{
+        console.log(result1.result.feature.attributes);
+        let layer = props.map.findLayerById("parcel")
+        var query = layer.createQuery();
+        query.where = "FULL_ADDRE LIKE '%"+result1.result.feature.attributes.StAddr+"%'";
+        layer.queryFeatures(query).then(result=>{
+          console.log(result);
+          setQuery(result.features[0]);
+        });
+
+      })
+      props.view.ui.add(searchWidget, "top-right");
+      
+    })
+    },[]);
+    useEffect(()=>{
+      loadModules([
+        "esri/Graphic","esri/layers/FeatureLayer"
+      ]).then(([Graphic,FeatureLayer]) => {
+        const layer = new FeatureLayer({
+          url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_RE_parcels/FeatureServer/0",
+        });
+
+        props.map.layers.add(layer);
+  
+        props.view.popup.on("trigger-action", function(event) {
+  
+          if (event.action.id === "sumbit") {
+            console.log(props.view.graphics.items[0]);
+
+
+            const promise = layer.applyEdits({
+              addFeatures: [props.view.graphics.items[0]]
+            });
+            promise.then(result =>{
+              console.log(props.view.graphics.items[0].attributes.pid)
+              history.push("/project/" + props.view.graphics.items[0].attributes.pid);
+              window.location.reload()
+            })
+
+          }
+        });
+
+
+      });
+      
+    },[])
     return null;
   }
 
@@ -198,14 +260,15 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
             Create BOLD project
         </DialogTitle>
         <DialogContent dividers>
-            <Map 
-              mapProperties={{ basemap: 'gray-vector' }} 
-              viewProperties={{
-                    center: [-71, 42],
-                    zoom: 6
-                }}>
-            <Layer/>
-            </Map>
+              <Map 
+                mapProperties={{ basemap: 'gray-vector' }} 
+                viewProperties={{
+                      center: [-71.0589, 42.3601],
+                      zoom: 16
+                  }}>
+              <Layer/>
+
+              </Map>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
