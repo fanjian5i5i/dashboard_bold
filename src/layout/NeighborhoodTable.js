@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import { lighten, makeStyles, useTheme  } from '@material-ui/core/styles';
+import { makeStyles, useTheme, createMuiTheme, ThemeProvider   } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -27,8 +27,12 @@ import Select from '@material-ui/core/Select';
 import { connect, useDispatch, useSelector  } from 'react-redux';
 import { updateData, resetData, createOriginal } from '../redux/actions';
 
+const darkTheme = createMuiTheme({
+  palette: {
+    type: 'dark', // Switching the dark mode on is a single property value change.
+  },
+});
 
-// import axios from 'axios';
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -60,15 +64,101 @@ function getSorting(order, orderBy) {
 // <TableCell align="right">{Math.floor(Math.random()*10000000)}</TableCell>
 // <TableCell align="right">{Math.floor(Math.random()*10000000)}</TableCell>
 function EnhancedTableHead(props) {
-  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+  const { classes, order, orderBy, rowCount, onRequestSort } = props;
   const createSortHandler = property => event => {
     onRequestSort(event, property);
   };
+  const categories = {
+    "neighborhood":"Neighborhoods",
+    "current_use":"Current Use",
+    "ur_area":"Urban Renewal Areas",
+    "project_status":"Project Status"
+  }
+  const tableHead = [
+    { id: 'neighborhood', numeric: false, disablePadding: true, label: 'Neighborhood' },
+    { id: 'lotsize', numeric: true, disablePadding: false, label: 'Total Lot Size(sqft)' },
+    { id: 'totalvalue', numeric: true, disablePadding: false, label: 'Total Assessed Value' },
+    { id: 'parcels', numeric: true, disablePadding: false, label: 'No. of Parcels' },
+  
+  ];
 
   return (
     <TableHead>
       <TableRow>
-        {props.tableHeads.map(headCell => (
+        <TableCell
+          align='left'
+          sortDirection={orderBy === props.category ? order : false}
+        >
+          <TableSortLabel
+              active={orderBy === props.category}
+              direction={order}
+              onClick={createSortHandler(props.category)}
+            >
+
+              {categories[props.category]}
+              {orderBy === props.category ? (
+                <span className={classes.visuallyHidden}>
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                </span>
+              ) : null}
+            </TableSortLabel>
+        </TableCell>
+        <TableCell
+          align='right'
+          sortDirection={orderBy === "lotsize" ? order : false}
+        >
+          <TableSortLabel
+              active={orderBy === props.category}
+              direction={order}
+              onClick={createSortHandler("lotsize")}
+            >
+
+              Total Lot Size(sqft)
+              {orderBy === "lotsize" ? (
+                <span className={classes.visuallyHidden}>
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                </span>
+              ) : null}
+            </TableSortLabel>
+        </TableCell>
+        <TableCell
+          align='right'
+          sortDirection={orderBy === "totalvalue" ? order : false}
+        >
+          <TableSortLabel
+              active={orderBy === props.category}
+              direction={order}
+              onClick={createSortHandler("totalvalue")}
+            >
+
+              Total Assessed Value($)
+              {orderBy === "totalvalue" ? (
+                <span className={classes.visuallyHidden}>
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                </span>
+              ) : null}
+            </TableSortLabel>
+        </TableCell>
+        <TableCell
+          align='right'
+          sortDirection={orderBy === "parcels" ? order : false}
+        >
+          <TableSortLabel
+              active={orderBy === props.category}
+              direction={order}
+              onClick={createSortHandler("parcels")}
+            >
+
+              No. of Parcels  
+              {orderBy === "parcels" ? (
+                <span className={classes.visuallyHidden}>
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                </span>
+              ) : null}
+            </TableSortLabel>
+        </TableCell>
+
+        {/* {tableHeads.map(headCell => (
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'left'}
@@ -87,7 +177,7 @@ function EnhancedTableHead(props) {
               ) : null}
             </TableSortLabel>
           </TableCell>
-        ))}
+        ))} */}
       </TableRow>
     </TableHead>
   );
@@ -95,9 +185,7 @@ function EnhancedTableHead(props) {
 
 EnhancedTableHead.propTypes = {
   classes: PropTypes.object.isRequired,
-  numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
@@ -123,11 +211,23 @@ const useStyles = makeStyles(theme => ({
     top:-15,
     color:"white"
   },
+  titleForm:{
+    marginLeft:theme.spacing(2),
+    marginRight:theme.spacing(2),
+    minWidth:150,
+    marginBottom:theme.spacing(1),
+  },
+  titleSelect:{
+    color:"white"
+  },
+  select:{
+    maxWidth:250
+  },
   formControl:{
     marginLeft:theme.spacing(2),
     marginRight:theme.spacing(2),
     minWidth:150,
-    marginBottom:theme.spacing(2)
+    marginBottom:theme.spacing(2),
   },
   paper: {
     width: '100%',
@@ -135,6 +235,11 @@ const useStyles = makeStyles(theme => ({
   },
   tableWrapper: {
     overflowX: 'auto',
+  },
+  tableRow:{
+    paddingTop: "8px !important",
+    paddingBottom: "8px !important",
+    paddingLeft: "16px !important",
   },
   visuallyHidden: {
     border: 0,
@@ -154,43 +259,99 @@ function EnhancedTable(props) {
   const theme = useTheme();
   const [order, setOrder] = React.useState('desc');
   const [orderBy, setOrderBy] = React.useState('parcels');
-  const [checked, setChecked] = React.useState(false);
-
-  const [status, setStatus] = React.useState([]);
-  const [selected, setSelected] = React.useState([]);
+  const [category, setCategory] = React.useState('neighborhood');
+  const [selectedStatus, setSelectedStatus] = React.useState([]);
+  const [selectedNeighborhood, setSelectedNeighborhood] = React.useState([]);
+  const [selectedUR, setSelectedUR] = React.useState([]);
+  const [selectedUse, setSelectedUse] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const dispatch = useDispatch();
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
+  const [rowsPerPage, setRowsPerPage] = React.useState(25);
+  const [total, setTotal] = useState(0)
   const [data, setData] = React.useState([{"neighborhood":"loading"}]);
   const handleStautsChange = event => {
-    setStatus(event.target.value);
+
+    setSelectedStatus(event.target.value);
+  };
+  const handleNeighborhoodsChange = event => {
+
+    setSelectedNeighborhood(event.target.value);
+  };
+  const handleURChange = event => {
+
+    setSelectedUR(event.target.value);
+  };
+  const handleUseChange = event => {
+
+    setSelectedUse(event.target.value);
   };
 
-  const handleCheck = event =>{
-    setChecked(!checked)
-  }
-  const handleSumbit = event =>{
+  
+  const handleCategoryChange = event => {
+    setCategory(event.target.value);
+    setData(processData(props.data,event.target.value));
+  };
+
+  const handleSubmit = event =>{
     console.log("submit");
-    let result = []
+    let tempArr = [];
+    let dataArr = [];
+    if(selectedStatus.length == 0){
+      tempArr=props.reducerState.originalData;
+    }else{
     props.reducerState.originalData.forEach(record =>{
-      status.forEach(s=>{
-
-        if(record.attributes.projectstatus == s){
-
-          if(checked){
-            if(record.attributes.owner_1 ==  "Boston Redevelopment Authority" ){
-              result.push(record)
-            }
-          }else{
-              result.push(record)
+        selectedStatus.forEach(status=>{
+          if(record.attributes.project_status == status){
+            tempArr.push(record)
           }
-          
-        }
+        })
+    });
+    }
+    dataArr = tempArr;
+    tempArr = [];
+    if(selectedNeighborhood.length == 0){
+      tempArr=dataArr
+    }else{
+    dataArr.forEach(record =>{
+        selectedNeighborhood.forEach(neighborhood=>{
+          if(record.attributes.neighborhood == neighborhood){
+            tempArr.push(record)
+          }
+        })
       })
-    })
-    console.log(result);
-    setData(processData(result));
+    }
+    dataArr = tempArr;
+    tempArr = [];
+
+    if(selectedUse.length == 0){
+      tempArr=dataArr
+    }else{
+    dataArr.forEach(record =>{
+      selectedUse.forEach(use=>{
+          if(record.attributes.current_use == use){
+            tempArr.push(record)
+          }
+        })
+      })
+    }
+    dataArr = tempArr;
+    tempArr = [];
+
+
+    if(selectedUR.length == 0){
+      tempArr=dataArr
+    }else{
+    dataArr.forEach(record =>{
+      selectedUR.forEach(ur=>{
+          if(record.attributes.ur_area == ur){
+            tempArr.push(record)
+          }
+        })
+      })
+    }
+    dataArr = tempArr;
+    console.log(dataArr);
+    setData(processData(dataArr,category));
      
     // dispatch(updateData(result))
 
@@ -212,18 +373,20 @@ function EnhancedTable(props) {
    }
   
 
-  const processData = (data) =>{
+  const processData = (data,fieldName) =>{
     let results = [];
-    let arr = getFieldValues(data,props.fieldName);
+    console.log(data);
+    setTotal(data.length)
+    let arr = getFieldValues(data,fieldName);
     arr.forEach(field=>{
       let parcels = 0;
       let lot_size = 0;
       let value = 0;
       data.forEach(record=>{
-        if(field == record.attributes[props.fieldName]){
+        if(field == record.attributes[fieldName]){
                 parcels += 1;
                 lot_size += record.attributes.lot_size;
-                value += record.attributes.land_value;
+                value += record.attributes.total_value_19;
               } 
       });
       results.push({field,parcels,lot_size,value});
@@ -241,8 +404,8 @@ function EnhancedTable(props) {
   // },[]);
 
   React.useEffect(()=>{
-
-    setData(processData(props.data));
+    console.log(props.data)
+    setData(processData(props.data,props.fieldName));
     
   },[props.data])
   const handleRequestSort = (event, property) => {
@@ -251,34 +414,14 @@ function EnhancedTable(props) {
     setOrderBy(property);
   };
 
-  const handleSelectAllClick = event => {
-    if (event.target.checked) {
-      const newSelecteds = data.map(n => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
-
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
-      );
-    }
-
-    setSelected(newSelected);
-  };
+  // const handleSelectAllClick = event => {
+  //   if (event.target.checked) {
+  //     const newSelecteds = data.map(n => n.name);
+  //     setSelected(newSelecteds);
+  //     return;
+  //   }
+  //   setSelected([]);
+  // };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -289,60 +432,137 @@ function EnhancedTable(props) {
     setPage(0);
   };
 
-  const statuses = getFieldValues(props.data,"projectstatus")
+  const statuses = getFieldValues(props.data,"project_status");
+  const neighborhoods = getFieldValues(props.data,"neighborhood");
+  const urAreas = getFieldValues(props.data,"ur_area");
+  const currentUses = getFieldValues(props.data,"current_use");
+  console.log(currentUses)
+  const categories = [
+    {id:"neighborhood",name:"Neighborhoods"},
+    {id:"current_use",name:"Current Use"},
+    {id:"ur_area",name:"Urban Renewal Areas"},
+    {id:"project_status",name:"Project Status"}
+  ]
 
-  function getStyles(status, statuses, theme) {
+  function getStyles(selectedStatus, statuses, theme) {
     return {
       fontWeight:
-        statuses.indexOf(status) === -1
+        statuses.indexOf(selectedStatus) === -1
           ? theme.typography.fontWeightRegular
           : theme.typography.fontWeightMedium,
     };
   }
+
 
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
         
       <Toolbar >
+      
         <Typography className={classes.title} variant="h6" id="tableTitle">
-          Parcels by {props.name}
+          Parcels by 
+          <ThemeProvider theme={darkTheme}>
+          <FormControl className={classes.titleForm}>
+          
+              <Select
+                id="mutiple-checkbox"
+                value={category}
+                onChange={handleCategoryChange}
+                className={classes.titleSelect}
+              >
+                {categories.map(item => (
+                  <MenuItem key={item.id} value={item.id}>{item.name}
+                  </MenuItem>
+                ))}
+              </Select>
+          </FormControl>
+          </ThemeProvider>
         </Typography>
+        
         </Toolbar>
         <Toolbar className={classes.grow}>
-        <FormControl className={classes.formControl}>
+          <FormControl className={classes.formControl}>
             
               <InputLabel id="demo-mutiple-name-label">Project Statuses</InputLabel>
               <Select
                 id="mutiple-checkbox"
                 multiple
-                value={status}
-                renderValue={selected => selected.join(', ')}
+                value={selectedStatus}
+                renderValue={selectedStatus => selectedStatus.join(', ')}
                 onChange={handleStautsChange}
+                className={classes.select}
                 input={<Input />}
               >
                 {statuses.map(name => (
-                  <MenuItem key={name} value={name} style={getStyles(name, status, theme)}>
-                    <Checkbox checked={status.indexOf(name) > -1} />
+                  <MenuItem key={name} value={name} style={getStyles(name, selectedStatus, theme)}>
+                    <Checkbox checked={selectedStatus.indexOf(name) > -1} />
                     <ListItemText primary={name} />
                   </MenuItem>
                 ))}
               </Select>
           </FormControl>
-
-          <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={checked}
-                    onChange={handleCheck}
-                    value="checked"
-                   
-                  />
-                }
-                label="BRA Owned"
-              />
-
-            <Button variant="outlined"  onClick={handleSumbit} color="primary"><strong>Filter</strong></Button>
+          <FormControl className={classes.formControl}>
+            
+              <InputLabel id="neighborhood-mutiple-name-label">Neighborhoods</InputLabel>
+              <Select
+                id="mutiple-checkbox-neighborhood"
+                multiple
+                value={selectedNeighborhood}
+                renderValue={selectedNeighborhood => selectedNeighborhood.join(', ')}
+                onChange={handleNeighborhoodsChange}
+                className={classes.select}
+                input={<Input />}
+              >
+                {neighborhoods.map(name => (
+                  <MenuItem key={name} value={name} style={getStyles(name, selectedNeighborhood, theme)}>
+                    <Checkbox checked={selectedNeighborhood.indexOf(name) > -1} />
+                    <ListItemText primary={name} />
+                  </MenuItem>
+                ))}
+              </Select>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            
+              <InputLabel id="use-mutiple-name-label">Current Use</InputLabel>
+              <Select
+                id="mutiple-checkbox-use"
+                multiple
+                value={selectedUse}
+                renderValue={selectedUse => selectedUse.join(', ')}
+                onChange={handleUseChange}
+                className={classes.select}
+                input={<Input />}
+              >
+                {currentUses.map(name => (
+                  <MenuItem key={name} value={name} style={getStyles(name, selectedUse, theme)}>
+                    <Checkbox checked={selectedUse.indexOf(name) > -1} />
+                    <ListItemText primary={name} />
+                  </MenuItem>
+                ))}
+              </Select>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            
+              <InputLabel id="ur-mutiple-name-label">Urban Renewal</InputLabel>
+              <Select
+                id="mutiple-checkbox-ur"
+                multiple
+                value={selectedUR}
+                renderValue={selectedUR => selectedUR.join(', ')}
+                onChange={handleURChange}
+                className={classes.select}
+                input={<Input />}
+              >
+                {urAreas.map(name => (
+                  <MenuItem key={name} value={name} style={getStyles(name, selectedUR, theme)}>
+                    <Checkbox checked={selectedUR.indexOf(name) > -1} />
+                    <ListItemText primary={name} />
+                  </MenuItem>
+                ))}
+              </Select>
+          </FormControl>
+          <Button variant="outlined"  onClick={handleSubmit} color="primary"><strong>Filter</strong></Button>
 
         </Toolbar>
         <div className={classes.tableWrapper}>
@@ -351,16 +571,18 @@ function EnhancedTable(props) {
             aria-labelledby="tableTitle"
             size={'medium'}
             aria-label="enhanced table"
+            
           >
             <EnhancedTableHead
               classes={classes}
-              numSelected={selected.length}
+              // numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
+              // onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={data.length}
-              tableHeads={props.tableHeads}
+              category={category}
+
             />
             <TableBody>
               {stableSort(data, getSorting(order, orderBy))
@@ -370,21 +592,26 @@ function EnhancedTable(props) {
                   return (
                     <TableRow
                       hover
-                      onClick={event => handleClick(event, row.name)}
                       role="checkbox"
                       tabIndex={-1}
                       key={index}
                     >
-                      <TableCell component="th" scope="row">
+                      <TableCell component="th" scope="row" className={classes.tableRow}>
                         {row.field}
                       </TableCell>
-                      <TableCell align="right">{row.lot_size?row.lot_size.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'):""}</TableCell>
-                      <TableCell align="right">{row.value?row.value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'):""}</TableCell>
+                      <TableCell align="right" className={classes.tableRow}>{row.lot_size?row.lot_size.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'):""}</TableCell>
+                      <TableCell align="right" className={classes.tableRow}>${row.value?row.value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'):""}</TableCell>
 
-                      <TableCell align="right">{row.parcels}</TableCell>
+                      <TableCell align="right" className={classes.tableRow}>{row.parcels}</TableCell>
                     </TableRow>
                   );
                 })}
+                <TableRow>
+                <TableCell align="right" className={classes.tableRow}></TableCell>
+                <TableCell align="right" className={classes.tableRow}></TableCell>
+                <TableCell align="right" className={classes.tableRow}></TableCell>
+                <TableCell align="right" className={classes.tableRow}>Total : {total}</TableCell>
+                </TableRow>
             </TableBody>
           </Table>
         </div>

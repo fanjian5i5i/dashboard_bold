@@ -59,7 +59,7 @@ export default function Project() {
               let tempProject = results.features[0].attributes;
               setData(tempProject);
               for (var key in tempProject) {
-                if (tempProject.hasOwnProperty(key)) {
+                if (tempProject.hasOwnProperty(key) && key!="OBJECTID") {
                     
                     let temp = {};
                     // temp[key] = props.project[key]
@@ -67,7 +67,6 @@ export default function Project() {
                     temp.value = tempProject[key]
                     // console.log(key + " -> " + p[key]);
                     fields.push(temp)
-                    console.log(temp)
                 }
               }
 

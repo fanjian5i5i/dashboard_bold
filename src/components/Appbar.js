@@ -81,6 +81,9 @@ const useStyles = makeStyles(theme => ({
   title: {
     flexGrow: 1,
   },
+  newProject:{
+    color:"#003c50 !important"
+  }
 }));
 
 
@@ -153,7 +156,7 @@ function Appbar(props) {
                     <Button color="primary">{user.name}</Button>
             </div>
             <div className={classes.sectionDesktop}>
-               
+                    <Button className={classes.newProject} disabled>create a project</Button>
                     <Tooltip title="Add Project">
                       <IconButton aria-label="add" color="primary" onClick={() => dispatch({ type: 'OPEN_DIALOG' })}>
                         <NoteAddIcon />

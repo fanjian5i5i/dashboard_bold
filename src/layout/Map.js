@@ -23,31 +23,52 @@ const Layer = (props) =>{
   useEffect(() => {
     loadModules([
       "esri/layers/Layer",
-      "esri/widgets/Legend"
-  ]).then(([Layer,Legend]) => {
+      "esri/widgets/Legend",
+      "esri/widgets/LayerList"
+  ]).then(([Layer,Legend,LayerList]) => {
 
     props.view.when(function() {
+      
       // get the first layer in the collection of operational layers in the WebMap
       // when the resources in the MapView have loaded.
-      var featureLayer = props.map.layers.getItemAt(0);
-
+      var ldaLayer = props.map.layers.getItemAt(1);
+      // ldaLayer.visible = true;
+      var boldLayer = props.map.layers.getItemAt(2);
+      var zoningLayer = props.map.layers.getItemAt(0);
+      var neighborhoodLayer = props.map.layers.getItemAt(3);
       var legend = new Legend({
         view: props.view,
         layerInfos: [
           {
-            layer: featureLayer,
-            title: "Legend"
+            layer: boldLayer,
+          },
+          {
+            layer: ldaLayer
+          },
+          {
+            layer:zoningLayer
+          },
+          {
+            layer:neighborhoodLayer
           }
+          
         ]
+      });
+
+
+
+      var layerList = new LayerList({
+        view: props.view
       });
 
       // Add widget to the bottom right corner of the view
       props.view.ui.add(legend, "bottom-right");
+      props.view.ui.add(layerList,  "top-right");
     });
 
 
     });
-  });
+  },[]);
   return null;
 }
 export default function AutoGrid() {

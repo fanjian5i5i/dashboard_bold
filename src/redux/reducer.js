@@ -1,7 +1,7 @@
 import * as ActionTypes from './actionTypes';
 const initialState = {
     mobileOpen: false,
-    layout:"project",
+    layout:"dashboard",
     dialogOpen:false,
     data:[],
     fieldsToCreate:[

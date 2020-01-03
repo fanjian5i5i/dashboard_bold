@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -9,9 +9,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
-import MostRecentImg from '../assets/img/most_recent.jpg';
-import UpdateOutlinedIcon from '@material-ui/icons/UpdateOutlined';
-import AssessmentIcon from '@material-ui/icons/Assessment';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 const useStyles = makeStyles({
   card: {
     // maxWidth: 345,
@@ -28,9 +27,8 @@ const useStyles = makeStyles({
     // textAlign:"center"
   },
   paper:{
-    
-    background:" linear-gradient(60deg, #26c6da, #00acc1)",
-    boxShadow: "0 4px 20px 0 rgba(0, 0, 0,.14), 0 7px 10px -5px rgba(0, 172, 193,.4)",
+    background: "linear-gradient(60deg, #66bb6a, #43a047)",
+    boxShadow: "0 4px 20px 0 rgba(0, 0, 0,.14), 0 7px 10px -5px rgba(76, 175, 80,.4)",
     textAlign:"center",
     margin: 15,
     marginBottom: 35,
@@ -41,28 +39,29 @@ const useStyles = makeStyles({
 
 export default function MediaCard(props) {
   const classes = useStyles();
+
   return (
     <Card className={classes.card}>
       <CardActionArea>
         
         <CardContent>
           <Paper className={classes.paper}>
-          <AssessmentIcon className={classes.icon} />
+          <CheckCircleIcon className={classes.icon} />
           </Paper>
           
           <Typography variant="body2" color="textSecondary" component="p">
-            Total Assessed Value: <br/>
+            All Projects: <br/> 
           </Typography>
           <Typography variant="h4" color="textPrimary" component="p">
-            ${props.value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+            {props.aProjects}
           </Typography>
         </CardContent>
       </CardActionArea>
       <Divider/>
       <CardActions className={classes.actions}>
-        <UpdateOutlinedIcon/>
-        <Typography variant="caption"gutterBottom>
-        Last updated: Aug 20 2019
+        <DateRangeIcon/>
+        <Typography variant="caption" gutterBottom>
+        Since Last month
         </Typography>
       </CardActions>
     </Card>

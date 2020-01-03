@@ -9,8 +9,9 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import MostRecentImg from '../assets/img/most_recent.jpg';
+import UpdateOutlinedIcon from '@material-ui/icons/UpdateOutlined';
+import SquareFootIcon from '@material-ui/icons/SquareFoot';
 const useStyles = makeStyles({
   card: {
     // maxWidth: 345,
@@ -27,8 +28,8 @@ const useStyles = makeStyles({
     // textAlign:"center"
   },
   paper:{
-    background: "linear-gradient(60deg, #66bb6a, #43a047)",
-    boxShadow: "0 4px 20px 0 rgba(0, 0, 0,.14), 0 7px 10px -5px rgba(76, 175, 80,.4)",
+    background:"linear-gradient(60deg, #EFA350, #ED9739)",
+    boxShadow:" 0 4px 20px 0 rgba(0, 0, 0,.14), 0 7px 10px -5px rgba(244, 67, 54,.4)",
     textAlign:"center",
     margin: 15,
     marginBottom: 35,
@@ -37,7 +38,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function MediaCard() {
+export default function MediaCard(props) {
   const classes = useStyles();
 
   return (
@@ -46,22 +47,22 @@ export default function MediaCard() {
         
         <CardContent>
           <Paper className={classes.paper}>
-          <CheckCircleIcon className={classes.icon} />
+          <SquareFootIcon className={classes.icon} />
           </Paper>
           
           <Typography variant="body2" color="textSecondary" component="p">
-            Designated Projects: <br/> 
+            Total Gross Sqft: <br/>
           </Typography>
           <Typography variant="h4" color="textPrimary" component="p">
-            2
+          {props.grossArea.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
           </Typography>
         </CardContent>
       </CardActionArea>
       <Divider/>
       <CardActions className={classes.actions}>
-        <DateRangeIcon/>
-        <Typography variant="caption" gutterBottom>
-        Since Last month
+        <UpdateOutlinedIcon/>
+        <Typography variant="caption"gutterBottom>
+        Last updated: Aug 20 2019
         </Typography>
       </CardActions>
     </Card>

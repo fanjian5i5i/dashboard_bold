@@ -21,7 +21,6 @@ import Typography from '@material-ui/core/Typography';
 import { createMuiTheme, makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
 import Appbar from './Appbar';
 import logo from '../assets/img/logo.png';
-import Dashboard from '../layout/Dashboard';
 import Dashboard2 from '../layout/Dashboard2';
 import Project from '../layout/Project';
 import Map from '../layout/Map';
@@ -139,7 +138,7 @@ function Frame(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   // const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [selectedIndex, setSelectedIndex] = React.useState(3); //dashboard index
+  const [selectedIndex, setSelectedIndex] = React.useState(0); //dashboard index
   const [user, setUser] = React.useState();
   let { id } = useParams();
   let { path } = useRouteMatch();
@@ -155,7 +154,7 @@ function Frame(props) {
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
     const indexArr = [
-      "dashboard","dashboard2","map","project"
+      "dashboard","map","project"
     ]
     dispatch(changeLayout(indexArr[index]));
     dispatch(changeTitle(""));
@@ -183,20 +182,13 @@ function Frame(props) {
           button
           selected={selectedIndex === 1}
           onClick={event => handleListItemClick(event, 1)} >
-            <ListItemIcon><DashboardIcon color="secondary"/></ListItemIcon>
-            <ListItemText primary={"Enhanced Dashboard"} />
-          </ListItem>
-          <ListItem 
-          button
-          selected={selectedIndex === 2}
-          onClick={event => handleListItemClick(event, 2)} >
             <ListItemIcon><MapIcon color="secondary"/></ListItemIcon>
             <ListItemText primary={"Map"} />
           </ListItem>
           <ListItem 
           button
-          selected={selectedIndex === 3}
-          onClick={event => handleListItemClick(event, 3)} >
+          selected={selectedIndex === 2}
+          onClick={event => handleListItemClick(event, 2)} >
             <ListItemIcon><AssignmentIcon color="secondary"/></ListItemIcon>
             <ListItemText primary={"Projects"} />
           </ListItem>
@@ -208,17 +200,18 @@ function Frame(props) {
   function layout(id){
     switch (id) {
       case "dashboard":
+          // handleListItemClick(null,0)
+          
         return (
-          <Dashboard/>
+          <Dashboard2/>
         )
         break;
       case "map":
+          // handleListItemClick(null,1)
         return <Map/>
           break;
-      case "dashboard2":
-        return <Dashboard2/>
-          break;
       case "project":
+          // handleListItemClick(null,2)
           return (
           <Switch>
             <Route exact path={path}>
@@ -232,8 +225,9 @@ function Frame(props) {
         
         break;
       default:
+          setSelectedIndex(0);
           return (
-            <Dashboard/>
+            <Dashboard2/>
           )
         break;
     }

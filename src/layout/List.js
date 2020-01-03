@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import { changeTitle } from '../redux/actions';
 import { useDispatch  } from 'react-redux';
+import { loadModules } from 'esri-loader';
 import {
   useHistory 
 } from "react-router-dom";
@@ -59,26 +60,63 @@ export default function SimpleTable() {
     dispatch(changeTitle(rowData[0]))
     history.push("/project/"+rowData[0])
   }
-  React.useEffect(() => {
-    axios.get("http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_RE_parcels/FeatureServer/query?layerDefs={'layerId':'0','where':'1=1'}&returnGeometry=false&f=json")
-    .then(results =>{
-      // setData(result.data.layers[0].features);
-      let result = []
-      results.data.layers[0].features.forEach(record=>{
-        if(record.attributes.project_status != "Conveyed" && record.attributes.project_status != null)
-        result.push([record.attributes.pid,
-          record.attributes.full_address,
-          record.attributes.neighborhood,
-          record.attributes.ur_number,
-          record.attributes.lot_size,
-          record.attributes.current_use,
-          record.attributes.project_status,
-        ])
-      });
-      setData(result)
+  // React.useEffect(() => {
+  //   axios.get("http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_RE_parcels/FeatureServer/query?layerDefs={'layerId':'0','where':'1=1'}&returnGeometry=false&f=json")
+  //   .then(results =>{
+  //     // setData(result.data.layers[0].features);
+  //     let result = []
+  //     results.data.layers[0].features.forEach(record=>{
+  //       if(record.attributes.project_status != "Conveyed" && record.attributes.project_status != null)
+  //       result.push([record.attributes.pid,
+  //         record.attributes.full_address,
+  //         record.attributes.neighborhood,
+  //         record.attributes.ur_number,
+  //         record.attributes.lot_size,
+  //         record.attributes.current_use,
+  //         record.attributes.project_status,
+  //       ])
+  //     });
+  //     setData(result)
 
-    })
-  },[]);
+  //   })
+  // },[]);
+
+
+  React.useEffect(()=>{
+    loadModules(["esri/layers/FeatureLayer","esri/tasks/support/Query"]).then(([FeatureLayer,Query,StatisticDefinition]) => {
+      const layer = new FeatureLayer({
+        url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_RE_parcels/FeatureServer/0",
+      });
+      const query = new Query();
+      query.where = "project_status <> 'Conveyed' ";
+      query.outFields = [ "*" ];
+      query.returnGeometry = false;
+      layer.queryFeatures(query).then(function(results){
+        // console.log(results.features);  
+        // dispatch(updateData(results.features))
+        // dispatch(createOriginal(results.features));
+        // setData(results.features);
+        // setAProject(results.features.length)
+        let result = [];
+        results.features.forEach(record=>{
+          result.push([record.attributes.pid,
+            record.attributes.full_address,
+            record.attributes.neighborhood,
+            record.attributes.ur_number,
+            record.attributes.lot_size,
+            record.attributes.current_use,
+            record.attributes.project_status,
+          ])
+        })
+        setData(result)
+
+
+      });
+
+
+      
+    });
+  },[])
   const options = {
     responsive: "scrollFullHeight",
     selectableRows:"none",

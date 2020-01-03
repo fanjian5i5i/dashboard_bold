@@ -38,7 +38,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function MediaCard() {
+export default function MediaCard(props) {
   const classes = useStyles();
 
   return (
@@ -54,7 +54,7 @@ export default function MediaCard() {
             Total Sqft: <br/>
           </Typography>
           <Typography variant="h4" color="textPrimary" component="p">
-            13,312,088
+          {props.area.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
           </Typography>
         </CardContent>
       </CardActionArea>
