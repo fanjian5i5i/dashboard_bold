@@ -11,10 +11,10 @@ import HomeIcon from '@material-ui/icons/Home';
 import { useDispatch  } from 'react-redux';
 
 import {
-  useParams 
+  useParams
 } from "react-router-dom";
 import axios from 'axios';
-import { changeTitle } from '../redux/actions';
+import { changeTitle,changeLayout } from '../redux/actions';
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
-  
+
 }));
 
 
@@ -40,7 +40,7 @@ export default function Project() {
   let {pid} = useParams();
   React.useEffect(() => {
 
-
+    dispatch(changeLayout("parcel"));
     dispatch(changeTitle(pid))
     // axios.get("http://mapservices.bostonredevelopmentauthority.org/arcproxy/arcgis/rest/services/Maps/BOLD/FeatureServer/query?layerDefs={'layerId':'0','where':'ParcelID="+pid+"'}&returnGeometry=true&f=json")
     loadModules(['esri/Graphic',"esri/layers/FeatureLayer","esri/tasks/support/Query"]).then(([Graphic,FeatureLayer,Query]) => {
@@ -60,7 +60,7 @@ export default function Project() {
               setData(tempProject);
               for (var key in tempProject) {
                 if (tempProject.hasOwnProperty(key) && key!="OBJECTID") {
-                    
+
                     let temp = {};
                     // temp[key] = props.project[key]
                     temp.fieldName = key;
@@ -86,7 +86,7 @@ export default function Project() {
     //   let fields = [];
     //   for (var key in tempProject) {
     //     if (tempProject.hasOwnProperty(key)) {
-            
+
     //         let temp = {};
     //         // temp[key] = props.project[key]
     //         temp.fieldName = key;
@@ -103,26 +103,26 @@ export default function Project() {
 //<Placeholder/>
   return (
     <div className={classes.root}>
-      
+
       <Grid container spacing={2}>
         <Grid item xs={12} md={6} lg={6}>
-          
+
           <ProjectDetail fields={fields} pid={pid}/>
-        </Grid>  
+        </Grid>
         <Grid item xs={12} md={6} lg={6} container spacing={2}>
           <Grid item xs={12} md={12} lg={12}>
 
               <ProjectImage pid={pid} fields={fields}/>
 
-          </Grid>     
+          </Grid>
           <Grid item xs={12} md={12} lg={12}>
           <Paper>
             <Map pid={pid}/>
             </Paper>
-          </Grid>  
-        </Grid>     
+          </Grid>
+        </Grid>
       </Grid>
-      
+
     </div>
   );
 }

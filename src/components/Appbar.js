@@ -113,7 +113,7 @@ function Appbar(props) {
         setMobileOpen(!mobileOpen);
         taggleMobileOpen();
       };
-     
+
 
     const appbar = (
         <ThemeProvider theme={theme}>
@@ -135,29 +135,29 @@ function Appbar(props) {
                 </strong>
               </Link>
               {props.reducerState.title?
-              <Link color="primary" href={"/project/"+props.reducerState.title+"/"}>
-              
+              <Link color="primary" href={"/parcel/"+props.reducerState.title+"/"}>
+
                   {props.reducerState.title}
-                
+
               </Link>:""
               }
             </Breadcrumbs>
 
             <div className={classes.grow} />
             <div className={classes.sectionMobile}>
-                  
-                    <Tooltip title="Add Project">
-                      <IconButton aria-label="add" color="primary" onClick={() => dispatch({ type: 'OPEN_DIALOG' })}> 
+
+                    <Tooltip title="Add Parcels">
+                      <IconButton aria-label="add" color="primary" onClick={() => dispatch({ type: 'OPEN_DIALOG' })}>
                         <NoteAddIcon />
                       </IconButton>
                     </Tooltip>
-  
+
 
                     <Button color="primary">{user.name}</Button>
             </div>
             <div className={classes.sectionDesktop}>
-                    <Button className={classes.newProject} disabled>create a project</Button>
-                    <Tooltip title="Add Project">
+                    <Button className={classes.newProject} disabled>create a parcel</Button>
+                    <Tooltip title="Add a Parcel">
                       <IconButton aria-label="add" color="primary" onClick={() => dispatch({ type: 'OPEN_DIALOG' })}>
                         <NoteAddIcon />
                       </IconButton>
@@ -167,7 +167,7 @@ function Appbar(props) {
                     </IconButton>
 
                     <Button color="primary" >{user.name}</Button>
-               
+
             </div>
             <Dialog/>
             </Toolbar>
@@ -192,7 +192,7 @@ Appbar.propTypes = {
     }
   }
 
-  
+
   export default connect(
     mapStateToProps,
   )(Appbar)

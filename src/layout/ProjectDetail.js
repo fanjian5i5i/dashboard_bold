@@ -61,14 +61,15 @@ export default function FolderList(props) {
     pid : "Parcel ID",
     st_num: "Street Number",
     st_name: "Street Name",
-    zip_code : "ZIP code",
+    zipcode : "ZIP code",
     ur_parcel_name : "UR Parcel",
     assessing_property_type : "Property Type",
     lot_size : "Lot Size",
-    gross_area_19 : "Gross Area",
-    land_value_19 : "Land Value",
-    building_value_19 : "Building Value",
-    total_value_19 : "Total Value",
+    gross_area : "Built SF",
+    living_area:"Living Area",
+    land_value19 : "Land Value",
+    building_value19 : "Building Value",
+    total_value19 : "Total Value",
     neighborhood : "Neighborhood",
     owner : "Owner",
     current_use : "Current Use",
@@ -85,12 +86,12 @@ export default function FolderList(props) {
   }
 
   let statuses = [
-    "Designated",
-    "Available to Develop",
-    "Long Term Hold",
+    "Not developable",
+    "Developable",
+    "Long Term Maintenance Agreement",
     "Performing Asset",
+    "Designated",
     "Ground Leased",
-    "License",
     "Conveyed"
   ];
 
@@ -132,12 +133,41 @@ export default function FolderList(props) {
     project_status : true,
     full_address : false,
     map_status : true,
-    yardi_code : true,
+    yardi_id : true,
+  }
+
+  let hidden = {
+    OBJECTID : true,
+    pid : false,
+    st_num: true,
+    st_name: true,
+    zip_code : true,
+    ur_parcel_name : true,
+    assessing_property_type : false,
+    lot_size : false,
+    gross_area_19 : false,
+    land_value_19 : false,
+    building_value_19 : false,
+    total_value_19 : false,
+    living_area:true,
+    neighborhood : false,
+    owner : false,
+    current_use : true,
+    zoning_subdistrict : false,
+    notes : false,
+    ur_area : false,
+    ur_number : false,
+    last_observed_date : true,
+    responsible_pm : true,
+    project_status : true,
+    full_address : false,
+    map_status : true,
+    yardi_id : false,
   }
   useEffect(()=>{
     loadModules(["esri/layers/FeatureLayer","esri/tasks/support/Query"]).then(([FeatureLayer,Query,StatisticDefinition]) => {
       const layer = new FeatureLayer({
-        url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_RE_parcels/FeatureServer/0",
+        url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_parcels_RE/FeatureServer/0",
       });
 
       setLayer(layer)
@@ -146,7 +176,7 @@ export default function FolderList(props) {
       query.outFields = [ "*" ];
       query.returnGeometry = false;
       layer.queryFeatures(query).then(function(results){
-        console.log(results.features);  
+        console.log(results.features);
         // dispatch(updateData(results.features))
         // dispatch(createOriginal(results.features));
         // setData(results.features);
@@ -159,15 +189,16 @@ export default function FolderList(props) {
       });
 
 
-      
+
     });
   },[])
   const handleClick = (fieldName) =>{
     console.log(fieldName)
     if(editable[fieldName]){
-      setEdit(fieldName)
+      setEdit(fieldName);
+      setValue(data[fieldName])
     }
-    
+
   }
   const handleChange = (e) =>{
     console.log(e.target.value);
@@ -181,7 +212,7 @@ export default function FolderList(props) {
     let temp = feature;
     temp.attributes[edit] = e.target.value;
     updateFeature(temp);
-    
+
   }
 
   const updateFeature  = (f) =>{
@@ -229,9 +260,9 @@ export default function FolderList(props) {
 
   // </ListItem>
 
-  // <Input 
-  //                     placeholder={data[field]?data[field].toString():""} 
-  //                     onChange={handleChange} 
+  // <Input
+  //                     placeholder={data[field]?data[field].toString():""}
+  //                     onChange={handleChange}
   //                     onKeyDown={handleKeyDown}
   //                     endAdornment={
   //                       <InputAdornment position="end">
@@ -244,7 +275,7 @@ export default function FolderList(props) {
   //                         </IconButton>
   //                       </InputAdornment>
   //                     }/>
-  
+
   return (
     <div>
     <div className={classes.root2}>
@@ -258,9 +289,11 @@ export default function FolderList(props) {
       <ListItem button onClick={()=>handleClick("ur_parcel_name")}>
         <ListItemText primary="UR Parcel"/>
           {edit==="ur_parcel_name"?
-          <Input 
-          placeholder={data["ur_parcel_name"]?data["ur_parcel_name"].toString():""} 
-          onChange={handleChange} 
+          <Input
+          // placeholder={data["ur_parcel_name"]?data["ur_parcel_name"].toString():""}
+          // value={data["ur_parcel_name"]?data["ur_parcel_name"].toString():""}
+          value={value}
+          onChange={handleChange}
           onKeyDown={handleKeyDown}
           endAdornment={
             <InputAdornment position="end">
@@ -312,32 +345,13 @@ export default function FolderList(props) {
           data["project_status"]}
 
       </ListItem>
-      <ListItem button onClick={()=>handleClick("map_status")}>
-        <ListItemText primary="Map Status"/>
-        
-        {edit==="map_status"?
-        <ClickAwayListener onClickAway={handleClickAway}>
-          <Select
-          id="mutiple-checkbox"
-          value={""}
-          onChange={handleSelectChange}
-        >
-            <MenuItem value={"Available"}>Available
-            </MenuItem>
-            <MenuItem value={"Not Available"}> Not Available
-            </MenuItem>
-          
-        </Select>
-        </ClickAwayListener>:
-          data["map_status"]}
-
-      </ListItem>
-      <ListItem button onClick={()=>handleClick("yardi_code")}>
+      <ListItem button onClick={()=>handleClick("yardi_id")}>
         <ListItemText primary="Yardi Code"/>
-        {edit==="yardi_code"?
-          <Input 
-          placeholder={data["yardi_code"]?data["yardi_code"].toString():""} 
-          onChange={handleChange} 
+        {edit==="yardi_id"?
+          <Input
+          // placeholder={data["yardi_id"]?data["yardi_id"].toString():""}
+          value={value}
+          onChange={handleChange}
           onKeyDown={handleKeyDown}
           endAdornment={
             <InputAdornment position="end">
@@ -350,15 +364,16 @@ export default function FolderList(props) {
               </IconButton>
             </InputAdornment>
           }/>:
-          data["yardi_code"]}
+          data["yardi_id"]}
       </ListItem>
       <ListItem button onClick={()=>handleClick("notes")}>
         <ListItemText primary="Notes" style={{"height":150}}/>
         {edit==="notes"?
-          <TextField 
+          <TextField
           multiline
-          placeholder={data["notes"]?data["notes"].toString():""} 
-          onChange={handleChange} 
+          // placeholder={data["notes"]?data["notes"].toString():""}
+          value={value}
+          onChange={handleChange}
           onKeyDown={handleKeyDown}
           endAdornment={
             <InputAdornment position="end">
@@ -373,7 +388,7 @@ export default function FolderList(props) {
           }/>:
           data["notes"]}
       </ListItem>
-      
+
     </List>
     </Paper>
     </div>
@@ -386,22 +401,109 @@ export default function FolderList(props) {
         Non Editable Fields
       </ListSubheader>
     }>
+
+
+
+          <ListItem>
+          <ListItemText primary={lookup.pid}/>
+          <ListItemSecondaryAction>
+              {data.pid}
+              </ListItemSecondaryAction>
+          </ListItem>
+          <ListItem>
+          <ListItemText primary={lookup.full_address}/>
+          <ListItemSecondaryAction>
+              {data.full_address}
+              </ListItemSecondaryAction>
+          </ListItem>
+          <ListItem>
+          <ListItemText primary={lookup.zipcode}/>
+          <ListItemSecondaryAction>
+              {data.zipcode}
+              </ListItemSecondaryAction>
+          </ListItem>
+          <ListItem>
+          <ListItemText primary={lookup.neighborhood}/>
+          <ListItemSecondaryAction>
+              {data.neighborhood}
+              </ListItemSecondaryAction>
+          </ListItem>
+          <ListItem>
+          <ListItemText primary={lookup.zoning_subdistrict}/>
+          <ListItemSecondaryAction>
+              {data.zoning_subdistrict}
+              </ListItemSecondaryAction>
+          </ListItem>
+          <ListItem>
+          <ListItemText primary={lookup.ur_area}/>
+          <ListItemSecondaryAction>
+              {data.ur_area}
+              </ListItemSecondaryAction>
+          </ListItem>
+          <ListItem>
+          <ListItemText primary={lookup.ur_number}/>
+          <ListItemSecondaryAction>
+              {data.ur_number}
+              </ListItemSecondaryAction>
+          </ListItem>
+          <ListItem>
+          <ListItemText primary={lookup.owner}/>
+          <ListItemSecondaryAction>
+              {data.owner}
+              </ListItemSecondaryAction>
+          </ListItem>
+          <ListItem>
+          <ListItemText primary={lookup.lot_size}/>
+          <ListItemSecondaryAction>
+              {data.lot_size}
+              </ListItemSecondaryAction>
+          </ListItem>
+          <ListItem>
+          <ListItemText primary={lookup.gross_area}/>
+          <ListItemSecondaryAction>
+              {data.gross_area}
+              </ListItemSecondaryAction>
+          </ListItem>
+          <ListItem>
+          <ListItemText primary={lookup.land_value19}/>
+          <ListItemSecondaryAction>
+              {data.land_value19}
+              </ListItemSecondaryAction>
+          </ListItem>
+          <ListItem>
+          <ListItemText primary={lookup.building_value19}/>
+          <ListItemSecondaryAction>
+              {data.building_value19}
+              </ListItemSecondaryAction>
+          </ListItem>
+          <ListItem>
+          <ListItemText primary={lookup.total_value19}/>
+          <ListItemSecondaryAction>
+              {data.total_value19}
+              </ListItemSecondaryAction>
+          </ListItem>
+          <ListItem>
+          <ListItemText primary={lookup.assessing_property_type}/>
+          <ListItemSecondaryAction>
+              {data.assessing_property_type}
+              </ListItemSecondaryAction>
+          </ListItem>
       {
-       data!={} ? Object.keys(data).map((field,index) => 
-        
+      //  data!={} ? data.map((field,index) =>
 
-              !editable[field]?
-              <ListItem key={index}>
-                
-                <ListItemText primary={lookup[field]}/>
-                <ListItemSecondaryAction>
-                      {data[field]}  
-                  </ListItemSecondaryAction>
 
-              </ListItem>:""
-            ):""
+      //         !editable[field] && !hidden[field]?
+      //         <ListItem key={index}>
+
+      //           <ListItemText primary={lookup[field]}/>
+      //           <ListItemSecondaryAction>
+      //                 {data[field]}
+      //             </ListItemSecondaryAction>
+
+      //         </ListItem>:""
+      //       ):""
       }
-      
+
     </List>
     </Paper>
     </div>

@@ -6,4 +6,6 @@ export const CREATE_ORIGINAL = 'CREATE_ORIGINAL';
 export const RESET_DATA = 'RESET_DATA';
 export const OPEN_DIALOG = 'OPEN_DIALOG';
 export const CHANGE_FIELD = 'CHANGE_FIELD';
+export const OPEN_POPUP = 'OPEN_POPUP';
+export const UPDATE_DISPLAY = 'UPDATE_DISPLAY';
 

@@ -51,7 +51,7 @@ export default function MediaCard(props) {
           </Paper>
           
           <Typography variant="body2" color="textSecondary" component="p">
-            Total Gross Sqft: <br/>
+            Total Built SF: <br/>
           </Typography>
           <Typography variant="h4" color="textPrimary" component="p">
           {props.grossArea.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}

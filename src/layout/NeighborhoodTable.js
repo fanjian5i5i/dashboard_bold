@@ -16,6 +16,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
@@ -72,14 +73,15 @@ function EnhancedTableHead(props) {
     "neighborhood":"Neighborhoods",
     "current_use":"Current Use",
     "ur_area":"Urban Renewal Areas",
-    "project_status":"Project Status"
+    "project_status":"Status"
   }
   const tableHead = [
     { id: 'neighborhood', numeric: false, disablePadding: true, label: 'Neighborhood' },
-    { id: 'lotsize', numeric: true, disablePadding: false, label: 'Total Lot Size(sqft)' },
-    { id: 'totalvalue', numeric: true, disablePadding: false, label: 'Total Assessed Value' },
+    { id: 'lotsize', numeric: true, disablePadding: false, label: 'Lot Size' },
+    { id: 'totalbuilt', numeric: true, disablePadding: false, label: 'Built Square Footage' },
+    { id: 'totalvalue', numeric: true, disablePadding: false, label: 'Total Assessment' },
     { id: 'parcels', numeric: true, disablePadding: false, label: 'No. of Parcels' },
-  
+
   ];
 
   return (
@@ -113,7 +115,25 @@ function EnhancedTableHead(props) {
               onClick={createSortHandler("lotsize")}
             >
 
-              Total Lot Size(sqft)
+              Lot Size
+              {orderBy === "lotsize" ? (
+                <span className={classes.visuallyHidden}>
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                </span>
+              ) : null}
+            </TableSortLabel>
+        </TableCell>
+        <TableCell
+          align='right'
+          sortDirection={orderBy === "lotsize" ? order : false}
+        >
+          <TableSortLabel
+              active={orderBy === props.category}
+              direction={order}
+              onClick={createSortHandler("lotsize")}
+            >
+
+              Built Square Footage
               {orderBy === "lotsize" ? (
                 <span className={classes.visuallyHidden}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
@@ -131,7 +151,7 @@ function EnhancedTableHead(props) {
               onClick={createSortHandler("totalvalue")}
             >
 
-              Total Assessed Value($)
+              Total Assessment($)
               {orderBy === "totalvalue" ? (
                 <span className={classes.visuallyHidden}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
@@ -149,7 +169,7 @@ function EnhancedTableHead(props) {
               onClick={createSortHandler("parcels")}
             >
 
-              No. of Parcels  
+              No. of Parcels
               {orderBy === "parcels" ? (
                 <span className={classes.visuallyHidden}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
@@ -241,6 +261,12 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: "8px !important",
     paddingLeft: "16px !important",
   },
+  tableRowWhite:{
+    paddingTop: "8px !important",
+    paddingBottom: "8px !important",
+    paddingLeft: "16px !important",
+    color:'white'
+  },
   visuallyHidden: {
     border: 0,
     clip: 'rect(0 0 0 0)',
@@ -267,7 +293,11 @@ function EnhancedTable(props) {
   const [page, setPage] = React.useState(0);
   const dispatch = useDispatch();
   const [rowsPerPage, setRowsPerPage] = React.useState(25);
-  const [total, setTotal] = useState(0)
+  const [total, setTotal] = useState(0);
+  const [totalLotSize, setTotalLotSize] = useState(0);
+  const [totalBuiltSF, setTotalBuiltSF] = useState(0);
+  const [totalValue, setTotalValue] = useState(0);
+
   const [data, setData] = React.useState([{"neighborhood":"loading"}]);
   const handleStautsChange = event => {
 
@@ -286,7 +316,7 @@ function EnhancedTable(props) {
     setSelectedUse(event.target.value);
   };
 
-  
+
   const handleCategoryChange = event => {
     setCategory(event.target.value);
     setData(processData(props.data,event.target.value));
@@ -352,7 +382,7 @@ function EnhancedTable(props) {
     dataArr = tempArr;
     console.log(dataArr);
     setData(processData(dataArr,category));
-     
+
     // dispatch(updateData(result))
 
   }
@@ -360,10 +390,10 @@ function EnhancedTable(props) {
     var lookup = {};
     var items = items;
     var result = [];
-  
+
     for (var item, i = 0; item = items[i++];) {
       var name = item.attributes[fieldName];
-    
+
       if (!(name in lookup)) {
         lookup[name] = 1;
         result.push(name);
@@ -371,27 +401,41 @@ function EnhancedTable(props) {
     }
     return result
    }
-  
+
 
   const processData = (data,fieldName) =>{
     let results = [];
     console.log(data);
     setTotal(data.length)
     let arr = getFieldValues(data,fieldName);
+    let total_lot_size = 0;
+    let total_built_sf = 0;
+    let total_value = 0;
     arr.forEach(field=>{
       let parcels = 0;
       let lot_size = 0;
+
       let value = 0;
+      let built = 0;
       data.forEach(record=>{
         if(field == record.attributes[fieldName]){
                 parcels += 1;
                 lot_size += record.attributes.lot_size;
-                value += record.attributes.total_value_19;
-              } 
+                built += record.attributes.gross_area;
+                value += record.attributes.total_value19;
+              }
       });
-      results.push({field,parcels,lot_size,value});
+
+      total_lot_size+=lot_size;
+      total_built_sf+=built;
+      total_value+=value;
+
+      results.push({field,parcels,lot_size,built,value});
 
     });
+    setTotalLotSize(total_lot_size);
+    setTotalBuiltSF(total_built_sf);
+    setTotalValue(total_value);
 
     return results
   }
@@ -406,7 +450,7 @@ function EnhancedTable(props) {
   React.useEffect(()=>{
     console.log(props.data)
     setData(processData(props.data,props.fieldName));
-    
+
   },[props.data])
   const handleRequestSort = (event, property) => {
     const isDesc = orderBy === property && order === 'desc';
@@ -434,14 +478,16 @@ function EnhancedTable(props) {
 
   const statuses = getFieldValues(props.data,"project_status");
   const neighborhoods = getFieldValues(props.data,"neighborhood");
+  console.log(neighborhoods)
   const urAreas = getFieldValues(props.data,"ur_area");
+  console.log(urAreas)
   const currentUses = getFieldValues(props.data,"current_use");
   console.log(currentUses)
   const categories = [
     {id:"neighborhood",name:"Neighborhoods"},
     {id:"current_use",name:"Current Use"},
     {id:"ur_area",name:"Urban Renewal Areas"},
-    {id:"project_status",name:"Project Status"}
+    {id:"project_status",name:"Status"}
   ]
 
   function getStyles(selectedStatus, statuses, theme) {
@@ -457,14 +503,14 @@ function EnhancedTable(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        
+
       <Toolbar >
-      
+
         <Typography className={classes.title} variant="h6" id="tableTitle">
-          Parcels by 
+          Parcels by
           <ThemeProvider theme={darkTheme}>
           <FormControl className={classes.titleForm}>
-          
+
               <Select
                 id="mutiple-checkbox"
                 value={category}
@@ -479,12 +525,14 @@ function EnhancedTable(props) {
           </FormControl>
           </ThemeProvider>
         </Typography>
-        
+
         </Toolbar>
         <Toolbar className={classes.grow}>
+        <Grid container spacing={1}>
+          <Grid item xs={12} sm={12} md={6} lg={3}>
           <FormControl className={classes.formControl}>
-            
-              <InputLabel id="demo-mutiple-name-label">Project Statuses</InputLabel>
+
+              <InputLabel id="demo-mutiple-name-label">Statuses</InputLabel>
               <Select
                 id="mutiple-checkbox"
                 multiple
@@ -502,8 +550,10 @@ function EnhancedTable(props) {
                 ))}
               </Select>
           </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={12} md={6} lg={3}>
           <FormControl className={classes.formControl}>
-            
+
               <InputLabel id="neighborhood-mutiple-name-label">Neighborhoods</InputLabel>
               <Select
                 id="mutiple-checkbox-neighborhood"
@@ -522,8 +572,10 @@ function EnhancedTable(props) {
                 ))}
               </Select>
           </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={12} md={6} lg={3}>
           <FormControl className={classes.formControl}>
-            
+
               <InputLabel id="use-mutiple-name-label">Current Use</InputLabel>
               <Select
                 id="mutiple-checkbox-use"
@@ -542,8 +594,10 @@ function EnhancedTable(props) {
                 ))}
               </Select>
           </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={12} md={6} lg={3}>
           <FormControl className={classes.formControl}>
-            
+
               <InputLabel id="ur-mutiple-name-label">Urban Renewal</InputLabel>
               <Select
                 id="mutiple-checkbox-ur"
@@ -557,11 +611,13 @@ function EnhancedTable(props) {
                 {urAreas.map(name => (
                   <MenuItem key={name} value={name} style={getStyles(name, selectedUR, theme)}>
                     <Checkbox checked={selectedUR.indexOf(name) > -1} />
-                    <ListItemText primary={name} />
+                    <ListItemText primary={name?name:"Non Urban Renewal Area"} />
                   </MenuItem>
                 ))}
               </Select>
           </FormControl>
+          </Grid>
+          </Grid>
           <Button variant="outlined"  onClick={handleSubmit} color="primary"><strong>Filter</strong></Button>
 
         </Toolbar>
@@ -571,7 +627,7 @@ function EnhancedTable(props) {
             aria-labelledby="tableTitle"
             size={'medium'}
             aria-label="enhanced table"
-            
+
           >
             <EnhancedTableHead
               classes={classes}
@@ -597,20 +653,22 @@ function EnhancedTable(props) {
                       key={index}
                     >
                       <TableCell component="th" scope="row" className={classes.tableRow}>
-                        {row.field}
+                        {row.field?row.field:"Non Urban Renewal Area"}
                       </TableCell>
-                      <TableCell align="right" className={classes.tableRow}>{row.lot_size?row.lot_size.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'):""}</TableCell>
-                      <TableCell align="right" className={classes.tableRow}>${row.value?row.value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'):""}</TableCell>
+                      <TableCell align="right" className={classes.tableRow}>{row.lot_size?row.lot_size.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'):"0"}</TableCell>
+                      <TableCell align="right" className={classes.tableRow}>{row.built?row.built.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'):"0"}</TableCell>
+                      <TableCell align="right" className={classes.tableRow}>${row.value?row.value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'):"0"}</TableCell>
 
-                      <TableCell align="right" className={classes.tableRow}>{row.parcels}</TableCell>
+                      <TableCell align="right" className={classes.tableRow}>{row.parcels?row.parcels:"0"}</TableCell>
                     </TableRow>
                   );
                 })}
-                <TableRow>
-                <TableCell align="right" className={classes.tableRow}></TableCell>
-                <TableCell align="right" className={classes.tableRow}></TableCell>
-                <TableCell align="right" className={classes.tableRow}></TableCell>
-                <TableCell align="right" className={classes.tableRow}>Total : {total}</TableCell>
+                <TableRow style={{background:'#003c50',color:'white',height:50}}>
+                <TableCell align="right" className={classes.tableRowWhite}>Total : </TableCell>
+                <TableCell align="right" className={classes.tableRowWhite}>{totalLotSize?totalLotSize.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'):"0"}</TableCell>
+                <TableCell align="right" className={classes.tableRowWhite}>{totalBuiltSF?totalBuiltSF.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'):"0"}</TableCell>
+                <TableCell align="right" className={classes.tableRowWhite}>${totalValue?totalValue.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'):"0"}</TableCell>
+                <TableCell align="right" className={classes.tableRowWhite}>{total}</TableCell>
                 </TableRow>
             </TableBody>
           </Table>

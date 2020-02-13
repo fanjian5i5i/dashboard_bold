@@ -42,6 +42,9 @@ export default function ProjectImage(props) {
         setImg(result.data);
         setCount(result.data.length)
     })
+    .catch(err=>{
+      console.log(err) 
+    })
     
   },[]);
 

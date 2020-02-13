@@ -39,7 +39,7 @@ import {
   useParams,
   Link,
   useRouteMatch,
-  useHistory 
+  useHistory
 } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -140,13 +140,14 @@ function Frame(props) {
   // const [mobileOpen, setMobileOpen] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(0); //dashboard index
   const [user, setUser] = React.useState();
+  const [layout,setLayout] = React.useState("dashboard");
   let { id } = useParams();
   let { path } = useRouteMatch();
   let history = useHistory();
   const handleDrawerToggle = () => {
     // setMobileOpen(!mobileOpen);
     // dispatch(())
-    
+
   };
   const mobileOpen = useSelector(state => state.mobileOpen)
 
@@ -154,9 +155,11 @@ function Frame(props) {
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
     const indexArr = [
-      "dashboard","map","project"
+      "dashboard","map","parcel"
     ]
+    setLayout(indexArr[index]);
     dispatch(changeLayout(indexArr[index]));
+
     dispatch(changeTitle(""));
     history.push("/"+indexArr[index]);
 
@@ -170,38 +173,38 @@ function Frame(props) {
       </div>
       <Divider />
       <List className={classes.list}>
-          <ListItem 
-          button 
+          <ListItem
+          button
           selected={selectedIndex === 0}
           onClick={event => handleListItemClick(event, 0)}
           >
             <ListItemIcon ><DashboardIcon color="secondary"/></ListItemIcon>
             <ListItemText primary={"Dashboard"} />
           </ListItem>
-          <ListItem 
+          <ListItem
           button
           selected={selectedIndex === 1}
           onClick={event => handleListItemClick(event, 1)} >
             <ListItemIcon><MapIcon color="secondary"/></ListItemIcon>
             <ListItemText primary={"Map"} />
           </ListItem>
-          <ListItem 
+          <ListItem
           button
           selected={selectedIndex === 2}
           onClick={event => handleListItemClick(event, 2)} >
             <ListItemIcon><AssignmentIcon color="secondary"/></ListItemIcon>
-            <ListItemText primary={"Projects"} />
+            <ListItemText primary={"Parcels"} />
           </ListItem>
       </List>
     </ThemeProvider>
   );
 
 
-  function layout(id){
+  function renderLayout(id){
     switch (id) {
       case "dashboard":
           // handleListItemClick(null,0)
-          
+
         return (
           <Dashboard2/>
         )
@@ -210,8 +213,9 @@ function Frame(props) {
           // handleListItemClick(null,1)
         return <Map/>
           break;
-      case "project":
+      case "parcel":
           // handleListItemClick(null,2)
+          console.log(id)
           return (
           <Switch>
             <Route exact path={path}>
@@ -222,16 +226,53 @@ function Frame(props) {
             </Route>
           </Switch>
           )
-        
+
         break;
       default:
-          setSelectedIndex(0);
+          // setSelectedIndex(0);
           return (
             <Dashboard2/>
           )
         break;
     }
   }
+
+  useEffect(() => {
+    // console.log('count changed', props.reducerState.layout);
+    // switch(props.reducerState.layout){
+    //   case "dashboard":
+    //     handleListItemClick(0);
+    //     break;
+    //     case "map":
+    //     handleListItemClick(1);
+    //     break;
+    //     case "project":
+    //     handleListItemClick(2);
+    //     break;
+    //     default:
+    //       break
+
+
+    // }
+    if(props.reducerState.layout!=layout){
+      setLayout(props.reducerState.layout);
+      switch(props.reducerState.layout){
+        case "dashboard":
+          setSelectedIndex(0);
+
+          break;
+        case "map":
+          setSelectedIndex(1);
+          break;
+          case "parcel":
+          setSelectedIndex(2);
+          break;
+          default:
+          break;
+      }
+
+    }
+}, [props.reducerState.layout])
   return (
     <ThemeProvider theme={theme}>
     <div className={classes.root}>
@@ -246,7 +287,7 @@ function Frame(props) {
             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
             open={mobileOpen}
             onClose={() => dispatch({ type: 'TAGGLE_MOBILE_OPEN' })}
-              
+
             classes={{
               paper: classes.drawerPaper,
             }}
@@ -272,7 +313,7 @@ function Frame(props) {
       <main className={classes.content}>
         <div className={classes.toolbar} />
 
-        {layout(id)}
+        {renderLayout(id)}
 {/* {        <Switch>
           <Route exact path={path}>
             <Dashboard />
@@ -314,4 +355,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Frame)
-

@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 const neighborhoodTableHead = [
   { id: 'neighborhood', numeric: false, disablePadding: true, label: 'Neighborhood' },
   { id: 'lotsize', numeric: true, disablePadding: false, label: 'Total Lot Size(sqft)' },
-  { id: 'totalvalue', numeric: true, disablePadding: false, label: 'Total Assessed Value($)' },
+  { id: 'totalvalue', numeric: true, disablePadding: false, label: 'Total Assessment($)' },
   { id: 'parcels', numeric: true, disablePadding: false, label: 'No. of Parcels' },
 
 ];
@@ -42,14 +42,14 @@ const neighborhoodTableHead = [
 const useTableHead = [
   { id: 'use', numeric: false, disablePadding: true, label: 'Current Use' },
   { id: 'lot_size', numeric: true, disablePadding: false, label: 'Total Lot Size(sqft)' },
-  { id: 'total_value_19', numeric: true, disablePadding: false, label: 'Total Assessed Value($)' },
+  { id: 'total_value_19', numeric: true, disablePadding: false, label: 'Total Assessment($)' },
   { id: 'parcels', numeric: true, disablePadding: false, label: 'No. of Parcels' },
 
 ];
 const urTableHead = [
   { id: 'ur', numeric: false, disablePadding: true, label: 'Urban Renewal Number' },
   { id: 'lot_size', numeric: true, disablePadding: false, label: 'Total Lot Size(sqft)' },
-  { id: 'total_value_19', numeric: true, disablePadding: false, label: 'Total Assessed Value($)' },
+  { id: 'total_value_19', numeric: true, disablePadding: false, label: 'Total Assessment($)' },
   { id: 'parcels', numeric: true, disablePadding: false, label: 'No. of Parcels' },
 
 ];
@@ -57,7 +57,7 @@ const urTableHead = [
 const statusTableHead  = [
   { id: 'projectstatus', numeric: false, disablePadding: true, label: 'Project Status' },
   { id: 'lot_size', numeric: true, disablePadding: false, label: 'Total Lot Size(sqft)' },
-  { id: 'total_value_19', numeric: true, disablePadding: false, label: 'Total Assessed Value($)' },
+  { id: 'total_value_19', numeric: true, disablePadding: false, label: 'Total Assessment($)' },
   { id: 'parcels', numeric: true, disablePadding: false, label: 'No. of Parcels' },
 
 ];
@@ -69,19 +69,19 @@ export default function AutoGrid() {
   const [value, setValue] = React.useState(0);
   const [area, setArea] = React.useState(0);
   const [grossArea, setGrossArea] = React.useState(0);
-  
+
   const [aProjects,setAProject] = React.useState(0);
   const dispatch = useDispatch();
 
   React.useEffect(()=>{
     loadModules(["esri/layers/FeatureLayer","esri/tasks/support/Query","esri/tasks/support/StatisticDefinition"]).then(([FeatureLayer,Query,StatisticDefinition]) => {
       const layer = new FeatureLayer({
-        url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_RE_parcels/FeatureServer/0",
+        url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_parcels_RE/FeatureServer/0",
       });
       const query = new Query();
       // query.where = "total_value_19 > 0";
       var sumValue = {
-        onStatisticField: "total_value_19",  // service field for 2015 population
+        onStatisticField: "total_value19",
         outStatisticFieldName: "total_value_19_sum",
         statisticType: "sum"
       }
@@ -89,7 +89,7 @@ export default function AutoGrid() {
       query.outStatistics = [ sumValue ];
       query.returnGeometry = false;
       layer.queryFeatures(query).then(function(results){
-        console.log(results.features);  
+        console.log(results.features);
               setValue(results.features[0].attributes.total_value_19_sum);
 
 
@@ -99,25 +99,25 @@ export default function AutoGrid() {
                 statisticType: "sum"
               }
               query.outStatistics = [ sumArea ];
-        
+
               layer.queryFeatures(query).then(function(results){
-                console.log(results.features);  
+                console.log(results.features);
                       setArea(results.features[0].attributes.lot_size_sum);
                       var sumGrossArea = {
-                        onStatisticField: "gross_area_19",  // service field for 2015 population
+                        onStatisticField: "gross_area",  // service field for 2015 population
                         outStatisticFieldName: "gross_area_sum",
                         statisticType: "sum"
                       }
                       query.outStatistics = [ sumGrossArea ];
-                
+
                       layer.queryFeatures(query).then(function(results){
-                        console.log(results.features);  
+                        console.log(results.features);
                               setGrossArea(results.features[0].attributes.gross_area_sum);
-        
-        
-        
-        
-                              
+
+
+
+
+
                       });
 
 
@@ -127,7 +127,7 @@ export default function AutoGrid() {
       });
 
 
-      
+
     });
   },[])
 
@@ -140,14 +140,14 @@ export default function AutoGrid() {
   React.useEffect(()=>{
     loadModules(["esri/layers/FeatureLayer","esri/tasks/support/Query","esri/tasks/support/StatisticDefinition"]).then(([FeatureLayer,Query,StatisticDefinition]) => {
       const layer = new FeatureLayer({
-        url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_RE_parcels/FeatureServer/0",
+        url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_parcels_RE/FeatureServer/0",
       });
       const query = new Query();
       query.where = "project_status <> 'Conveyed' ";
       query.outFields = [ "*" ];
       query.returnGeometry = false;
       layer.queryFeatures(query).then(function(results){
-        // console.log(results.features);  
+        // console.log(results.features);
         dispatch(updateData(results.features))
         dispatch(createOriginal(results.features));
         setData(results.features);
@@ -155,7 +155,7 @@ export default function AutoGrid() {
       });
 
 
-      
+
     });
   },[])
 
@@ -181,7 +181,7 @@ export default function AutoGrid() {
 // </Grid>
   return (
     <div className={classes.root}>
-      
+
       <Grid container spacing={2}>
         <Grid item xs={12} md={6} lg={3}>
           <Area area={area}/>
@@ -195,17 +195,17 @@ export default function AutoGrid() {
         <Grid item xs={12} md={6} lg={3}>
           <AvailableProjects aProjects={aProjects}/>
         </Grid>
-        
+
 
         <Grid item xs={12} md={12} lg={12}>
           <NeighborhoodTable name={"Neighborhoods"} fieldName={"neighborhood"} data={data}/>
         </Grid>
 
-        
 
-        
+
+
       </Grid>
-      
+
     </div>
   );
 }

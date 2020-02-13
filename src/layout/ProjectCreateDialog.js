@@ -14,7 +14,7 @@ import { Map  } from '@esri/react-arcgis';
 import { loadModules } from 'esri-loader';
 import axios from 'axios';
 import {
-  useHistory 
+  useHistory
 } from "react-router-dom";
 const styles = theme => ({
   root: {
@@ -50,7 +50,7 @@ const styles = theme => ({
 
 const DialogTitle = withStyles(styles)(props => {
   const { children, classes, onClose, ...other } = props;
-  
+
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
       <Typography variant="h6">{children}</Typography>
@@ -89,17 +89,17 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
     dispatch({type:'OPEN_DIALOG'})
   };
 
-  
+
   const Layer = (props) =>{
     let history = useHistory();
-    
+
     const [query, setQuery] = React.useState(null);
- 
+
     useEffect(() => {
       loadModules([
           "esri/Graphic"
       ]).then(([Graphic]) => {
-        
+
         if(query){
           console.log(query);
           props.view.graphics.removeAll();
@@ -136,25 +136,25 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
             };
 
 
-            
+
           props.view.popup.open({
             // Set the popup's title to the coordinates of the location
             title: query.attributes.PID,
             location: query.geometry.centroid,// Set the location of the popup to the clicked location
-            content: "<div><strong>Full Address</strong>: "+query.attributes.FULL_ADDRE+"</div><br/>" + 
-            "<div><strong>Lot Size</strong>: "+query.attributes.LAND_SF+"</div><br/>" + 
-            "<div><strong>Gross Area</strong>: "+query.attributes.LIVING_ARE+"</div><br/>" + 
-            "<div><strong>Land Value</strong>: "+query.attributes.AV_LAND+"</div><br/>" + 
-            "<div><strong>Building Value</strong>: "+query.attributes.AV_BLDG+"</div><br/>" + 
-            "<div><strong>Total Value</strong>: "+query.attributes.AV_TOTAL+"</div><br/>" + 
+            content: "<div><strong>Full Address</strong>: "+query.attributes.FULL_ADDRE+"</div><br/>" +
+            "<div><strong>Lot Size</strong>: "+query.attributes.LAND_SF+"</div><br/>" +
+            "<div><strong>Gross Area</strong>: "+query.attributes.LIVING_ARE+"</div><br/>" +
+            "<div><strong>Land Value</strong>: "+query.attributes.AV_LAND+"</div><br/>" +
+            "<div><strong>Building Value</strong>: "+query.attributes.AV_BLDG+"</div><br/>" +
+            "<div><strong>Total Value</strong>: "+query.attributes.AV_TOTAL+"</div><br/>" +
             "<div><strong>Owner</strong>: "+query.attributes.OWNER+"</div><br/>" ,
             actions: [createAction]
-          });  
+          });
           props.view.graphics.add(graphic);
 
 
         }
-      
+
       });
     },[query])
     useEffect(() => {
@@ -191,7 +191,7 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
           console.log(result);
           setQuery(result.features[0]);
         })
-        
+
       });
     })
   },[]);
@@ -215,7 +215,7 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
 
       })
       props.view.ui.add(searchWidget, "top-right");
-      
+
     })
     },[]);
     useEffect(()=>{
@@ -227,9 +227,9 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
         });
 
         props.map.layers.add(layer);
-  
+
         props.view.popup.on("trigger-action", function(event) {
-  
+
           if (event.action.id === "sumbit") {
             console.log(props.view.graphics.items[0]);
 
@@ -239,7 +239,7 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
             });
             promise.then(result =>{
               console.log(props.view.graphics.items[0].attributes.pid)
-              history.push("/project/" + props.view.graphics.items[0].attributes.pid);
+              history.push("/parcel/" + props.view.graphics.items[0].attributes.pid);
               window.location.reload()
             })
 
@@ -248,7 +248,7 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
 
 
       });
-      
+
     },[])
     return null;
   }
@@ -257,11 +257,11 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
     <div>
       <Dialog  fullScreen onClose={handleClose} aria-labelledby="customized-dialog-title" open={props.reducerState.dialogOpen} className={classes.dialog} >
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-            Create BOLD project
+            Create BOLD Parcel
         </DialogTitle>
         <DialogContent dividers>
-              <Map 
-                mapProperties={{ basemap: 'gray-vector' }} 
+              <Map
+                mapProperties={{ basemap: 'gray-vector' }}
                 viewProperties={{
                       center: [-71.0589, 42.3601],
                       zoom: 16

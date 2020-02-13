@@ -9,6 +9,7 @@ import store from './redux';
 import Frame from './components/Frame';
 import Login from './components/Login';
 import Logout from './components/Logout';
+import Popup from './components/Popup'
 
 function onAuthRequired({history}) {
   history.push('/login');
@@ -22,9 +23,10 @@ function App() {
       <Switch>
 
         <Route path="/:id" children={<Frame />}/>
+        
       </Switch>
     </Router>
-    
+
     </Provider>
   );
 }

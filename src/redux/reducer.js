@@ -1,8 +1,10 @@
 import * as ActionTypes from './actionTypes';
 const initialState = {
+    popupOpen:false,
     mobileOpen: false,
     layout:"dashboard",
     dialogOpen:false,
+    display:[],
     data:[],
     fieldsToCreate:[
       {fieldName:"PID",value:""},
@@ -33,10 +35,14 @@ const initialState = {
         return { ...state, data: state.originalData };
       case ActionTypes.CHANGE_TITLE:
           return { ...state, title: action.payload.title };
+      case ActionTypes.UPDATE_DISPLAY:
+      return { ...state, display: action.payload.display };
       case ActionTypes.CHANGE_FIELD:
           return { ...state, fieldsToCreate: action.payload.fields };
       case ActionTypes.OPEN_DIALOG:
         return { ...state, dialogOpen: !state.dialogOpen };  
+        case ActionTypes.OPEN_POPUP:
+        return { ...state, popupOpen: !state.popupOpen };  
       default:
         // throw new Error('Unexpected action');
         return state

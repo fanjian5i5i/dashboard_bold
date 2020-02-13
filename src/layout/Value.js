@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     // textAlign:"center"
   },
   paper:{
-    
+
     background:" linear-gradient(60deg, #26c6da, #00acc1)",
     boxShadow: "0 4px 20px 0 rgba(0, 0, 0,.14), 0 7px 10px -5px rgba(0, 172, 193,.4)",
     textAlign:"center",
@@ -44,16 +44,16 @@ export default function MediaCard(props) {
   return (
     <Card className={classes.card}>
       <CardActionArea>
-        
+
         <CardContent>
           <Paper className={classes.paper}>
           <AssessmentIcon className={classes.icon} />
           </Paper>
-          
+
           <Typography variant="body2" color="textSecondary" component="p">
-            Total Assessed Value: <br/>
+            Total Assessment: <br/>
           </Typography>
-          <Typography variant="h4" color="textPrimary" component="p">
+          <Typography variant="h4" color="textPrimary" component="p" style={{fontSize: '1.9rem'}}>
             ${props.value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
           </Typography>
         </CardContent>

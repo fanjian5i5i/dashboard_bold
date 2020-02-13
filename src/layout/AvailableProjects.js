@@ -50,7 +50,7 @@ export default function MediaCard(props) {
           </Paper>
           
           <Typography variant="body2" color="textSecondary" component="p">
-            All Projects: <br/> 
+            Number of Parcels: <br/> 
           </Typography>
           <Typography variant="h4" color="textPrimary" component="p">
             {props.aProjects}

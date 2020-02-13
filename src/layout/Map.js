@@ -3,6 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { Map  ,WebMap } from '@esri/react-arcgis';
 import { loadModules } from 'esri-loader';
+import { changeTitle,changeLayout } from '../redux/actions';
+import { connect,useDispatch } from 'react-redux';
+import csv from '../assets/img/csvjson.json';
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -20,7 +23,22 @@ const useStyles = makeStyles(theme => ({
 
 
 const Layer = (props) =>{
+  const dispatch = useDispatch();
+
+
+  useEffect(()=>{
+    // console.log(props.reducerState.layout)
+    dispatch(changeLayout("map"));
+  },[]);
+
+  
+
   useEffect(() => {
+
+
+    
+
+
     loadModules([
       "esri/layers/Layer",
       "esri/widgets/Legend",
@@ -62,8 +80,13 @@ const Layer = (props) =>{
       });
 
       // Add widget to the bottom right corner of the view
-      props.view.ui.add(legend, "bottom-right");
-      props.view.ui.add(layerList,  "top-right");
+      if(window.innerWidth >= 1000 ) {
+        props.view.ui.add(legend, "bottom-right");
+        
+      }
+      if(window.innerWidth >= 600 ) {
+      props.view.ui.add(layerList,  "top-left");
+      }
     });
 
 
@@ -71,11 +94,88 @@ const Layer = (props) =>{
   },[]);
   return null;
 }
-export default function AutoGrid() {
+function MapView() {
   const classes = useStyles();
   const handleLoad = e =>{
     console.log(e)
   }
+
+  // const test = e =>{
+  //   loadModules(["esri/layers/FeatureLayer","esri/tasks/support/Query"]).then(([FeatureLayer,Query]) => {
+  //     const layer = new FeatureLayer({
+  //       url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_parcels_RE/FeatureServer/0",
+  //     });
+
+      
+
+
+
+  //     csv.forEach(async (record,index) =>{
+  //       if(index > 100 && index <=1000 && record.pid){
+  //         let query = new Query();
+  //         query.outFields = [ "*" ];
+  //         query.returnGeometry = false;
+  //         query.where = "pid = '" + record.pid + "'";
+  //         // setTimeout(function(){ alert("Hello"); }, 500);
+  //         let results = await layer.queryFeatures(query);
+  //         if(results.features[0]){
+  //           let temp = results.features[0]
+  //           temp.attributes["project_status"] = record["New Status"];
+  //           console.log(temp);
+  //           let promise = layer.applyEdits({
+  //             updateFeatures: [temp]
+  //           });
+  //           promise.then(result =>{
+  //             console.log(result);
+  //           })
+  //         }
+          
+  //         // layer.queryFeatures(query).then(function(results){
+  //         //   count++
+  //         //   let tempAtt = results.features[0].attributes;
+  //         //   console.log(tempAtt);  
+  //         // });
+  //       }
+  //     })
+
+      
+  //   });
+  // }
+
+  // useEffect(()=>{
+  //   loadModules(["esri/layers/FeatureLayer","esri/tasks/support/Query"]).then(([FeatureLayer,Query]) => {
+  //     const layer = new FeatureLayer({
+  //       url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_parcels_RE/FeatureServer/0",
+  //     });
+
+      
+
+
+
+  //     csv.forEach(async (record,index) =>{
+  //       if(index <=100 && record.pid){
+  //         let query = new Query();
+  //         query.outFields = [ "*" ];
+  //         query.returnGeometry = false;
+  //         query.where = "pid = '" + record.pid + "'";
+  //         let results = await layer.queryFeatures(query);
+  //         if(results.features[0]){
+  //           let temp = results.features[0].attributes
+  //           temp["project_status"] = record["New Status"];
+  //           console.log(temp)
+  //         }
+          
+  //         // layer.queryFeatures(query).then(function(results){
+  //         //   count++
+  //         //   let tempAtt = results.features[0].attributes;
+  //         //   console.log(tempAtt);  
+  //         // });
+  //       }
+  //     })
+
+      
+  //   });
+  // },[])
 //   <Map 
 //   mapProperties={{ basemap: 'gray-vector' }} 
 //   viewProperties={{
@@ -84,17 +184,27 @@ export default function AutoGrid() {
 //     }}>
 // <Layer />
 // </Map>
+        
+
+        
+    
+{/* <button onClick={test}>test </button> */}
   return (
     <Paper className={classes.map}>
 
       <WebMap id="5349693a40434a8193eaf4caa6591dc5" onLoad={handleLoad}>
         <Layer/>  
       </WebMap>
-        
 
-        
-    
-      
     </Paper>
   );
 }
+const mapStateToProps = (state /*, ownProps*/) => {
+  return {
+    reducerState: state
+  }
+}
+
+export default connect(
+  mapStateToProps,
+)(MapView)
