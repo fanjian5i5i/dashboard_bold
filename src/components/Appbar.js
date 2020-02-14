@@ -17,6 +17,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 
 import Dialog from '../layout/ProjectCreateDialog';
@@ -93,7 +95,7 @@ function Appbar(props) {
     const { container } = props;
     const classes = useStyles();
     const [authenticated, setAuthenticated] = React.useState(false);
-    const [user, setUser] = React.useState({name:"admin"});
+    const [user, setUser] = React.useState({});
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -113,6 +115,30 @@ function Appbar(props) {
         setMobileOpen(!mobileOpen);
         taggleMobileOpen();
       };
+
+    const checkUser = async () => {
+      let authUser = await props.auth.getUser();
+      if (authUser) {
+        console.log(authUser)
+        setUser(authUser);
+      }
+    }
+
+    const handleClick = event => {
+      setAnchorEl(event.currentTarget);
+    };
+  
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
+    const handleLogout = () => {
+      props.auth.logout()
+    };
+
+    useEffect(()=>{
+      checkUser()
+    },[])
 
 
     const appbar = (
@@ -166,7 +192,16 @@ function Appbar(props) {
                         <NotificationsIcon />
                     </IconButton>
 
-                    <Button color="primary" >{user.name}</Button>
+                    <Button color="primary" onClick={handleClick}>{user.name}</Button>
+                    <Menu
+                      id="simple-menu"
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={Boolean(anchorEl)}
+                      onClose={handleClose}
+                    >
+                      <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                    </Menu>
 
             </div>
             <Dialog/>
@@ -195,4 +230,4 @@ Appbar.propTypes = {
 
   export default connect(
     mapStateToProps,
-  )(Appbar)
+  )(withAuth(Appbar))

@@ -103,10 +103,13 @@ const classes = useStyles();
 
    const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(sessionToken)
+
     oktaAuth.signIn({
       username:username,
       password:password
+      // username:'jian.fan@boston.gov',
+      // password:'Zhangyunqi5i5i!'
+
     })
     .then(res => {
       setSessionToken({
@@ -131,7 +134,7 @@ const classes = useStyles();
     return null;
   }
 return  authenticated ? 
-        <Redirect to={{ pathname: '/protected' }}/> :
+        <Redirect to={{ pathname: '/dashboard' }}/> :
         (
     <ThemeProvider theme={theme}>
     <Grid container component="main" className={classes.root}>

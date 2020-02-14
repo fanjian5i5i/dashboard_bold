@@ -12,19 +12,27 @@ import Logout from './components/Logout';
 import Popup from './components/Popup'
 
 function onAuthRequired({history}) {
-  history.push('/login');
+  // history.push('/login');
 }
-
+//pkce={true}
   
 function App() {
   return (
     <Provider store={store}>
     <Router >
-      <Switch>
+    <Security issuer='https://bpda.okta.com/'
+                  clientId='0oa1iav3pcdA8nNLg0h8'
+                  redirectUri={window.location.origin + '/implicit/callback'}
+                  onAuthRequired={onAuthRequired}
+                  pkce={true}
+                  >
 
-        <Route path="/:id" children={<Frame />}/>
-        
-      </Switch>
+        <Route path='/' exact={true} render={() => <Login baseUrl='https://bpda.okta.com' />} />
+        <SecureRoute path="/:id" component={Frame}/>
+        <Route path='/login' render={() => <Login baseUrl='https://bpda.okta.com' />} />
+        <Route path='/implicit/callback' component={ImplicitCallback}/>
+
+      </Security>
     </Router>
 
     </Provider>
