@@ -2,18 +2,19 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Value from './Value';
+import { withAuth } from '@okta/okta-react';
 import ProjectDetail from './ProjectDetail';
+import ProjectDetailViewer from './ProjectDetailViewer';
+
 import Map from './projectMap';
 import { loadModules } from 'esri-loader';
 import ProjectImage from './ProjectImage'
-import HomeIcon from '@material-ui/icons/Home';
 import { useDispatch  } from 'react-redux';
 
 import {
   useParams
 } from "react-router-dom";
-import axios from 'axios';
+import { connect } from 'react-redux';
 import { changeTitle,changeLayout } from '../redux/actions';
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,11 +32,11 @@ const useStyles = makeStyles(theme => ({
 
 
 
-export default function Project() {
+let Project = (props)=> {
   const classes = useStyles();
   const [data, setData] = React.useState([]);
   const [fields, setFields] = React.useState([]);
-  const [geometry, setGeometry] = React.useState()
+  const [user, setUser] = React.useState({"roles":"viewer"});
   const dispatch = useDispatch();
   let {pid} = useParams();
   React.useEffect(() => {
@@ -73,46 +74,38 @@ export default function Project() {
               setFields(fields)
       });
     });
-    // axios.get("http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_RE_parcels/FeatureServer/query?layerDefs={'2':'pid='"+pid+"'}&returnGeometry=true&f=json")
-    // .then(result =>{
-    //   // dispatch(updateData(result.data.layers[0].features))
-    //   // dispatch(createOriginal(result.data.layers[0].features));
-    //   console.log(result)
-    //   let tempProject = result.data.layers[0].features[0].attributes;
-    //   setData(tempProject);
-
-    //   setGeometry(result.data.layers[0].features[0].geometry)
-    //   console.log(tempProject)
-    //   let fields = [];
-    //   for (var key in tempProject) {
-    //     if (tempProject.hasOwnProperty(key)) {
-
-    //         let temp = {};
-    //         // temp[key] = props.project[key]
-    //         temp.fieldName = key;
-    //         temp.value = tempProject[key]
-    //         // console.log(key + " -> " + p[key]);
-    //         fields.push(temp)
-    //         console.log(temp)
-    //     }
-    //   }
-
-    //   setFields(fields)
-    // })
   },[]);
+
+  React.useEffect(()=>{
+    checkUser()
+  },[])
+  const checkUser = async () => {
+    let authUser = await props.auth.getUser();
+    if (authUser) {
+      console.log(authUser)
+      setUser(authUser);
+    }
+  }
 //<Placeholder/>
   return (
+  
     <div className={classes.root}>
 
       <Grid container spacing={2}>
         <Grid item xs={12} md={6} lg={6}>
 
-          <ProjectDetail fields={fields} pid={pid}/>
+          
+          {
+            user.roles !="admin"? <ProjectDetail fields={fields} pid={pid}/> : <ProjectDetailViewer fields={fields} pid={pid}/>
+          }
+          
+
+
         </Grid>
         <Grid item xs={12} md={6} lg={6} container spacing={2}>
           <Grid item xs={12} md={12} lg={12}>
 
-              <ProjectImage pid={pid} fields={fields}/>
+              <ProjectImage pid={pid} fields={fields} roles={user.roles}/>
 
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
@@ -124,5 +117,18 @@ export default function Project() {
       </Grid>
 
     </div>
-  );
+  
+  )
 }
+
+
+const mapStateToProps = (state /*, ownProps*/) => {
+  return {
+    reducerState: state
+  }
+}
+
+
+export default connect(
+  mapStateToProps,
+)(withAuth(Project))

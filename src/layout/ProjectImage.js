@@ -95,9 +95,10 @@ export default function ProjectImage(props) {
             type="file"
         />
         <label htmlFor="contained-button-file"  className={classes.actionBtn}>
-            <Button component="span" variant="outlined" color="primary" >
+          {props.roles === "admin"?(<Button component="span" variant="outlined" color="primary" >
             Add
-            </Button>
+            </Button>):""}
+            
         </label>
         <Badge color="primary" badgeContent={count} className={classes.margin}>
         <ProjectImageDialog img={img} pid={props?props.pid:""}/>
