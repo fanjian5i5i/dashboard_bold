@@ -328,12 +328,8 @@ function Frame(props) {
         <div className={classes.toolbar} />
 
         {
-        
-        authenticated?
-        renderLayout(id):
-            <Redirect to={{ pathname: '/login' }}/>
-        }
-            
+        renderLayout(id)      
+} 
 {/* {        <Switch>
           <Route exact path={path}>
             <Dashboard />

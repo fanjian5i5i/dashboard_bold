@@ -12,7 +12,7 @@ import Logout from './components/Logout';
 import Popup from './components/Popup'
 
 function onAuthRequired({history}) {
-  // history.push('/login');
+  history.push('/');
 }
 //pkce={true}
   
@@ -29,7 +29,6 @@ function App() {
 
         <Route path='/' exact={true} render={() => <Login baseUrl='https://bpda.okta.com' />} />
         <SecureRoute path="/:id" component={Frame}/>
-        <Route path='/login' render={() => <Login baseUrl='https://bpda.okta.com' />} />
         <Route path='/implicit/callback' component={ImplicitCallback}/>
 
       </Security>

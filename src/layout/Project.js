@@ -96,7 +96,7 @@ let Project = (props)=> {
 
           
           {
-            user.roles !="admin"? <ProjectDetail fields={fields} pid={pid}/> : <ProjectDetailViewer fields={fields} pid={pid}/>
+            user.roles ==="admin"? <ProjectDetail fields={fields} pid={pid}/> : <ProjectDetailViewer fields={fields} pid={pid}/>
           }
           
 
