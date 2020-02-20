@@ -38,7 +38,7 @@ export default function ProjectImage(props) {
   const [count, setCount] = useState(null)
   useEffect(() => {
 
-    axios.get('http://zpbraapp01:8000/api/images/get/'+props.pid).then(result=>{
+    axios.get('https://sire.bostonplans.org/api/images/get/'+props.pid).then(result=>{
         setImg(result.data);
         setCount(result.data.length)
     })
@@ -54,7 +54,7 @@ export default function ProjectImage(props) {
       const data = new FormData();
       data.append('file', fileInput.current.files[0]);
       data.append("fields",[props.fields[12].value,props.fields[1].value,props.fields[22].value]);
-      axios.post('http://zpbraapp01:8000/api/images/',
+      axios.post('https://sire.bostonplans.org/api/images/',
       data,
       {
         headers: {
