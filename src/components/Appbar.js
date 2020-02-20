@@ -182,7 +182,11 @@ function Appbar(props) {
                     <Button color="primary">{user.name}</Button>
             </div>
             <div className={classes.sectionDesktop}>
+                    {user.roles === "admin" ? (
+                    
+                    <div>
                     <Button className={classes.newProject} disabled>create a parcel</Button>
+                    
                     <Tooltip title="Add a Parcel">
                       <IconButton aria-label="add" color="primary" onClick={() => dispatch({ type: 'OPEN_DIALOG' })}>
                         <NoteAddIcon />
@@ -191,6 +195,8 @@ function Appbar(props) {
                     <IconButton aria-label="show 17 new notifications" color="primary">
                         <NotificationsIcon />
                     </IconButton>
+                    </div>) : ''}
+                    
 
                     <Button color="primary" onClick={handleClick}>{user.name}</Button>
                     <Menu
