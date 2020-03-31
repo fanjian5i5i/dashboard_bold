@@ -147,7 +147,9 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
             "<div><strong>Land Value</strong>: "+query.attributes.AV_LAND+"</div><br/>" +
             "<div><strong>Building Value</strong>: "+query.attributes.AV_BLDG+"</div><br/>" +
             "<div><strong>Total Value</strong>: "+query.attributes.AV_TOTAL+"</div><br/>" +
-            "<div><strong>Owner</strong>: "+query.attributes.OWNER+"</div><br/>" ,
+            "<div><strong>Owner</strong>: "+query.attributes.OWNER+"</div><br/>" +
+            "<div><strong>Sub District</strong>: "+query.attributes.zoning_subdistrict+"</div><br/>" +
+            "<div><strong>UR Area</strong>: "+query.attributes.ur_area+"</div><br/>" ,
             actions: [createAction]
           });
           props.view.graphics.add(graphic);
@@ -170,17 +172,38 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
           type: "simple",  // autocasts as new SimpleRenderer()
           symbol: {
             type: "simple-fill",  // autocasts as new SimpleFillSymbol()
-            color: [ 255, 128, 0, 0],
+            color: [ 128, 128, 128, 0],
             outline: {  // autocasts as new SimpleLineSymbol()
               width: 1,
-              color: "lightblue"
+              color: [ 220, 220, 220]
             }
           }
         }
+        
 
       });
+      const layer2 = new FeatureLayer({
+        // URL to the service
+        id:"subdistrict",
+        url: "http://mapservices.bostonredevelopmentauthority.org/arcproxy/arcgis/rest/services/Maps/Bos_Zoning_Viewer_WGS/MapServer/1",
+        outFields:["ZONE_","DISTRICT","SUBDISTRIC"],
+        // opacity:0.5
+      });
 
-      props.map.layers.add(layer);
+      const layer3 = new FeatureLayer({
+        // URL to the service
+        id:"parcurel",
+        url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/Urban_Renewal_Data4/MapServer/3",
+        outFields:["NAME"],
+        opacity:0.5
+      });
+
+      
+
+
+      
+
+      props.map.layers.addMany([layer3,layer,layer2]);
 
 
       props.view.on("click", function(event){
@@ -188,8 +211,32 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
         var query = layer.createQuery();
         query.geometry = event.mapPoint;
         layer.queryFeatures(query).then(result=>{
-          console.log(result);
-          setQuery(result.features[0]);
+          // console.log(result);
+          // setQuery(result.features[0]);
+          let feature = result.features[0]
+          query = layer2.createQuery();
+          query.geometry = event.mapPoint;
+          layer2.queryFeatures(query).then(result=>{
+            
+            feature.attributes.zoning_subdistrict = result.features[0].attributes.ZONE_;
+            
+
+            query = layer3.createQuery();
+            query.geometry = event.mapPoint;
+            layer3.queryFeatures(query).then(result=>{
+
+              if(result.features.length != 0){
+                feature.attributes.ur_area = result.features[0].attributes.NAME;
+                setQuery(feature);
+              }else{
+                setQuery(feature);
+              }
+              
+
+          });
+
+          })
+
         })
 
       });
@@ -223,7 +270,18 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
         "esri/Graphic","esri/layers/FeatureLayer"
       ]).then(([Graphic,FeatureLayer]) => {
         const layer = new FeatureLayer({
-          url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_RE_parcels/FeatureServer/0",
+          url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_parcels_RE/FeatureServer/0",
+          renderer:{
+            type: "simple",  // autocasts as new SimpleRenderer()
+            symbol: {
+              type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+              color: [ 128, 128, 128, 0.7],
+              outline: {  // autocasts as new SimpleLineSymbol()
+                width: 1,
+                color: "lightblue"
+              }
+            }
+          }
         });
 
         props.map.layers.add(layer);
