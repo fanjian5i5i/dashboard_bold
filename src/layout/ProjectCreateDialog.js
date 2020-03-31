@@ -112,6 +112,8 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
           attributes["building_value_19"] = query.attributes.AV_BLDG;
           attributes["total_value_19"] = query.attributes.AV_TOTAL;
           attributes["owner"] = query.attributes.OWNER;
+          attributes["zoning_subdistrict"] = query.attributes.zoning_subdistrict;
+          attributes["ur_area"] = query.attributes.ur_area;
           let graphic = new Graphic({
               geometry: query.geometry,
               attributes:attributes,
