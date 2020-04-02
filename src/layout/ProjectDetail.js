@@ -50,8 +50,8 @@ const useStyles = makeStyles(theme => ({
 export default function FolderList(props) {
   const classes = useStyles();
   const [edit, setEdit] = useState("");
-  const [use,setUse] = useState("");
-  const [fields, setFields] = useState([]);
+  const [status,setStatus] = useState("");
+  const [currentUse, setCurrentUse] = useState("");
   const [data,setData] = useState([]);
   const [layer, setLayer] = useState(null);
   const [feature, setFeature] = useState(null);
@@ -184,7 +184,8 @@ export default function FolderList(props) {
 
         setData(results.features[0].attributes)
         setFeature(results.features[0])
-
+        setCurrentUse(results.features[0].attributes.current_use)
+        setStatus(results.features[0].attributes.project_status)
 
       });
 
@@ -193,7 +194,10 @@ export default function FolderList(props) {
     });
   },[])
   const handleClick = (fieldName) =>{
-    console.log(fieldName)
+    console.log(fieldName);
+    console.log(data);
+    console.log(value)
+    
     if(editable[fieldName]){
       setEdit(fieldName);
       setValue(data[fieldName])
@@ -206,13 +210,31 @@ export default function FolderList(props) {
   }
 
   const handleSelectChange = (e) =>{
-    setEdit("")
+    // setEdit("")
     console.log(e.target.value);
     // setUse(e.target.value);
     let temp = feature;
     temp.attributes[edit] = e.target.value;
     updateFeature(temp);
 
+  }
+
+
+  const handleUseChange = (e) =>{
+    console.log(e.target.value);
+    setCurrentUse(e.target.value);
+    let temp = feature;
+    temp.attributes["current_use"] = e.target.value;
+    updateFeature(temp);
+  }
+
+
+  const handleStatusChange = (e) =>{
+    console.log(e.target.value);
+    setStatus(e.target.value);
+    let temp = feature;
+    temp.attributes["project_status"] = e.target.value;
+    updateFeature(temp);
   }
 
   const updateFeature  = (f) =>{
@@ -309,41 +331,31 @@ export default function FolderList(props) {
           data["ur_parcel_name"]}
 
       </ListItem>
-      <ListItem button onClick={()=>handleClick("current_use")}>
+      <ListItem button>
         <ListItemText primary="Current Use"/>
-        {edit==="current_use"?
-        <ClickAwayListener onClickAway={handleClickAway}>
           <Select
           id="mutiple-checkbox"
-          value={""}
-          onChange={handleSelectChange}
+          value={currentUse}
+          onChange={handleUseChange}
         >
           {uses.map(item => (
             <MenuItem key={item} value={item}>{item}
             </MenuItem>
           ))}
         </Select>
-        </ClickAwayListener>:
-          data["current_use"]}
       </ListItem>
-      <ListItem button onClick={()=>handleClick("project_status")}>
+      <ListItem button>
         <ListItemText primary="Status"/>
-
-        {edit==="project_status"?
-        <ClickAwayListener onClickAway={handleClickAway}>
           <Select
           id="mutiple-checkbox"
-          value={""}
-          onChange={handleSelectChange}
+          value={status}
+          onChange={handleStatusChange}
         >
           {statuses.map(item => (
             <MenuItem key={item} value={item}>{item}
             </MenuItem>
           ))}
         </Select>
-        </ClickAwayListener>:
-          data["project_status"]}
-
       </ListItem>
       <ListItem button onClick={()=>handleClick("yardi_id")}>
         <ListItemText primary="Yardi Code"/>

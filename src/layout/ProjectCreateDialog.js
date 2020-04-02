@@ -108,9 +108,9 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
           attributes["full_address"] = query.attributes.FULL_ADDRE;
           attributes["lot_size"] = query.attributes.LAND_SF;
           attributes["gross_area_19"] = query.attributes.LIVING_ARE;
-          attributes["land_value_19"] = query.attributes.AV_LAND;
-          attributes["building_value_19"] = query.attributes.AV_BLDG;
-          attributes["total_value_19"] = query.attributes.AV_TOTAL;
+          attributes["land_value19"] = query.attributes.AV_LAND;
+          attributes["building_value19"] = query.attributes.AV_BLDG;
+          attributes["total_value19"] = query.attributes.AV_TOTAL;
           attributes["owner"] = query.attributes.OWNER;
           attributes["zoning_subdistrict"] = query.attributes.zoning_subdistrict;
           attributes["ur_area"] = query.attributes.ur_area;
