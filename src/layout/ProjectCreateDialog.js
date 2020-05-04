@@ -119,7 +119,7 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
               attributes:attributes,
               symbol: {
                     type: "simple-fill",  // autocasts as new SimpleFillSymbol()
-                    color: [ 255, 128, 0, 0.5],
+                    color: [ 191, 0, 255, 0.5],
                     outline: {  // autocasts as new SimpleLineSymbol()
                       width: 1,
                       color: "lightblue"
@@ -150,6 +150,7 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
             "<div><strong>Building Value</strong>: "+query.attributes.AV_BLDG+"</div><br/>" +
             "<div><strong>Total Value</strong>: "+query.attributes.AV_TOTAL+"</div><br/>" +
             "<div><strong>Owner</strong>: "+query.attributes.OWNER+"</div><br/>" +
+            "<div><strong>Neighborhood</strong>: "+query.attributes.neighborhood+"</div><br/>" +
             "<div><strong>Sub District</strong>: "+query.attributes.zoning_subdistrict+"</div><br/>" +
             "<div><strong>UR Area</strong>: "+query.attributes.ur_area+"</div><br/>" ,
             actions: [createAction]
@@ -194,9 +195,18 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
 
       const layer3 = new FeatureLayer({
         // URL to the service
-        id:"parcurel",
+        id:"ur",
         url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/Urban_Renewal_Data4/MapServer/3",
         outFields:["NAME"],
+        opacity:0.5
+      });
+
+
+      const layer4 = new FeatureLayer({
+        // URL to the service
+        id:"neighborhood",
+        url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BPDA_Neighborhoods_CNY_RLFMP/FeatureServer/0",
+        outFields:["Name"],
         opacity:0.5
       });
 
@@ -205,7 +215,7 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
 
       
 
-      props.map.layers.addMany([layer3,layer,layer2]);
+      props.map.layers.addMany([layer4,layer3,layer,layer2]);
 
 
       props.view.on("click", function(event){
@@ -221,21 +231,30 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
           layer2.queryFeatures(query).then(result=>{
             
             feature.attributes.zoning_subdistrict = result.features[0].attributes.ZONE_;
-            
-
-            query = layer3.createQuery();
+           
+            query = layer4.createQuery();
             query.geometry = event.mapPoint;
-            layer3.queryFeatures(query).then(result=>{
 
-              if(result.features.length != 0){
-                feature.attributes.ur_area = result.features[0].attributes.NAME;
-                setQuery(feature);
-              }else{
-                setQuery(feature);
-              }
-              
+            layer4.queryFeatures(query).then(result=>{
+            
+              feature.attributes.neighborhood = result.features[0].attributes.Name;
+              query = layer3.createQuery();
+              query.geometry = event.mapPoint;
+              layer3.queryFeatures(query).then(result=>{
+  
+                if(result.features.length != 0){
+                  feature.attributes.ur_area = result.features[0].attributes.NAME;
+                  setQuery(feature);
+                }else{
+                  setQuery(feature);
+                }
+                
+  
+            });
+            
+            })
 
-          });
+            
 
           })
 
@@ -246,12 +265,63 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
   },[]);
     useEffect(() => {
       loadModules([
-        "esri/widgets/Search"
-    ]).then(([Search]) => {
+        "esri/widgets/Search","esri/layers/FeatureLayer"
+    ]).then(([Search,FeatureLayer]) => {
       var searchWidget = new Search({
         view: props.view,
         popupEnabled:false
       });
+      searchWidget.on("suggest-complete",(event)=>{
+        console.log(event);
+        if(event.searchTerm.length == 10 && !isNaN(event.searchTerm.length)){
+          let layer = props.map.findLayerById("parcel")
+          var query = layer.createQuery();
+          query.where = "PID_LONG LIKE '%"+event.searchTerm+"%'";
+          layer.queryFeatures(query).then(result=>{
+            console.log(result);
+          // setQuery(result.features[0]);
+          let layer2 = props.map.findLayerById("subdistrict");
+          let layer3 = props.map.findLayerById("ur")
+          let layer4 = props.map.findLayerById("neighborhood")
+
+          let feature = result.features[0]
+          query = layer2.createQuery();
+          query.geometry = feature.geometry.centroid
+          layer2.queryFeatures(query).then(result=>{
+            
+            feature.attributes.zoning_subdistrict = result.features[0].attributes.ZONE_;
+           
+            query = layer4.createQuery();
+            query.geometry = feature.geometry.centroid
+
+            layer4.queryFeatures(query).then(result=>{
+            
+              feature.attributes.neighborhood = result.features[0].attributes.Name;
+              query = layer3.createQuery();
+              query.geometry = feature.geometry.centroid
+              layer3.queryFeatures(query).then(result=>{
+  
+                if(result.features.length != 0){
+                  feature.attributes.ur_area = result.features[0].attributes.NAME;
+                  setQuery(feature);
+                }else{
+                  setQuery(feature);
+                }
+                
+  
+            });
+            
+            })
+
+            
+
+          })
+          props.view.goTo(result.features[0].geometry)
+          });
+        }
+
+
+      })
       searchWidget.on("select-result",(result1)=>{
         console.log(result1.result.feature.attributes);
         let layer = props.map.findLayerById("parcel")
@@ -259,7 +329,43 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
         query.where = "FULL_ADDRE LIKE '%"+result1.result.feature.attributes.StAddr+"%'";
         layer.queryFeatures(query).then(result=>{
           console.log(result);
-          setQuery(result.features[0]);
+          // setQuery(result.features[0]);
+          let layer2 = props.map.findLayerById("subdistrict");
+          let layer3 = props.map.findLayerById("ur")
+          let layer4 = props.map.findLayerById("neighborhood")
+
+          let feature = result.features[0]
+          query = layer2.createQuery();
+          query.geometry = feature.geometry.centroid
+          layer2.queryFeatures(query).then(result=>{
+            
+            feature.attributes.zoning_subdistrict = result.features[0].attributes.ZONE_;
+           
+            query = layer4.createQuery();
+            query.geometry = feature.geometry.centroid
+
+            layer4.queryFeatures(query).then(result=>{
+            
+              feature.attributes.neighborhood = result.features[0].attributes.Name;
+              query = layer3.createQuery();
+              query.geometry = feature.geometry.centroid
+              layer3.queryFeatures(query).then(result=>{
+  
+                if(result.features.length != 0){
+                  feature.attributes.ur_area = result.features[0].attributes.NAME;
+                  setQuery(feature);
+                }else{
+                  setQuery(feature);
+                }
+                
+  
+            });
+            
+            })
+
+            
+
+          })
         });
 
       })
