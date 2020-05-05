@@ -3,10 +3,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import TextField from '@material-ui/core/TextField';
+
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import DeleteIcon from '@material-ui/icons/DeleteForever';
+
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import CheckIcon from '@material-ui/icons/Check';
@@ -14,7 +18,20 @@ import Input from '@material-ui/core/Input';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
 import { loadModules } from 'esri-loader';
+import {
+  useHistory
+} from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root1: {
@@ -35,7 +52,15 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.primary,
-    borderRadius:3
+    borderRadius:3,
+    maxHeight:500,
+    overflowX:"auto",
+  },
+  card: {
+    textAlign: 'center',
+    color: theme.palette.text.primary,
+    borderRadius:3,
+    marginBottom:theme.spacing(2),
   },
   spacer:{
     padding: theme.spacing(2),
@@ -44,6 +69,14 @@ const useStyles = makeStyles(theme => ({
     borderRadius:3,
     // maxHeight:350,
     overflowY:"auto"
+  },
+  button:{
+    color:"white",
+    backgroundColor:"#ef5350",
+    margin:theme.spacing(2),
+    "&:hover": {
+      background: "#c23333"
+    },
   }
 }));
 
@@ -55,7 +88,9 @@ export default function FolderList(props) {
   const [data,setData] = useState([]);
   const [layer, setLayer] = useState(null);
   const [feature, setFeature] = useState(null);
-  const [value, setValue] = useState("")
+  const [value, setValue] = useState("");
+  const [open, setOpen] = useState(false);
+  let history = useHistory();
   let lookup = {
     OBJECTID : "GIS Feature ID",
     pid : "Parcel ID",
@@ -209,6 +244,46 @@ export default function FolderList(props) {
     setValue(e.target.value)
   }
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
+  const handleDelete = () =>{
+    console.log(data);
+    loadModules([
+     "esri/layers/FeatureLayer"
+    ]).then(([FeatureLayer]) => {
+      const layer = new FeatureLayer({
+        url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_parcels_RE/FeatureServer/0",
+      });
+      var query = layer.createQuery();
+      query.where = "pid = '"+data.pid+"'";
+      layer.queryFeatures(query).then(result=>{
+        console.log(result);
+        const promise = layer.applyEdits({
+          deleteFeatures : result.features
+        });
+        promise.then(result =>{
+          console.log(result)
+          // console.log(props.view.graphics.items[0].attributes.pid)
+          history.push("/parcel");
+          window.location.reload()
+        })
+      })
+    // const promise = layer.applyEdits({
+    //   deleteFeatures : [props.view.graphics.items[0]]
+    // });
+    
+
+    })
+    // setValue(e.target.value)
+  }
+
   const handleSelectChange = (e) =>{
     // setEdit("")
     console.log(e.target.value);
@@ -300,9 +375,9 @@ export default function FolderList(props) {
 
   return (
     <div>
-    <div className={classes.root2}>
-    <Paper className={classes.paper}>
-    <List className={classes.list} component="nav"
+    <Card className={classes.card}>
+    <CardContent className={classes.root2}>
+    <List className={classes.list} component="nav" dense={true}
     subheader={
       <ListSubheader component="div" id="nested-list-subheader">
         Editable Fields
@@ -402,16 +477,28 @@ export default function FolderList(props) {
       </ListItem>
 
     </List>
-    </Paper>
-    </div>
-    <div className={classes.spacer}/>
-    <div className={classes.root1}>
+    </CardContent>
+    <CardActions>
+        <Button 
+        size="middle" 
+        variant="contained"
+        className={classes.button}
+        startIcon={<DeleteIcon />}
+        onClick={()=>handleClickOpen()}>
+          
+          Delete Parcel
+          </Button>
+      </CardActions>
+    </Card>
+   
     <Paper className={classes.paper}>
     <List className={classes.list}
+     dense={true}
     subheader={
       <ListSubheader component="div" id="nested-list-subheader">
         Non Editable Fields
       </ListSubheader>
+     
     }>
 
 
@@ -518,7 +605,24 @@ export default function FolderList(props) {
 
     </List>
     </Paper>
-    </div>
+    <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">Are you sure you want to delete parcel {data.pid}</DialogTitle>
+        <DialogActions>
+          <Button onClick={()=>handleDelete()}
+           variant="contained"
+            className={classes.button}>
+            Delete
+          </Button>
+          <Button onClick={handleClose} color="default" autoFocus>
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
 
   );
