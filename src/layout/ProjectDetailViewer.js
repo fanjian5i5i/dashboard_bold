@@ -196,61 +196,9 @@ export default function FolderList(props) {
               </ListItemSecondaryAction>
           </ListItem>
           <ListItem>
-          <ListItemText primary={lookup.land_value19}/>
-          <ListItemSecondaryAction>
-              {data.land_value19}
-              </ListItemSecondaryAction>
-          </ListItem>
-          <ListItem>
-          <ListItemText primary={lookup.building_value19}/>
-          <ListItemSecondaryAction>
-              {data.building_value19}
-              </ListItemSecondaryAction>
-          </ListItem>
-          <ListItem>
-          <ListItemText primary={lookup.total_value19}/>
-          <ListItemSecondaryAction>
-              {data.total_value19}
-              </ListItemSecondaryAction>
-          </ListItem>
-          <ListItem>
-          <ListItemText primary={lookup.assessing_property_type}/>
-          <ListItemSecondaryAction>
-              {data.assessing_property_type}
-              </ListItemSecondaryAction>
-          </ListItem>
-
-
-
-
-          <ListItem>
           <ListItemText primary={lookup.ur_parcel_name}/>
           <ListItemSecondaryAction>
               {data.ur_parcel_name}
-              </ListItemSecondaryAction>
-          </ListItem>
-          <ListItem>
-          <ListItemText primary={lookup.current_use}/>
-          <ListItemSecondaryAction>
-              {data.current_use}
-              </ListItemSecondaryAction>
-          </ListItem>
-          <ListItem>
-          <ListItemText primary={lookup.project_status}/>
-          <ListItemSecondaryAction>
-              {data.project_status}
-              </ListItemSecondaryAction>
-          </ListItem>
-          <ListItem>
-          <ListItemText primary={lookup.yardi_id}/>
-          <ListItemSecondaryAction>
-              {data.yardi_id}
-              </ListItemSecondaryAction>
-          </ListItem>
-          <ListItem>
-          <ListItemText primary={lookup.notes} style={{"height":150}}/>
-          <ListItemSecondaryAction>
-              {data.notes}
               </ListItemSecondaryAction>
           </ListItem>
     </List>

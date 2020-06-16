@@ -142,18 +142,6 @@ function Frame(props) {
   const [user, setUser] = React.useState();
   const [authenticated, setAuthenticated] = React.useState(false);
   const [layout,setLayout] = React.useState("dashboard");
-  useEffect(() => { 
-    
-    checkAuthentication()
-   }, [authenticated] );
-
-
-  const checkAuthentication = async () => {
-    const isAuthenticated = await props.auth.isAuthenticated();
-    if (isAuthenticated !== authenticated) {
-      setAuthenticated(isAuthenticated);
-    }
-  }
   let { id } = useParams();
   let { path } = useRouteMatch();
   let history = useHistory();

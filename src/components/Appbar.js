@@ -94,8 +94,6 @@ const useStyles = makeStyles(theme => ({
 function Appbar(props) {
     const { container } = props;
     const classes = useStyles();
-    const [authenticated, setAuthenticated] = React.useState(false);
-    const [user, setUser] = React.useState({});
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -116,13 +114,6 @@ function Appbar(props) {
         taggleMobileOpen();
       };
 
-    const checkUser = async () => {
-      let authUser = await props.auth.getUser();
-      if (authUser) {
-        console.log(authUser)
-        setUser(authUser);
-      }
-    }
 
     const handleClick = event => {
       setAnchorEl(event.currentTarget);
@@ -136,9 +127,6 @@ function Appbar(props) {
       props.auth.logout()
     };
 
-    useEffect(()=>{
-      checkUser()
-    },[])
 
 
     const appbar = (
@@ -169,47 +157,8 @@ function Appbar(props) {
               }
             </Breadcrumbs>
 
-            <div className={classes.grow} />
-            <div className={classes.sectionMobile}>
-
-                    <Tooltip title="Add Parcels">
-                      <IconButton aria-label="add" color="primary" onClick={() => dispatch({ type: 'OPEN_DIALOG' })}>
-                        <NoteAddIcon />
-                      </IconButton>
-                    </Tooltip>
 
 
-                    <Button color="primary">{user.name}</Button>
-            </div>
-            <div className={classes.sectionDesktop}>
-                    {user.roles === "admin" ? (
-                    
-                    <div>
-                    <Button className={classes.newProject} disabled>create a parcel</Button>
-                    
-                    <Tooltip title="Add a Parcel">
-                      <IconButton aria-label="add" color="primary" onClick={() => dispatch({ type: 'OPEN_DIALOG' })}>
-                        <NoteAddIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <IconButton aria-label="show 17 new notifications" color="primary">
-                        <NotificationsIcon />
-                    </IconButton>
-                    </div>) : ''}
-                    
-
-                    <Button color="primary" onClick={handleClick}>{user.name}</Button>
-                    <Menu
-                      id="simple-menu"
-                      anchorEl={anchorEl}
-                      keepMounted
-                      open={Boolean(anchorEl)}
-                      onClose={handleClose}
-                    >
-                      <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                    </Menu>
-
-            </div>
             <Dialog/>
             </Toolbar>
             </AppBar>

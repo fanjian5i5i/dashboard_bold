@@ -183,16 +183,13 @@ export default function AutoGrid() {
     <div className={classes.root}>
 
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6} lg={3}>
+        <Grid item xs={12} md={6} lg={4}>
           <Area area={area}/>
         </Grid>
-        <Grid item xs={12} md={6} lg={3}>
+        <Grid item xs={12} md={6} lg={4}>
           <GrossArea grossArea={grossArea}/>
         </Grid>
-        <Grid item xs={12} md={6} lg={3}>
-          <Value value={value}/>
-        </Grid>
-        <Grid item xs={12} md={6} lg={3}>
+        <Grid item xs={12} md={6} lg={4}>
           <AvailableProjects aProjects={aProjects}/>
         </Grid>
 

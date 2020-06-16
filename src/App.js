@@ -20,18 +20,8 @@ function App() {
   return (
     <Provider store={store}>
     <Router >
-    <Security issuer='https://bpda.okta.com/'
-                  clientId='0oa1iav3pcdA8nNLg0h8'
-                  redirectUri={window.location.origin + '/implicit/callback'}
-                  onAuthRequired={onAuthRequired}
-                  pkce={true}
-                  >
-
-        <Route path='/' exact={true} render={() => <Login baseUrl='https://bpda.okta.com' />} />
-        <SecureRoute path="/:id" component={Frame}/>
-        <Route path='/implicit/callback' component={ImplicitCallback}/>
-
-      </Security>
+      
+        <Route path="/:id" component={Frame}/>
     </Router>
 
     </Provider>

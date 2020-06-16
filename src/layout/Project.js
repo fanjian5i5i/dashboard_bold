@@ -76,16 +76,6 @@ let Project = (props)=> {
     });
   },[]);
 
-  React.useEffect(()=>{
-    checkUser()
-  },[])
-  const checkUser = async () => {
-    let authUser = await props.auth.getUser();
-    if (authUser) {
-      console.log(authUser)
-      setUser(authUser);
-    }
-  }
 //<Placeholder/>
   return (
   
@@ -95,9 +85,8 @@ let Project = (props)=> {
         <Grid item xs={12} md={6} lg={6}>
 
           
-          {
-            user.roles ==="admin"? <ProjectDetail fields={fields} pid={pid}/> : <ProjectDetailViewer fields={fields} pid={pid}/>
-          }
+          <ProjectDetailViewer fields={fields} pid={pid}/>
+          
           
 
 
