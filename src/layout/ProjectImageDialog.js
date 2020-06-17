@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -74,21 +74,15 @@ const DialogActions = withStyles(theme => ({
 }))(MuiDialogActions);
 
 const CustomizedDialogs = withStyles(styles)(props=> {
-  const [open, setOpen] = React.useState(false);
   const { classes } = props;
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
   const handleClose = () => {
-    setOpen(false);
+    props.handleOpen()
+  
   };
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        view
-      </Button>
-      <Dialog  fullScreen onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} className={classes.dialog} >
+      <Dialog  fullScreen onClose={handleClose} aria-labelledby="customized-dialog-title" open={props.open} className={classes.dialog} >
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
             Images for parcel {props.pid}
         </DialogTitle>

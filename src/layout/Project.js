@@ -1,16 +1,24 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { withAuth } from '@okta/okta-react';
-import ProjectDetail from './ProjectDetail';
 import ProjectDetailViewer from './ProjectDetailViewer';
 
 import Map from './projectMap';
 import { loadModules } from 'esri-loader';
-import ProjectImage from './ProjectImage'
 import { useDispatch  } from 'react-redux';
 
+
+//for public view, using card
+
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import ProjectImageDialog from './ProjectImageDialog';
+import Badge from '@material-ui/core/Badge';
+import axios from 'axios';
 import {
   useParams
 } from "react-router-dom";
@@ -26,7 +34,10 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
-
+  media: {
+    height: 400,
+    backgroundSize: "cover"
+  },
 }));
 
 
@@ -34,11 +45,29 @@ const useStyles = makeStyles(theme => ({
 
 let Project = (props)=> {
   const classes = useStyles();
-  const [data, setData] = React.useState([]);
-  const [fields, setFields] = React.useState([]);
-  const [user, setUser] = React.useState({"roles":"viewer"});
+  const [data, setData] = useState([]);
+  const [fields, setFields] = useState([]);
+  const [user, setUser] = useState({"roles":"viewer"});
+  const [img, setImg] = useState(["https://via.placeholder.com/760x500.png?text=No%20Picture%20Avaliable"]);
+  const [count, setCount] = useState(null);
+  const [open, setOpen] = useState(null);
   const dispatch = useDispatch();
   let {pid} = useParams();
+  useEffect(() => {
+
+    axios.get('https://sire.bostonplans.org/api/images/get/'+pid).then(result=>{
+        setImg(result.data);
+        setCount(result.data.length)
+    })
+    .catch(err=>{
+      console.log(err) 
+    })
+    
+  },[]);
+  const handleOpen = () =>{
+    console.log("open")
+    setOpen(!open)
+  }
   React.useEffect(() => {
 
     dispatch(changeLayout("parcel"));
@@ -83,28 +112,34 @@ let Project = (props)=> {
 
       <Grid container spacing={2}>
         <Grid item xs={12} md={6} lg={6}>
-
+        <Badge color="primary" badgeContent={count} style={{width:"100%"}}>
+        <Card className={classes.root} onClick={handleOpen}>
+        
+        <CardActionArea>
+        
+        <CardMedia
+          className={classes.media}
+          image={img[0]}
+          title="Click to expand"
           
+        />
+        
+        <CardContent>
           <ProjectDetailViewer fields={fields} pid={pid}/>
-          
-          
-
-
+          </CardContent>
+        </CardActionArea>
+        
+        </Card>
+        </Badge>
         </Grid>
-        <Grid item xs={12} md={6} lg={6} container spacing={2}>
-          <Grid item xs={12} md={12} lg={12}>
-
-              <ProjectImage pid={pid} fields={fields} roles={user.roles}/>
-
-          </Grid>
-          <Grid item xs={12} md={12} lg={12}>
+          <Grid item xs={12} md={6} lg={6}>
           <Paper>
             <Map pid={pid}/>
             </Paper>
           </Grid>
-        </Grid>
-      </Grid>
 
+      </Grid>
+      <ProjectImageDialog img={img} pid={props?props.pid:""} handleOpen={handleOpen} open={open}/>
     </div>
   
   )

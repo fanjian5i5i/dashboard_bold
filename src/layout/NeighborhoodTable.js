@@ -79,7 +79,6 @@ function EnhancedTableHead(props) {
     { id: 'neighborhood', numeric: false, disablePadding: true, label: 'Neighborhood' },
     { id: 'lotsize', numeric: true, disablePadding: false, label: 'Lot Size' },
     { id: 'totalbuilt', numeric: true, disablePadding: false, label: 'Built Square Footage' },
-    { id: 'totalvalue', numeric: true, disablePadding: false, label: 'Total Assessment' },
     { id: 'parcels', numeric: true, disablePadding: false, label: 'No. of Parcels' },
 
   ];
@@ -135,24 +134,6 @@ function EnhancedTableHead(props) {
 
               Built Square Footage
               {orderBy === "lotsize" ? (
-                <span className={classes.visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </span>
-              ) : null}
-            </TableSortLabel>
-        </TableCell>
-        <TableCell
-          align='right'
-          sortDirection={orderBy === "totalvalue" ? order : false}
-        >
-          <TableSortLabel
-              active={orderBy === props.category}
-              direction={order}
-              onClick={createSortHandler("totalvalue")}
-            >
-
-              Total Assessment($)
-              {orderBy === "totalvalue" ? (
                 <span className={classes.visuallyHidden}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                 </span>
@@ -410,7 +391,7 @@ function EnhancedTable(props) {
     let arr = getFieldValues(data,fieldName);
     let total_lot_size = 0;
     let total_built_sf = 0;
-    let total_value = 0;
+
     arr.forEach(field=>{
       let parcels = 0;
       let lot_size = 0;
@@ -422,20 +403,20 @@ function EnhancedTable(props) {
                 parcels += 1;
                 lot_size += record.attributes.lot_size;
                 built += record.attributes.gross_area;
-                value += record.attributes.total_value19;
+
               }
       });
 
       total_lot_size+=lot_size;
       total_built_sf+=built;
-      total_value+=value;
 
-      results.push({field,parcels,lot_size,built,value});
+
+      results.push({field,parcels,lot_size,built});
 
     });
     setTotalLotSize(total_lot_size);
     setTotalBuiltSF(total_built_sf);
-    setTotalValue(total_value);
+
 
     return results
   }
@@ -481,11 +462,8 @@ function EnhancedTable(props) {
   console.log(neighborhoods)
   const urAreas = getFieldValues(props.data,"ur_area");
   console.log(urAreas)
-  const currentUses = getFieldValues(props.data,"current_use");
-  console.log(currentUses)
   const categories = [
     {id:"neighborhood",name:"Neighborhoods"},
-    {id:"current_use",name:"Current Use"},
     {id:"ur_area",name:"Urban Renewal Areas"},
     {id:"project_status",name:"Status"}
   ]
@@ -529,7 +507,7 @@ function EnhancedTable(props) {
         </Toolbar>
         <Toolbar className={classes.grow}>
         <Grid container spacing={1}>
-          <Grid item xs={12} sm={12} md={6} lg={3}>
+          <Grid item xs={12} sm={12} md={4} lg={4}>
           <FormControl className={classes.formControl}>
 
               <InputLabel id="demo-mutiple-name-label">Statuses</InputLabel>
@@ -551,7 +529,7 @@ function EnhancedTable(props) {
               </Select>
           </FormControl>
           </Grid>
-          <Grid item xs={12} sm={12} md={6} lg={3}>
+          <Grid item xs={12} sm={12} md={4} lg={4}>
           <FormControl className={classes.formControl}>
 
               <InputLabel id="neighborhood-mutiple-name-label">Neighborhoods</InputLabel>
@@ -573,29 +551,7 @@ function EnhancedTable(props) {
               </Select>
           </FormControl>
           </Grid>
-          <Grid item xs={12} sm={12} md={6} lg={3}>
-          <FormControl className={classes.formControl}>
-
-              <InputLabel id="use-mutiple-name-label">Current Use</InputLabel>
-              <Select
-                id="mutiple-checkbox-use"
-                multiple
-                value={selectedUse}
-                renderValue={selectedUse => selectedUse.join(', ')}
-                onChange={handleUseChange}
-                className={classes.select}
-                input={<Input />}
-              >
-                {currentUses.map(name => (
-                  <MenuItem key={name} value={name} style={getStyles(name, selectedUse, theme)}>
-                    <Checkbox checked={selectedUse.indexOf(name) > -1} />
-                    <ListItemText primary={name} />
-                  </MenuItem>
-                ))}
-              </Select>
-          </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={12} md={6} lg={3}>
+          <Grid item xs={12} sm={12} md={4} lg={4}>
           <FormControl className={classes.formControl}>
 
               <InputLabel id="ur-mutiple-name-label">Urban Renewal</InputLabel>
@@ -657,7 +613,6 @@ function EnhancedTable(props) {
                       </TableCell>
                       <TableCell align="right" className={classes.tableRow}>{row.lot_size?row.lot_size.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'):"0"}</TableCell>
                       <TableCell align="right" className={classes.tableRow}>{row.built?row.built.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'):"0"}</TableCell>
-                      <TableCell align="right" className={classes.tableRow}>${row.value?row.value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'):"0"}</TableCell>
 
                       <TableCell align="right" className={classes.tableRow}>{row.parcels?row.parcels:"0"}</TableCell>
                     </TableRow>
@@ -667,7 +622,6 @@ function EnhancedTable(props) {
                 <TableCell align="right" className={classes.tableRowWhite}>Total : </TableCell>
                 <TableCell align="right" className={classes.tableRowWhite}>{totalLotSize?totalLotSize.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'):"0"}</TableCell>
                 <TableCell align="right" className={classes.tableRowWhite}>{totalBuiltSF?totalBuiltSF.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'):"0"}</TableCell>
-                <TableCell align="right" className={classes.tableRowWhite}>${totalValue?totalValue.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'):"0"}</TableCell>
                 <TableCell align="right" className={classes.tableRowWhite}>{total}</TableCell>
                 </TableRow>
             </TableBody>

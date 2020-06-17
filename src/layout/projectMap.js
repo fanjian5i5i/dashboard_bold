@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary,
   },
   map:{
-    height:"40vh"
+    height:"80vh"
   }
 }));
 

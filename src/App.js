@@ -20,7 +20,15 @@ function App() {
   return (
     <Provider store={store}>
     <Router >
-      
+    <Route
+                exact
+                path="/"
+                render={() => {
+                  return (
+                      <Redirect to="/dashboard" />       
+                  )          
+                }}
+              />
         <Route path="/:id" component={Frame}/>
     </Router>
 

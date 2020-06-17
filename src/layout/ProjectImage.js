@@ -35,7 +35,12 @@ export default function ProjectImage(props) {
   const classes = useStyles();
   const fileInput = useRef(null);
   const [img, setImg] = useState(["https://via.placeholder.com/760x500.png?text=No%20Picture%20Avaliable"]);
-  const [count, setCount] = useState(null)
+  const [count, setCount] = useState(null);
+  const [open, setOpen] = useState(null);
+  const handleOpen = () =>{
+    console.log("open")
+    setOpen(!open)
+  }
   useEffect(() => {
 
     axios.get('https://sire.bostonplans.org/api/images/get/'+props.pid).then(result=>{
@@ -47,65 +52,18 @@ export default function ProjectImage(props) {
     })
     
   },[]);
-
-  const uploadToBox = (e) =>{
-      e.preventDefault();
-      console.log(props.fields);
-      const data = new FormData();
-      data.append('file', fileInput.current.files[0]);
-      data.append("fields",[props.fields[12].value,props.fields[1].value,props.fields[22].value]);
-      axios.post('https://sire.bostonplans.org/api/images/',
-      data,
-      {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
-      }).then((response)=>{
-        console.log(response)
-        // setImg(...img,response.data)
-        let imgs = img;
-        imgs.push(response.data);
-        let temp = count + 1;
-        setCount(temp);
-        setImg(imgs)
-      }).catch(err=>{
-        console.log(err) 
-      })
-  }
   return (
-    <Card className={classes.card}>
-      <CardActionArea>
-      
+    <div onClick={handleOpen}>
+      <Badge badgeContent={4} color="primary">
       <CardMedia
           className={classes.media}
           image={img[0]}
-          title="Contemplative Reptile"
+          title="Click to expand"
+          
         />
-      
-        
-      </CardActionArea>
+</Badge>
+      <ProjectImageDialog img={img} pid={props?props.pid:""} open={open}/>
+      </div>
 
-      <CardActions>
-        <input
-            accept="image/*"
-            className={classes.input}
-            id="contained-button-file"
-            ref={fileInput}
-            onChange={uploadToBox}
-            type="file"
-        />
-        <label htmlFor="contained-button-file"  className={classes.actionBtn}>
-          {props.roles === "admin"?(<Button component="span" variant="outlined" color="primary" >
-            Add
-            </Button>):""}
-            
-        </label>
-        <Badge color="primary" badgeContent={count} className={classes.margin}>
-        <ProjectImageDialog img={img} pid={props?props.pid:""}/>
- 
-        </Badge>
-
-      </CardActions>
-    </Card>
   );
 }
