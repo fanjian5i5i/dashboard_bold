@@ -1,10 +1,14 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import MaterialTable from 'material-table'
+import MaterialTable,{ MTableToolbar } from 'material-table'
+import Chip from '@material-ui/core/Chip';
 import { changeTitle,changeLayout,updateDisplay } from '../redux/actions';
 import { connect,useDispatch } from 'react-redux';
 import { loadModules } from 'esri-loader';
 import { ExportToCsv } from 'export-to-csv';
+import {
+  useLocation
+} from "react-router-dom";
 import {
   useHistory
 } from "react-router-dom";
@@ -186,72 +190,35 @@ const columns = [
     }
   }
    ];
-
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
  function SimpleTable(props) {
   const classes = useStyles();
   const [data, setData] = React.useState([]);
   const [full, setFull] = React.useState([]);
+  const [filters, setFilters] = React.useState(null);
+  
   const [display, setDisplay] = React.useState([]);
   const history = useHistory();
+  
   const dispatch = useDispatch();
+  let urlQuery = useQuery();
   const handleClick =(rowData)=>{
     console.log(rowData);
     dispatch(changeTitle(rowData[0]))
     history.push("/parcel/"+rowData[0])
   }
-  const handleChange = (action, tableState) => {
-    console.log(tableState.displayData)
-    let result = []
-    tableState.displayData.forEach(record=>{
-      result.push(record.data[0])
-    })
-    setDisplay(result)
-    // dispatch(updateDisplay(result));
-  }
-  const handleDownload = (buildHead, buildBody, columns, toDownload) =>{
-    console.log(display)
-    let pids = [];
-    props.reducerState.display.forEach(record=>{
-      pids.push(record[0])
-    })
-    let filtered = full.filter(record=>  pids.indexOf(record.pid)>-1)
-    return false;
-  }
-  // React.useEffect(() => {
-  //   axios.get("http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_RE_parcels/FeatureServer/query?layerDefs={'layerId':'0','where':'1=1'}&returnGeometry=false&f=json")
-  //   .then(results =>{
-  //     // setData(result.data.layers[0].features);
-  //     let result = []
-  //     results.data.layers[0].features.forEach(record=>{
-  //       if(record.attributes.project_status != "Conveyed" && record.attributes.project_status != null)
-  //       result.push([record.attributes.pid,
-  //         record.attributes.full_address,
-  //         record.attributes.neighborhood,
-  //         record.attributes.ur_number,
-  //         record.attributes.lot_size,
-  //         record.attributes.current_use,
-  //         record.attributes.project_status,
-  //       ])
-  //     });
-  //     setData(result)
-
-  //   })
-  // },[]);
-  React.useEffect(()=>{
-    console.log(props.reducerState.layout)
-    dispatch(changeLayout("parcel"));
-  },[props.reducerState.layout])
-
-  React.useEffect(()=>{
-
-
-
+  const handleDelete = (e) =>{
+    // console.log(e)
+    setFilters("0");
+    history.push('/parcel?filters=0')
     loadModules(["esri/layers/FeatureLayer","esri/tasks/support/Query"]).then(([FeatureLayer,Query,StatisticDefinition]) => {
       const layer = new FeatureLayer({
         url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_parcels_RE/FeatureServer/0",
       });
       const query = new Query();
-      query.where = "project_status <> 'Conveyed' ";
+      query.where = "project_status <> 'Conveyed'";
       query.outFields = [ "*" ];
       query.returnGeometry = false;
       layer.queryFeatures(query).then(function(results){
@@ -300,7 +267,118 @@ const columns = [
 
 
     });
-  },[])
+  
+  }
+  const handleChange = (action, tableState) => {
+    console.log(tableState.displayData)
+    let result = []
+    tableState.displayData.forEach(record=>{
+      result.push(record.data[0])
+    })
+    setDisplay(result)
+    // dispatch(updateDisplay(result));
+  }
+  const handleDownload = (buildHead, buildBody, columns, toDownload) =>{
+    console.log(display)
+    let pids = [];
+    props.reducerState.display.forEach(record=>{
+      pids.push(record[0])
+    })
+    let filtered = full.filter(record=>  pids.indexOf(record.pid)>-1)
+    return false;
+  }
+  // React.useEffect(() => {
+  //   axios.get("http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_RE_parcels/FeatureServer/query?layerDefs={'layerId':'0','where':'1=1'}&returnGeometry=false&f=json")
+  //   .then(results =>{
+  //     // setData(result.data.layers[0].features);
+  //     let result = []
+  //     results.data.layers[0].features.forEach(record=>{
+  //       if(record.attributes.project_status != "Conveyed" && record.attributes.project_status != null)
+  //       result.push([record.attributes.pid,
+  //         record.attributes.full_address,
+  //         record.attributes.neighborhood,
+  //         record.attributes.ur_number,
+  //         record.attributes.lot_size,
+  //         record.attributes.current_use,
+  //         record.attributes.project_status,
+  //       ])
+  //     });
+  //     setData(result)
+
+  //   })
+  // },[]);
+  React.useEffect(()=>{
+    console.log(props.reducerState.layout)
+    dispatch(changeLayout("parcel"));
+  },[props.reducerState.layout])
+
+  React.useEffect(()=>{
+    setFilters(urlQuery.get("filters"))
+    // console.log(urlQuery.get("filters"))
+  },[filters])
+  React.useEffect(()=>{
+    
+
+    if(filters){
+      console.log(filters)
+      loadModules(["esri/layers/FeatureLayer","esri/tasks/support/Query"]).then(([FeatureLayer,Query,StatisticDefinition]) => {
+        const layer = new FeatureLayer({
+          url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_parcels_RE/FeatureServer/0",
+        });
+        const query = new Query();
+        
+        query.where = filters != "0" ? "project_status <> 'Conveyed' AND neighborhood = '"+filters+"'" : "project_status <> 'Conveyed'";
+        query.outFields = [ "*" ];
+        query.returnGeometry = false;
+        layer.queryFeatures(query).then(function(results){
+          // setFullData(results.features)
+          // console.log(results.features);
+          // dispatch(updateData(results.features))
+          // dispatch(createOriginal(results.features));
+          // setData(results.features);
+          // setAProject(results.features.length)
+          let result = [];
+          let fullArr = [];
+  
+          results.features.forEach(record=>{
+            let temp = record.attributes;
+  
+            delete temp.st_name;
+            delete temp.st_num;
+            delete temp.living_area;
+            delete temp.last_observed_date;
+            delete temp.responsible_pm;
+            delete temp.map_status;
+            temp.build_sf = temp.gross_area;
+            delete temp.gross_area;
+            fullArr.push(temp);
+            if(record.attributes.current_use == "Marine Industrial"){
+              console.log(record)
+            }
+            result.push({
+              pid:record.attributes.pid,
+              full_address:record.attributes.full_address,
+              neighborhood:lookups.neighborhood[record.attributes.neighborhood],
+              ur_area:lookups.ur_area[record.attributes.ur_area],
+              lot_size:record.attributes.lot_size,
+              current_use:lookups.use[record.attributes.current_use],
+              project_status:lookups.status[record.attributes.project_status],
+            })
+          })
+          setFull(fullArr);
+          setData(result);
+          console.log(fullArr)
+  
+  
+  
+        });
+  
+  
+  
+      });
+    }
+
+  },[filters])
   return (
 
     <div style={{ maxWidth: '100%' }}>
@@ -318,16 +396,28 @@ const columns = [
         // ]}
         columns={columns}
         data={data}
+        components={{
+          Toolbar: props => (
+              <>
+                  <MTableToolbar {...props} />
+                  {
+                    filters && filters!="0"?<div style={{padding: '0px 10px'}}>
+                    <Chip label={filters} color="primary" style={{marginRight: 5}} onDelete={handleDelete}/>
+                  </div>:""}
+              </>
+          )
+      }}
         onRowClick = {(event,rowData) =>{
           console.log(rowData);
           dispatch(changeTitle(rowData.pid))
         history.push("/parcel/"+rowData.pid)
         }   }
+        
         options={{
           filtering: true,
           exportButton:true,
           exportAllData:true,
-
+          pageSize:10,
           exportCsv: (columns, data) => {
             // alert('You should develop a code to export ' + data.length + ' rows');
             console.log(data);

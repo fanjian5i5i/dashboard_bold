@@ -27,6 +27,9 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Select from '@material-ui/core/Select';
 import { connect, useDispatch, useSelector  } from 'react-redux';
 import { updateData, resetData, createOriginal } from '../redux/actions';
+import {
+  useHistory
+} from "react-router-dom";
 
 const darkTheme = createMuiTheme({
   palette: {
@@ -264,6 +267,7 @@ const useStyles = makeStyles(theme => ({
 function EnhancedTable(props) {
   const classes = useStyles();
   const theme = useTheme();
+  const history = useHistory();
   const [order, setOrder] = React.useState('desc');
   const [orderBy, setOrderBy] = React.useState('parcels');
   const [category, setCategory] = React.useState('neighborhood');
@@ -447,7 +451,12 @@ function EnhancedTable(props) {
   //   }
   //   setSelected([]);
   // };
+  const handleClick = (e) =>{
+    // history.push('/parcel?'+category+'='+e.field)
 
+    history.push('/parcel?filters='+e.field)
+    console.log(e.field)
+  }
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -604,6 +613,7 @@ function EnhancedTable(props) {
                   return (
                     <TableRow
                       hover
+                      onClick={(e)=>handleClick(row)}
                       role="checkbox"
                       tabIndex={-1}
                       key={index}

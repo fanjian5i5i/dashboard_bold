@@ -27,7 +27,6 @@ import Map from '../layout/Map';
 import ListView from '../layout/List';
 import NeighborhoodTable from '../layout/NeighborhoodTable';
 import { Redirect } from 'react-router-dom';
-import { withAuth } from '@okta/okta-react';
 import { connect } from 'react-redux';
 import { taggleMobileOpen,changeLayout,changeTitle } from '../redux/actions';
 import { useDispatch, useSelector } from 'react-redux'
@@ -140,7 +139,6 @@ function Frame(props) {
   // const [mobileOpen, setMobileOpen] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(0); //dashboard index
   const [user, setUser] = React.useState();
-  const [authenticated, setAuthenticated] = React.useState(false);
   const [layout,setLayout] = React.useState("dashboard");
   let { id } = useParams();
   let { path } = useRouteMatch();
@@ -358,4 +356,4 @@ const mapDispatchToProps = { taggleMobileOpen }
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withAuth(Frame))
+)(Frame)

@@ -2,7 +2,6 @@ import React ,{ useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-import { withAuth } from '@okta/okta-react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
@@ -123,10 +122,6 @@ function Appbar(props) {
       setAnchorEl(null);
     };
 
-    const handleLogout = () => {
-      props.auth.logout()
-    };
-
 
 
     const appbar = (
@@ -185,4 +180,4 @@ Appbar.propTypes = {
 
   export default connect(
     mapStateToProps,
-  )(withAuth(Appbar))
+  )(Appbar)
