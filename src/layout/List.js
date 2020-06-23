@@ -394,6 +394,7 @@ const columns = [
         //     lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
         //   },
         // ]}
+        isLoading={data.length == 0 ? true : false}
         columns={columns}
         data={data}
         components={{
@@ -410,7 +411,8 @@ const columns = [
         onRowClick = {(event,rowData) =>{
           console.log(rowData);
           dispatch(changeTitle(rowData.pid))
-        history.push("/parcel/"+rowData.pid)
+        // history.push("/parcel/"+rowData.pid)
+          window.open("/parcel/"+rowData.pid, '_blank');
         }   }
         
         options={{

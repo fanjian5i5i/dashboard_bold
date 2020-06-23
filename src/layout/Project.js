@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary,
   },
   media: {
-    height: 400,
+    height: 450,
     backgroundSize: "cover"
   },
 }));
@@ -124,7 +124,7 @@ let Project = (props)=> {
           
         />
         
-        <CardContent>
+        <CardContent style={{padding:0}}>
           <ProjectDetailViewer fields={fields} pid={pid}/>
           </CardContent>
         </CardActionArea>

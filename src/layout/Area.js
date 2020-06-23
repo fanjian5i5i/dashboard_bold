@@ -12,6 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import MostRecentImg from '../assets/img/most_recent.jpg';
 import UpdateOutlinedIcon from '@material-ui/icons/UpdateOutlined';
 import StoreIcon from '@material-ui/icons/Store';
+import CircularProgress from '@material-ui/core/CircularProgress';
 const useStyles = makeStyles({
   card: {
     // maxWidth: 345,
@@ -40,7 +41,6 @@ const useStyles = makeStyles({
 
 export default function MediaCard(props) {
   const classes = useStyles();
-
   return (
     <Card className={classes.card}>
       <CardActionArea>
@@ -60,7 +60,8 @@ export default function MediaCard(props) {
       </CardActionArea>
       <Divider/>
       <CardActions className={classes.actions}>
-        <UpdateOutlinedIcon/>
+        {props.area == 0 ? <CircularProgress style={{height:20,width:20}}/> :
+        <UpdateOutlinedIcon/>}
         <Typography variant="caption"gutterBottom>
         Last updated: Aug 20 2019
         </Typography>

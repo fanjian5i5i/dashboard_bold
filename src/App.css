@@ -25,6 +25,12 @@ body {
 .App-link {
   color: #09d3ac;
 }
+.awssld__content > img {
+  object-fit: cover;
+  width: auto !important;
+  height: 100vh;
+  position: relative !important;
+}
 
 
 @import url('https://js.arcgis.com/4.13/esri/themes/light/main.css');

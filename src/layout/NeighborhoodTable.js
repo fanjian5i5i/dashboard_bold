@@ -13,9 +13,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
@@ -27,6 +25,8 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Select from '@material-ui/core/Select';
 import { connect, useDispatch, useSelector  } from 'react-redux';
 import { updateData, resetData, createOriginal } from '../redux/actions';
+
+
 import {
   useHistory
 } from "react-router-dom";
@@ -281,7 +281,8 @@ function EnhancedTable(props) {
   const [total, setTotal] = useState(0);
   const [totalLotSize, setTotalLotSize] = useState(0);
   const [totalBuiltSF, setTotalBuiltSF] = useState(0);
-  const [totalValue, setTotalValue] = useState(0);
+  const [loading, setLoading] = useState(true);
+
 
   const [data, setData] = React.useState([{"neighborhood":"loading"}]);
   const handleStautsChange = event => {
@@ -433,8 +434,9 @@ function EnhancedTable(props) {
   // },[]);
 
   React.useEffect(()=>{
-    console.log(props.data)
+    // console.log(props.data)
     setData(processData(props.data,props.fieldName));
+    if(props.data.length!=0) setLoading(false)
 
   },[props.data])
   const handleRequestSort = (event, property) => {
@@ -511,7 +513,13 @@ function EnhancedTable(props) {
               </Select>
           </FormControl>
           </ThemeProvider>
+            {
+              loading?
+              <CircularProgress color="secondary" style={{height:20,width:20}}/>:
+              ""
+            }
         </Typography>
+        
 
         </Toolbar>
         <Toolbar className={classes.grow}>

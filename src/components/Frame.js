@@ -160,7 +160,12 @@ function Frame(props) {
     dispatch(changeLayout(indexArr[index]));
 
     dispatch(changeTitle(""));
-    history.push("/"+indexArr[index]);
+    if(indexArr[index] == "parcel"){
+      history.push("/parcel?filters=0");
+    }else{
+      history.push("/"+indexArr[index]);
+    }
+    
 
     // console.log(user);
   };

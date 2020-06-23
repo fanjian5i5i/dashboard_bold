@@ -186,13 +186,13 @@ export default function FolderList(props) {
           <ListItem>
           <ListItemText primary={lookup.lot_size}/>
           <ListItemSecondaryAction>
-              {data.lot_size}
+              {data.lot_size?data.lot_size.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + " Sq. Ft.":'' }
               </ListItemSecondaryAction>
           </ListItem>
           <ListItem>
           <ListItemText primary={lookup.gross_area}/>
           <ListItemSecondaryAction>
-              {data.gross_area}
+              {data.gross_area?data.gross_area.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'):''}
               </ListItemSecondaryAction>
           </ListItem>
           <ListItem>

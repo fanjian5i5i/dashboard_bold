@@ -11,6 +11,7 @@ import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import CircularProgress from '@material-ui/core/CircularProgress';
 const useStyles = makeStyles({
   card: {
     // maxWidth: 345,
@@ -59,7 +60,8 @@ export default function MediaCard(props) {
       </CardActionArea>
       <Divider/>
       <CardActions className={classes.actions}>
-        <DateRangeIcon/>
+        {props.aProjects == 0 ?<CircularProgress style={{height:20,width:20}}/>:<DateRangeIcon/>}
+
         <Typography variant="caption" gutterBottom>
         Since Last month
         </Typography>

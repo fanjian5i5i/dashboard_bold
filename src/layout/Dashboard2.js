@@ -148,10 +148,12 @@ export default function AutoGrid() {
       query.returnGeometry = false;
       layer.queryFeatures(query).then(function(results){
         // console.log(results.features);
-        dispatch(updateData(results.features))
-        dispatch(createOriginal(results.features));
-        setData(results.features);
-        setAProject(results.features.length)
+
+          dispatch(updateData(results.features))
+          dispatch(createOriginal(results.features));
+          setData(results.features);
+          setAProject(results.features.length)
+        
       });
 
 

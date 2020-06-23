@@ -105,7 +105,7 @@ const CustomizedDialogs = withStyles(styles)(props=> {
                 //     }
                 //     />
                 // </GridListTile>
-                  <div key={tile} data-src={tile}/>
+                  <div key={tile} data-src={tile} style={{height:"100vh"}}/>
                 ))
                 }
             </AwesomeSlider>
