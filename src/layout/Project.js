@@ -2,7 +2,6 @@ import React,{useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { withAuth } from '@okta/okta-react';
 import ProjectDetailViewer from './ProjectDetailViewer';
 
 import Map from './projectMap';
@@ -155,4 +154,4 @@ const mapStateToProps = (state /*, ownProps*/) => {
 
 export default connect(
   mapStateToProps,
-)(withAuth(Project))
+)(Project)

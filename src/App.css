@@ -31,6 +31,9 @@ body {
   height: 100vh;
   position: relative !important;
 }
+.image-gallery-content .image-gallery-slide .image-gallery-image {
+  max-height:80vh !important
+}
 
 
 @import url('https://js.arcgis.com/4.13/esri/themes/light/main.css');

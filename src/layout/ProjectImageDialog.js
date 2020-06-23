@@ -11,6 +11,8 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import AwesomeSlider from 'react-awesome-slider';
+import ImageGallery from 'react-image-gallery';
+import "react-image-gallery/styles/css/image-gallery.css"
 import AwesomeSliderStyles from 'react-awesome-slider/src/styles';
 import { maxHeight } from '@material-ui/system';
 
@@ -24,7 +26,7 @@ const styles = theme => ({
     // overflow: 'hidden',
   },
   dialog:{
-    maxWidth:"none !important",
+    // maxWidth:"none !important",
   },
   closeButton: {
     position: 'absolute',
@@ -87,28 +89,14 @@ const CustomizedDialogs = withStyles(styles)(props=> {
             Images for parcel {props.pid}
         </DialogTitle>
         <DialogContent dividers>
-        <AwesomeSlider>
-              
+            <ImageGallery items={
+              props.img.map(urls => (
                 {
-                props.img.map(tile => (
-                // <GridListTile key={tile} > 
-                //     <img src={tile} alt={tile} />
-                //     <GridListTileBar 
-                //     classes={{
-                //         root: classes.titleBar,
-                //         title: classes.title,
-                //       }}
-                //     actionIcon={
-                //         <IconButton aria-label={`info about ${tile.title}`} className={classes.title}>
-                //         <DeleteIcon className={classes.title}/>
-                //         </IconButton>
-                //     }
-                //     />
-                // </GridListTile>
-                  <div key={tile} data-src={tile} style={{height:"100vh"}}/>
-                ))
+                  original: urls,
+                  thumbnail: urls,
                 }
-            </AwesomeSlider>
+              ))
+            } />
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">

@@ -140,7 +140,13 @@ function Appbar(props) {
             <Breadcrumbs aria-label="breadcrumb">
               <Link color="primary" href={"/"+props.reducerState.layout}>
                 <strong>
-              {props.reducerState.layout.replace(regex, function(x){return x.toUpperCase();})}
+              {
+              props.reducerState.layout != "dashboard" ?
+              
+              props.reducerState.layout.replace(regex, function(x){return x.toUpperCase();})
+              :
+              "BPDA Owned Land Overview"
+              }
                 </strong>
               </Link>
               {props.reducerState.title?
