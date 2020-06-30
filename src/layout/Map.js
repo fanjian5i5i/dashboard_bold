@@ -34,11 +34,6 @@ const Layer = (props) =>{
   
 
   useEffect(() => {
-
-
-    
-
-
     loadModules([
       "esri/Map",
         "esri/views/MapView",
@@ -52,8 +47,17 @@ const Layer = (props) =>{
     )
 
     var featureLayer = new FeatureLayer({
-      url:
-        "https://services.arcgis.com/sFnw0xNflSi8J0uh/arcgis/rest/services/BOLD_RE_parcels_shp/FeatureServer/0"
+        url:"https://services.arcgis.com/sFnw0xNflSi8J0uh/arcgis/rest/services/BOLD_RE_parcels_shp/FeatureServer/0",
+        popupTemplate: {
+          title: "{pid}",
+          content: [{
+            type: "fields",
+            fieldInfos: [{
+              fieldName: "full_addre",
+              label: "Full Address"
+            }]
+          }]
+        }
     });
 
     props.map.add(featureLayer);
@@ -72,8 +76,8 @@ function MapView() {
     <Map 
       mapProperties={{ basemap: 'gray-vector' }} 
       viewProperties={{
-            center: [-71, 42],
-            zoom: 6
+            center: [-71.0589, 42.3601],
+            zoom: 13
         }}>
     <Layer />
     </Map>

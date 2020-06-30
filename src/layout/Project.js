@@ -109,12 +109,12 @@ let Project = (props)=> {
   
     <div className={classes.root}>
 
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={6} lg={6}>
+      <Grid container spacing={2} justify="center" alignItems="center" direction="row" style={{paddingLeft:"30%",paddingRight:"30%"}}>
+        <Grid item xs={12} md={6} lg={12} >
         <Badge color="primary" badgeContent={count} style={{width:"100%"}}>
-        <Card className={classes.root} onClick={handleOpen}>
+        <Card className={classes.root} >
         
-        <CardActionArea>
+        <CardActionArea onClick={handleOpen}>
         
         <CardMedia
           className={classes.media}
@@ -122,16 +122,16 @@ let Project = (props)=> {
           title="Click to expand"
           
         />
-        
+        </CardActionArea>
         <CardContent style={{padding:0}}>
           <ProjectDetailViewer fields={fields} pid={pid}/>
           </CardContent>
-        </CardActionArea>
+        
         
         </Card>
         </Badge>
         </Grid>
-          <Grid item xs={12} md={6} lg={6}>
+          <Grid item xs={12} md={6} lg={12}>
           <Paper>
             <Map pid={pid}/>
             </Paper>
