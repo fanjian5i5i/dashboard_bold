@@ -109,8 +109,8 @@ let Project = (props)=> {
   
     <div className={classes.root}>
 
-      <Grid container spacing={2} justify="center" alignItems="center" direction="row" style={{paddingLeft:"30%",paddingRight:"30%"}}>
-        <Grid item xs={12} md={6} lg={12} >
+      <Grid container spacing={2} justify="center" alignItems="center" direction="row" >
+        <Grid item xs={12} md={6} lg={6} >
         <Badge color="primary" badgeContent={count} style={{width:"100%"}}>
         <Card className={classes.root} >
         
@@ -131,7 +131,7 @@ let Project = (props)=> {
         </Card>
         </Badge>
         </Grid>
-          <Grid item xs={12} md={6} lg={12}>
+          <Grid item xs={12} md={6} lg={6}>
           <Paper>
             <Map pid={pid}/>
             </Paper>

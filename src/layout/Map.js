@@ -55,11 +55,52 @@ const Layer = (props) =>{
             fieldInfos: [{
               fieldName: "full_addre",
               label: "Full Address"
-            }]
+            },
+            {
+              fieldName: "zipcode",
+              label: "ZIP Code"
+            },
+            {
+              fieldName: "neighborhood",
+              label: "Neighborhood"
+            },
+            {
+              fieldName: "zoning_subdistrict",
+              label: "Zoning Subdistrict"
+            },
+            {
+              fieldName: "ur_area",
+              label: "UR Area"
+            },
+            {
+              fieldName: "ur_number",
+              label: "UR Number"
+            },
+            {
+              fieldName: "ur_parcel_name",
+              label: "UR Parcel"
+            },
+            {
+              fieldName: "owner",
+              label: "Owner"
+            },{
+            fieldName: "lot_size",
+            label: "Lot Size"
+          },{
+            fieldName: "gross_area",
+            label: "Built Sqft"
+          }]
           }]
         }
     });
 
+    if(!featureLayer.loaded){             
+      featureLayer.on('load', () => {                    
+          console.log('load');                
+      })
+      }else{                
+        console.log('loading');              
+      }
     props.map.add(featureLayer);
 
 

@@ -48,11 +48,11 @@ export default function FolderList(props) {
     pid : "Parcel ID",
     st_num: "Street Number",
     st_name: "Street Name",
-    zipcode : "ZIP code",
+    zipcode : "ZIP Code",
     ur_parcel_name : "UR Parcel",
     assessing_property_type : "Property Type",
     lot_size : "Lot Size",
-    gross_area : "Built SF",
+    gross_area : "Built Sqft",
     living_area:"Living Area",
     land_value19 : "Land Value",
     building_value19 : "Building Value",
@@ -60,10 +60,10 @@ export default function FolderList(props) {
     neighborhood : "Neighborhood",
     owner : "Owner",
     current_use : "Current Use",
-    zoning_subdistrict : "Subdistrict",
+    zoning_subdistrict : "Zoning Subdistrict",
     notes : "Note",
-    ur_area : "UR Area",
-    ur_number : "UR Number",
+    ur_area : "Urban Renewal Area",
+    ur_number : "Urban Renewal Number",
     last_observed_date : "Last Observed",
     responsible_pm : "Project Manger",
     project_status : "Status",
@@ -186,7 +186,7 @@ export default function FolderList(props) {
           <ListItem>
           <ListItemText primary={lookup.lot_size}/>
           <ListItemSecondaryAction>
-              {data.lot_size?data.lot_size.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + " Sq. Ft.":'' }
+              {data.lot_size?data.lot_size.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + " Sqft.":'' }
               </ListItemSecondaryAction>
           </ListItem>
           <ListItem>

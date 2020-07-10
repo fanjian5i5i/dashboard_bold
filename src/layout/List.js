@@ -61,19 +61,19 @@ const lookups = {
      "Roslindale":15,
      "West Roxbury":16
   },
-  use:{
-      "Marine Industrial":1,
-      "Vacant":2,
-      "Parking":3,
-      "Municipal":4,
-      "Commercial":5,
-      "Open Space":6,
-      "Residential":7,
-      "Parking ":8,
-      "Mixed Use":9,
-      "Industrial":10,
-      "Community Garden":11
-  },
+  // use:{
+  //     "Marine Industrial":1,
+  //     "Vacant":2,
+  //     "Parking":3,
+  //     "Municipal":4,
+  //     "Commercial":5,
+  //     "Open Space":6,
+  //     "Residential":7,
+  //     "Parking ":8,
+  //     "Mixed Use":9,
+  //     "Industrial":10,
+  //     "Community Garden":11
+  // },
   ur_area:{
     null:0,
     "Charlestown":1,
@@ -159,23 +159,23 @@ const columns = [
     title: "Lot Size",
     filtering:false
    },
-   {
-    field: "current_use",
-    title: "Use",
-    lookup:{
-      1: "Marine Industrial",
-      2: "Vacant",
-      3: "Parking",
-      4: "Municipal",
-      5: "Commercial",
-      6: "Open Space",
-      7: "Residential",
-      8: "Parking ",
-      9: "Mixed Use",
-      10: "Industrial",
-      11: "Community Garden"
-    }
-   },
+  //  {
+  //   field: "current_use",
+  //   title: "Use",
+  //   lookup:{
+  //     1: "Marine Industrial",
+  //     2: "Vacant",
+  //     3: "Parking",
+  //     4: "Municipal",
+  //     5: "Commercial",
+  //     6: "Open Space",
+  //     7: "Residential",
+  //     8: "Parking ",
+  //     9: "Mixed Use",
+  //     10: "Industrial",
+  //     11: "Community Garden"
+  //   }
+  //  },
    {
     field: "project_status",
     title: "Status",
@@ -243,16 +243,16 @@ const columns = [
           temp.build_sf = temp.gross_area;
           delete temp.gross_area;
           fullArr.push(temp);
-          if(record.attributes.current_use == "Marine Industrial"){
-            console.log(record)
-          }
+          // if(record.attributes.current_use == "Marine Industrial"){
+          //   console.log(record)
+          // }
           result.push({
             pid:record.attributes.pid,
             full_address:record.attributes.full_address,
             neighborhood:lookups.neighborhood[record.attributes.neighborhood],
             ur_area:lookups.ur_area[record.attributes.ur_area],
             lot_size:record.attributes.lot_size,
-            current_use:lookups.use[record.attributes.current_use],
+            // current_use:lookups.use[record.attributes.current_use],
             project_status:lookups.status[record.attributes.project_status],
           })
         })
@@ -361,7 +361,7 @@ const columns = [
               neighborhood:lookups.neighborhood[record.attributes.neighborhood],
               ur_area:lookups.ur_area[record.attributes.ur_area],
               lot_size:record.attributes.lot_size,
-              current_use:lookups.use[record.attributes.current_use],
+              // current_use:lookups.use[record.attributes.current_use],
               project_status:lookups.status[record.attributes.project_status],
             })
           })
