@@ -41,13 +41,17 @@ const Layer = (props) =>{
         "esri/core/urlUtils"
   ]).then(([Map, MapView, FeatureLayer,urlUtils]) => {
 
-    urlUtils.addProxyRule(
-      {proxyUrl :"http://localhost/DotNet/proxy.ashx",
-      urlPrefix :"https://services.arcgis.com/"}
-    )
+    // urlUtils.addProxyRule(
+    //   {proxyUrl :"https://gis.bostonplans.org/DotNet/proxy.ashx",
+    //   urlPrefix :"https://gis.bostonplans.org/"}
+    // )
 
     var featureLayer = new FeatureLayer({
-        url:"https://services.arcgis.com/sFnw0xNflSi8J0uh/arcgis/rest/services/BOLD_RE_parcels_shp/FeatureServer/0",
+        // url:"https://gis.bostonplans.org/hosting/rest/services/feature/BOLD/FeatureServer/0",
+        portalItem: {
+          id: "87a67bd2f0e34fd68b5835e6510258eb"
+        },
+        // layerId: 0,
         popupTemplate: {
           title: "{pid}",
           content: [{

@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary,
   },
   map:{
-    height:"89vh"
+    height:"1026px"
   }
 }));
 
@@ -87,9 +87,9 @@ const Parcel = (props) => {
 
       props.map.add(layer)
 
-
       
-
+      
+      console.log(layer.editingInfo)
       var qTask = new QueryTask({
         url: boldUrl
       });

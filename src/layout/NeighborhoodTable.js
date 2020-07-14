@@ -455,9 +455,13 @@ function EnhancedTable(props) {
   // };
   const handleClick = (e) =>{
     // history.push('/parcel?'+category+'='+e.field)
-
-    history.push('/parcel?filters='+e.field)
-    console.log(e.field)
+    if(category=="neighborhood"){
+      history.push('/parcel?filters='+e.field)
+    }else{
+      history.push('/parcel?filters=0')
+    }
+    
+    // console.log(e.field)
   }
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
