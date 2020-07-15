@@ -47,10 +47,10 @@ const Layer = (props) =>{
     // )
 
     var featureLayer = new FeatureLayer({
-        // url:"https://gis.bostonplans.org/hosting/rest/services/feature/BOLD/FeatureServer/0",
-        portalItem: {
-          id: "87a67bd2f0e34fd68b5835e6510258eb"
-        },
+        url:"https://gis.bostonplans.org/hosting/rest/services/Feature/BOLD/FeatureServer/0",
+        // portalItem: {
+        //   id: "87a67bd2f0e34fd68b5835e6510258eb"
+        // },
         // layerId: 0,
         popupTemplate: {
           title: "{pid}",

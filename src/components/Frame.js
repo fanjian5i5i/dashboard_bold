@@ -23,7 +23,9 @@ import Appbar from './Appbar';
 import logo from '../assets/img/logo.png';
 import Dashboard2 from '../layout/Dashboard2';
 import Project from '../layout/Project';
-import Map from '../layout/Map';
+import Map from '../layout/MapPublic';
+// import Map from '../layout/Map';
+
 import ListView from '../layout/List';
 import NeighborhoodTable from '../layout/NeighborhoodTable';
 import { Redirect } from 'react-router-dom';
