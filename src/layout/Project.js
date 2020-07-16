@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary,
   },
   media: {
-    height: 450,
+    height: 415,
     backgroundSize: "cover"
   },
 }));

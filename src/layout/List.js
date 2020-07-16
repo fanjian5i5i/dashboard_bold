@@ -215,7 +215,7 @@ const columns = [
     history.push('/parcel?filters=0')
     loadModules(["esri/layers/FeatureLayer","esri/tasks/support/Query"]).then(([FeatureLayer,Query,StatisticDefinition]) => {
       const layer = new FeatureLayer({
-        url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_parcels_RE/FeatureServer/0",
+        url: "https://gis.bostonplans.org/hosting/rest/services/Feature/BOLD/FeatureServer/0",
       });
       const query = new Query();
       query.where = "project_status <> 'Conveyed'";
@@ -239,7 +239,7 @@ const columns = [
           delete temp.living_area;
           delete temp.last_observed_date;
           delete temp.responsible_pm;
-          delete temp.map_status;
+          // delete temp.map_status;
           temp.build_sf = temp.gross_area;
           delete temp.gross_area;
           fullArr.push(temp);
@@ -253,7 +253,7 @@ const columns = [
             ur_area:lookups.ur_area[record.attributes.ur_area],
             lot_size:record.attributes.lot_size,
             // current_use:lookups.use[record.attributes.current_use],
-            project_status:lookups.status[record.attributes.project_status],
+            project_status:lookups.status[record.attributes.public_status],
           })
         })
         setFull(fullArr);

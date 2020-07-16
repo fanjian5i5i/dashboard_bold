@@ -76,12 +76,12 @@ export default function AutoGrid() {
   React.useEffect(()=>{
     loadModules(["esri/layers/FeatureLayer","esri/tasks/support/Query","esri/tasks/support/StatisticDefinition"]).then(([FeatureLayer,Query,StatisticDefinition]) => {
       const layer = new FeatureLayer({
-        url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_parcels_RE/FeatureServer/0",
+        url: "https://gis.bostonplans.org/hosting/rest/services/Feature/BOLD/FeatureServer/0",
       });
       const query = new Query();
       // query.where = "total_value_19 > 0";
       var sumValue = {
-        onStatisticField: "total_value19",
+        onStatisticField: "total_value_19",
         outStatisticFieldName: "total_value_19_sum",
         statisticType: "sum"
       }
@@ -140,7 +140,7 @@ export default function AutoGrid() {
   React.useEffect(()=>{
     loadModules(["esri/layers/FeatureLayer","esri/tasks/support/Query","esri/tasks/support/StatisticDefinition"]).then(([FeatureLayer,Query,StatisticDefinition]) => {
       const layer = new FeatureLayer({
-        url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_parcels_RE/FeatureServer/0",
+        url: "https://gis.bostonplans.org/hosting/rest/services/Feature/BOLD/FeatureServer/0",
       });
       const query = new Query();
       query.where = "project_status <> 'Conveyed' ";

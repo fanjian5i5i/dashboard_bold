@@ -70,6 +70,7 @@ export default function FolderList(props) {
     full_address : "Address",
     map_status : "Map Status",
     yardi_code : "Yardi Code",
+    public_status: "Status"
   }
 
 
@@ -104,7 +105,7 @@ export default function FolderList(props) {
   useEffect(()=>{
     loadModules(["esri/layers/FeatureLayer","esri/tasks/support/Query"]).then(([FeatureLayer,Query,StatisticDefinition]) => {
       const layer = new FeatureLayer({
-        url: "http://mapservices.bostonredevelopmentauthority.org/arcgis/rest/services/Maps/BOLD_parcels_RE/FeatureServer/0",
+        url: "https://gis.bostonplans.org/hosting/rest/services/Feature/BOLD/FeatureServer/0",
       });
       const query = new Query();
       query.where = "pid = '" + props.pid + "'";
@@ -199,6 +200,12 @@ export default function FolderList(props) {
           <ListItemText primary={lookup.ur_parcel_name}/>
           <ListItemSecondaryAction>
               {data.ur_parcel_name}
+              </ListItemSecondaryAction>
+          </ListItem>
+          <ListItem>
+          <ListItemText primary={lookup.public_status}/>
+          <ListItemSecondaryAction>
+              {data.public_status}
               </ListItemSecondaryAction>
           </ListItem>
     </List>
