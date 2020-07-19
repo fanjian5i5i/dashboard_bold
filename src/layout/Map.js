@@ -59,106 +59,23 @@ const Layer = (props) =>{
       }
     });
     props.view.map= webmap;
+    let layerInfo = [];
+    var legend = new Legend({
+      view: props.view,
+      layerInfos: layerInfo
+    });
+    props.view.ui.add(legend, "bottom-right");
+    props.view.on("layerview-create", function (event) {
+      legend.refresh()
+    });
     props.view.when(function() {
-    var ldaLayer = props.map.layers.getItemAt(1);
-      // ldaLayer.visible = true;
-      var boldLayer = props.map.layers.getItemAt(2);
-      var zoningLayer = props.map.layers.getItemAt(0);
-      var neighborhoodLayer = props.map.layers.getItemAt(3);
-      var legend = new Legend({
-        view: props.view,
-        layerInfos: [
-          {
-            layer: boldLayer,
-          },
-          {
-            layer: ldaLayer
-          },
-          {
-            layer:zoningLayer
-          },
-          {
-            layer:neighborhoodLayer
-          }
-          
-        ]
-      });
-
-
-
       var layerList = new LayerList({
         view: props.view
       });
-
-
-      if(window.innerWidth >= 1000 ) {
-        props.view.ui.add(legend, "bottom-right");
-        
-      }
       if(window.innerWidth >= 600 ) {
       props.view.ui.add(layerList,  "top-left");
       }
     })
-    // var featureLayer = new FeatureLayer({
-    //     // url:"https://gis.bostonplans.org/hosting/rest/services/Feature/BOLD/FeatureServer/0",
-    //     portalItem: {
-    //       id: "87a67bd2f0e34fd68b5835e6510258eb"
-    //     },
-    //     // layerId: 0,
-    //     // popupTemplate: {
-    //     //   title: "{pid}",
-    //     //   content: [{
-    //     //     type: "fields",
-    //     //     fieldInfos: [{
-    //     //       fieldName: "full_addre",
-    //     //       label: "Full Address"
-    //     //     },
-    //     //     {
-    //     //       fieldName: "zipcode",
-    //     //       label: "ZIP Code"
-    //     //     },
-    //     //     {
-    //     //       fieldName: "neighborhood",
-    //     //       label: "Neighborhood"
-    //     //     },
-    //     //     {
-    //     //       fieldName: "zoning_subdistrict",
-    //     //       label: "Zoning Subdistrict"
-    //     //     },
-    //     //     {
-    //     //       fieldName: "ur_area",
-    //     //       label: "UR Area"
-    //     //     },
-    //     //     {
-    //     //       fieldName: "ur_number",
-    //     //       label: "UR Number"
-    //     //     },
-    //     //     {
-    //     //       fieldName: "ur_parcel_name",
-    //     //       label: "UR Parcel"
-    //     //     },
-    //     //     {
-    //     //       fieldName: "owner",
-    //     //       label: "Owner"
-    //     //     },{
-    //     //     fieldName: "lot_size",
-    //     //     label: "Lot Size"
-    //     //   },{
-    //     //     fieldName: "gross_area",
-    //     //     label: "Built Sqft"
-    //     //   }]
-    //     //   }]
-    //     // }
-    // });
-
-    // if(!featureLayer.loaded){             
-    //   featureLayer.on('load', () => {                    
-    //       console.log('load');                
-    //   })
-    //   }else{                
-    //     console.log('loading');              
-    //   }
-    // props.map.add(featureLayer);
 
 
     });
