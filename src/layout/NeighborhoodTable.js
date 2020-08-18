@@ -76,7 +76,7 @@ function EnhancedTableHead(props) {
     "neighborhood":"Neighborhoods",
     "current_use":"Current Use",
     "ur_area":"Urban Renewal Areas",
-    "project_status":"Status"
+    "public_status":"Status"
   }
   const tableHead = [
     { id: 'neighborhood', numeric: false, disablePadding: true, label: 'Neighborhood' },
@@ -317,7 +317,7 @@ function EnhancedTable(props) {
     }else{
     props.reducerState.originalData.forEach(record =>{
         selectedStatus.forEach(status=>{
-          if(record.attributes.project_status == status){
+          if(record.attributes.public_status == status){
             tempArr.push(record)
           }
         })
@@ -472,7 +472,7 @@ function EnhancedTable(props) {
     setPage(0);
   };
 
-  const statuses = getFieldValues(props.data,"project_status");
+  const statuses = getFieldValues(props.data,"public_status");
   const neighborhoods = getFieldValues(props.data,"neighborhood");
   console.log(neighborhoods)
   const urAreas = getFieldValues(props.data,"ur_area");
@@ -480,7 +480,7 @@ function EnhancedTable(props) {
   const categories = [
     {id:"neighborhood",name:"Neighborhoods"},
     {id:"ur_area",name:"Urban Renewal Areas"},
-    {id:"project_status",name:"Status"}
+    {id:"public_status",name:"Status"}
   ]
 
   function getStyles(selectedStatus, statuses, theme) {

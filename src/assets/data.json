@@ -1,0 +1,1916 @@
+[
+  {
+    "OBJECTID": 6156,
+    "pid": "0103708010",
+    "project_status": "Designated",
+    "public_status": "Designated"
+  },
+  {
+    "OBJECTID": 6166,
+    "pid": "0200736000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6168,
+    "pid": "0200751000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6170,
+    "pid": "0200787000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6171,
+    "pid": "0200793000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6172,
+    "pid": "0200797000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6183,
+    "pid": "0200253000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6188,
+    "pid": "0200800000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6193,
+    "pid": "0201701020",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6206,
+    "pid": "0202620200",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6207,
+    "pid": "0202624000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6208,
+    "pid": "0202624040",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6212,
+    "pid": "0202737000",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 6213,
+    "pid": "0202738000",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6214,
+    "pid": "0202878000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6217,
+    "pid": "0202932000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6220,
+    "pid": "0201751010",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6224,
+    "pid": "0202163010",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6226,
+    "pid": "0202164200",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6227,
+    "pid": "0202192000",
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6228,
+    "pid": "0202250000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6237,
+    "pid": "0203505550",
+    "project_status": "Long Term Maintenance Agreement",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6238,
+    "pid": "0203505600",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6239,
+    "pid": "0203505700",
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6240,
+    "pid": "0203510000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6241,
+    "pid": "0203510030",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6242,
+    "pid": "0203510005",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6243,
+    "pid": "0203510010",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6244,
+    "pid": "0203510020",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6245,
+    "pid": "0203510050",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6246,
+    "pid": "0203510075",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6247,
+    "pid": "0203510090",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6248,
+    "pid": "0203510100",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6249,
+    "pid": "0203510152",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6250,
+    "pid": "0203510175",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6251,
+    "pid": "0203510451",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6252,
+    "pid": "0203510510",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6253,
+    "pid": "0203510600",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6254,
+    "pid": "0203511000",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6255,
+    "pid": "0203511100",
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6256,
+    "pid": "0203511200",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6257,
+    "pid": "0203511300",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6258,
+    "pid": "0203511400",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6259,
+    "pid": "0203512000",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6260,
+    "pid": "0203512100",
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6261,
+    "pid": "0203512200",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6262,
+    "pid": "0203515400",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6266,
+    "pid": "0203517700",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6267,
+    "pid": "0203517800",
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6272,
+    "pid": "0203504000",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6273,
+    "pid": "0203505000",
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6279,
+    "pid": "0203950010",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6280,
+    "pid": "0203951000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6281,
+    "pid": "0203961000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6282,
+    "pid": "0203963050",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 6283,
+    "pid": "0203964000",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 6302,
+    "pid": "0301922000",
+    "project_status": "Long Term Maintenance Agreement",
+    "public_status": "Long Term Maintenance Agreement"
+  },
+  {
+    "OBJECTID": 6303,
+    "pid": "0301922005",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6304,
+    "pid": "0301922015",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6306,
+    "pid": "0302600000",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6307,
+    "pid": "0302604000",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6310,
+    "pid": "0302616000",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6311,
+    "pid": "0302617000",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6312,
+    "pid": "0302620000",
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6317,
+    "pid": "0302625000",
+    "project_status": "Long Term Maintenance Agreement",
+    "public_status": "Long Term Maintenance Agreement"
+  },
+  {
+    "OBJECTID": 6318,
+    "pid": "0302625010",
+    "project_status": "Long Term Maintenance Agreement",
+    "public_status": "Long Term Maintenance Agreement"
+  },
+  {
+    "OBJECTID": 6320,
+    "pid": "0302627000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6324,
+    "pid": "0302643000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6326,
+    "pid": "0302646000",
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6333,
+    "pid": "0302718000",
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6334,
+    "pid": "0302856000",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6339,
+    "pid": "0302951010",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6344,
+    "pid": "0302982010",
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6346,
+    "pid": "0302990010",
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6348,
+    "pid": "0303004000",
+    "project_status": "Performing Asset",
+    "public_status": "Commercial lease/license"
+  },
+  {
+    "OBJECTID": 6352,
+    "pid": "0303026000",
+    "project_status": "Performing Asset",
+    "public_status": "Commercial lease/license"
+  },
+  {
+    "OBJECTID": 6353,
+    "pid": "0303027000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6357,
+    "pid": "0303030500",
+    "project_status": "Performing Asset",
+    "public_status": "Parking lot/Garage"
+  },
+  {
+    "OBJECTID": 6359,
+    "pid": "0303035000",
+    "project_status": "Performing Asset",
+    "public_status": "Parking lot/Garage"
+  },
+  {
+    "OBJECTID": 6360,
+    "pid": "0303036000",
+    "project_status": "Performing Asset",
+    "public_status": "Parking lot/Garage"
+  },
+  {
+    "OBJECTID": 6361,
+    "pid": "0303036001",
+    "project_status": "Performing Asset",
+    "public_status": "Parking lot/Garage"
+  },
+  {
+    "OBJECTID": 6362,
+    "pid": "0303036005",
+    "project_status": "Performing Asset",
+    "public_status": "Parking lot/Garage"
+  },
+  {
+    "OBJECTID": 6363,
+    "pid": "0303037000",
+    "project_status": "Performing Asset",
+    "public_status": "Parking lot/Garage"
+  },
+  {
+    "OBJECTID": 6364,
+    "pid": "0303550000",
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6387,
+    "pid": "0303594000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6407,
+    "pid": "0303624000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6409,
+    "pid": "0303670000",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6414,
+    "pid": "0303695000",
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6418,
+    "pid": "0303792000",
+    "project_status": "Long Term Maintenance Agreement",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6420,
+    "pid": "0303822010",
+    "project_status": "Long Term Maintenance Agreement",
+    "public_status": "Long Term Maintenance Agreement"
+  },
+  {
+    "OBJECTID": 6421,
+    "pid": "0303822110",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6424,
+    "pid": "0303994010",
+    "project_status": "Long Term Maintenance Agreement",
+    "public_status": "Long Term Maintenance Agreement"
+  },
+  {
+    "OBJECTID": 6426,
+    "pid": "0304233000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6434,
+    "pid": "0303465100",
+    "project_status": "Performing Asset",
+    "public_status": "Parking lot/Garage"
+  },
+  {
+    "OBJECTID": 6435,
+    "pid": "0303466000",
+    "project_status": "Performing Asset",
+    "public_status": "Parking lot/Garage"
+  },
+  {
+    "OBJECTID": 6439,
+    "pid": "0304725000",
+    "project_status": "Long Term Maintenance Agreement",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6450,
+    "pid": "0304908000",
+    "project_status": "Performing Asset",
+    "public_status": "Commercial lease/license"
+  },
+  {
+    "OBJECTID": 6457,
+    "pid": "0305230000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6458,
+    "pid": "0305231000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6459,
+    "pid": "0305232000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6460,
+    "pid": "0305233000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6461,
+    "pid": "0305234000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6462,
+    "pid": "0305235000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6463,
+    "pid": "0305236000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6464,
+    "pid": "0305238000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6465,
+    "pid": "0305239000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6466,
+    "pid": "0305240000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6467,
+    "pid": "0305241000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6468,
+    "pid": "0305242000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6469,
+    "pid": "0305243000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6470,
+    "pid": "0305244000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6478,
+    "pid": "0306039010",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6479,
+    "pid": "0306040000",
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6488,
+    "pid": "0306169000",
+    "project_status": "Developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6491,
+    "pid": "0306182000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6531,
+    "pid": "0305599010",
+    "project_status": "Designated",
+    "public_status": "Designated"
+  },
+  {
+    "OBJECTID": 6532,
+    "pid": "0305599030",
+    "project_status": "Designated",
+    "public_status": "Designated"
+  },
+  {
+    "OBJECTID": 6534,
+    "pid": "0305635000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6535,
+    "pid": "0305648000",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6612,
+    "pid": "0400600000",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6631,
+    "pid": "0402273000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6642,
+    "pid": "0402300000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6666,
+    "pid": "0500818000",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6667,
+    "pid": "0500819000",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6668,
+    "pid": "0500819010",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6669,
+    "pid": "0500820000",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6675,
+    "pid": "0500478000",
+    "project_status": "Long Term Maintenance Agreement",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6676,
+    "pid": "0500478001",
+    "project_status": "Long Term Maintenance Agreement",
+    "public_status": "Long Term Maintenance Agreement"
+  },
+  {
+    "OBJECTID": 6679,
+    "pid": "0500478005",
+    "project_status": "Long Term Maintenance Agreement",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6680,
+    "pid": "0500478006",
+    "project_status": "Long Term Maintenance Agreement",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6681,
+    "pid": "0500478007",
+    "project_status": "Long Term Maintenance Agreement",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6682,
+    "pid": "0500550000",
+    "project_status": "Long Term Maintenance Agreement",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6684,
+    "pid": "0500550002",
+    "project_status": "Long Term Maintenance Agreement",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6686,
+    "pid": "0500590001",
+    "project_status": "Long Term Maintenance Agreement",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6694,
+    "pid": "0500815228",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6695,
+    "pid": "0500084000",
+    "project_status": "Performing Asset",
+    "public_status": "Commercial lease/license"
+  },
+  {
+    "OBJECTID": 6715,
+    "pid": "0500068030",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6716,
+    "pid": "0500068040",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6717,
+    "pid": "0500068050",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6727,
+    "pid": "0602674003",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6728,
+    "pid": "0602674012",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6729,
+    "pid": "0602674013",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6730,
+    "pid": "0602674014",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6731,
+    "pid": "0602674018",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6732,
+    "pid": "0602674019",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6733,
+    "pid": "0602674025",
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6734,
+    "pid": "0602674035",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6735,
+    "pid": "0602674045",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6736,
+    "pid": "0602674055",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6737,
+    "pid": "0602674060",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6738,
+    "pid": "0602674065",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6739,
+    "pid": "0602674069",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6740,
+    "pid": "0602674075",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6741,
+    "pid": "0602674080",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6742,
+    "pid": "0602674085",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6743,
+    "pid": "0602674090",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6744,
+    "pid": "0602674095",
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 6745,
+    "pid": "0602674105",
+    "project_status": "Designated",
+    "public_status": "Designated"
+  },
+  {
+    "OBJECTID": 6746,
+    "pid": "0602674110",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6747,
+    "pid": "0602674115",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6748,
+    "pid": "0602674120",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6749,
+    "pid": "0602674125",
+    "project_status": "Performing Asset",
+    "public_status": "Parking lot/Garage"
+  },
+  {
+    "OBJECTID": 6750,
+    "pid": "0602674130",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6751,
+    "pid": "0602674135",
+    "project_status": "Performing Asset",
+    "public_status": "Commercial lease/license"
+  },
+  {
+    "OBJECTID": 6752,
+    "pid": "0602674140",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6753,
+    "pid": "0602674145",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6754,
+    "pid": "0602674150",
+    "project_status": "Performing Asset",
+    "public_status": "Commercial lease/license"
+  },
+  {
+    "OBJECTID": 6755,
+    "pid": "0602674155",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6756,
+    "pid": "0602674165",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6757,
+    "pid": "0602674175",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6758,
+    "pid": "0602674185",
+    "project_status": "Performing Asset",
+    "public_status": "Parking lot/Garage"
+  },
+  {
+    "OBJECTID": 6759,
+    "pid": "0602674190",
+    "project_status": "Performing Asset",
+    "public_status": "Parking lot/Garage"
+  },
+  {
+    "OBJECTID": 6760,
+    "pid": "0602674200",
+    "project_status": "Performing Asset",
+    "public_status": "Parking lot/Garage"
+  },
+  {
+    "OBJECTID": 6761,
+    "pid": "0602674205",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6762,
+    "pid": "0602674210",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 6763,
+    "pid": "0602674215",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6764,
+    "pid": "0602674220",
+    "project_status": "Performing Asset",
+    "public_status": "Parking lot/Garage"
+  },
+  {
+    "OBJECTID": 6765,
+    "pid": "0602674221",
+    "project_status": "Performing Asset",
+    "public_status": "Parking lot/Garage"
+  },
+  {
+    "OBJECTID": 6766,
+    "pid": "0602674225",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6767,
+    "pid": "0602674230",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6768,
+    "pid": "0602674240",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 6769,
+    "pid": "0602674245",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6770,
+    "pid": "0602674250",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6806,
+    "pid": "0800900020",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6807,
+    "pid": "0800900050",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6808,
+    "pid": "0800900100",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6809,
+    "pid": "0800900150",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 6810,
+    "pid": "0800900200",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 6811,
+    "pid": "0800900300",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 6850,
+    "pid": "0900537000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6879,
+    "pid": "0801843000",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 6880,
+    "pid": "0801844000",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 6881,
+    "pid": "0801845000",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 6882,
+    "pid": "0801847000",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 6883,
+    "pid": "0801848000",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 6884,
+    "pid": "0801849000",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 6885,
+    "pid": "0801850000",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 6886,
+    "pid": "0801851000",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 6887,
+    "pid": "0801852000",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 6888,
+    "pid": "0801853000",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 6910,
+    "pid": "0802130010",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6912,
+    "pid": "0802455000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6913,
+    "pid": "0802462000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6914,
+    "pid": "0802472000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6915,
+    "pid": "0802475000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6916,
+    "pid": "0802479000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 6925,
+    "pid": "0900709010",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 6984,
+    "pid": "0900420000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7005,
+    "pid": "0901205000",
+    "project_status": "Designated",
+    "public_status": "Designated"
+  },
+  {
+    "OBJECTID": 7014,
+    "pid": "0901448010",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7016,
+    "pid": "0901475000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7020,
+    "pid": "0901710000",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 7040,
+    "pid": "0901905000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7041,
+    "pid": "0901925010",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 7042,
+    "pid": "0901925020",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 7043,
+    "pid": "0901930010",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 7045,
+    "pid": "0901964000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7049,
+    "pid": "0902124010",
+    "project_status": "Designated",
+    "public_status": "Designated"
+  },
+  {
+    "OBJECTID": 7050,
+    "pid": "0902130010",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 7058,
+    "pid": "0903539000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7064,
+    "pid": "0903546000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7069,
+    "pid": "0903575000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7089,
+    "pid": "0903805000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7090,
+    "pid": "0903815000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7091,
+    "pid": "0903825000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7092,
+    "pid": 1000034010,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7093,
+    "pid": 1000449000,
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 7122,
+    "pid": "0902279000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7123,
+    "pid": "0902284000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7131,
+    "pid": "0902567000",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7133,
+    "pid": "0902667000",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 7134,
+    "pid": "0902668000",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 7135,
+    "pid": "0902669000",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 7136,
+    "pid": "0902671000",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 7139,
+    "pid": "0902676000",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 7140,
+    "pid": "0902677000",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 7141,
+    "pid": "0902678000",
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 7142,
+    "pid": "0902704030",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7146,
+    "pid": "0902980080",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 7149,
+    "pid": "0902980100",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7151,
+    "pid": "0903082000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7158,
+    "pid": "0903239020",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7162,
+    "pid": "0903268010",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7184,
+    "pid": "0903483000",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7195,
+    "pid": 1001220000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7196,
+    "pid": 1001221000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7201,
+    "pid": 1101641000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7202,
+    "pid": 1101642000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7224,
+    "pid": 1100112000,
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 7225,
+    "pid": 1100118000,
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 7249,
+    "pid": 1101784000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7250,
+    "pid": 1101819000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7251,
+    "pid": 1101918000,
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 7252,
+    "pid": 1101922010,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7254,
+    "pid": 1201025000,
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7259,
+    "pid": 1201146000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7272,
+    "pid": 1201367000,
+    "project_status": "Designated",
+    "public_status": "Designated"
+  },
+  {
+    "OBJECTID": 7273,
+    "pid": 1201373000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7274,
+    "pid": 1201374000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7275,
+    "pid": 1201375000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7276,
+    "pid": 1201376000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7277,
+    "pid": 1201377000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7278,
+    "pid": 1201378000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7288,
+    "pid": 1201590000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7289,
+    "pid": 1201610000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7290,
+    "pid": 1201736000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7292,
+    "pid": 1201770000,
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7293,
+    "pid": 1201780000,
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7295,
+    "pid": 1201815000,
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 7296,
+    "pid": 1201852000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7297,
+    "pid": 1201853000,
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7304,
+    "pid": 1200620000,
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7305,
+    "pid": 1200634000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7306,
+    "pid": 1200655000,
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7307,
+    "pid": 1200662000,
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 7312,
+    "pid": 1200731000,
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7321,
+    "pid": 1202471000,
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 7330,
+    "pid": 1202617000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7338,
+    "pid": 1203160000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7346,
+    "pid": 1203261001,
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7354,
+    "pid": 1203306000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7355,
+    "pid": 1203307000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7356,
+    "pid": 1203308000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7357,
+    "pid": 1203309000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7358,
+    "pid": 1203310000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7359,
+    "pid": 1203316001,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7360,
+    "pid": 1203316002,
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7361,
+    "pid": 1203319000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7362,
+    "pid": 1203320000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7363,
+    "pid": 1203324001,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7364,
+    "pid": 1203325001,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7365,
+    "pid": 1203326000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7366,
+    "pid": 1203334000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7367,
+    "pid": 1203335000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7380,
+    "pid": 1202383000,
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7381,
+    "pid": 1300712001,
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7382,
+    "pid": 1301743000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7390,
+    "pid": 1400298000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7391,
+    "pid": 1400299000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7395,
+    "pid": 1400324040,
+    "project_status": "Designated",
+    "public_status": "Designated"
+  },
+  {
+    "OBJECTID": 7404,
+    "pid": 1403790000,
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7406,
+    "pid": 1403954000,
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7407,
+    "pid": 1502158000,
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 7417,
+    "pid": 1809124000,
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 7420,
+    "pid": 1811552080,
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7421,
+    "pid": 1903862200,
+    "project_status": "Developable",
+    "public_status": "Future Planning Needed"
+  },
+  {
+    "OBJECTID": 7423,
+    "pid": 2009228020,
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 7426,
+    "pid": "0000000001",
+    "project_status": "Designated",
+    "public_status": "Designated"
+  },
+  {
+    "OBJECTID": 7427,
+    "pid": "0000000002",
+    "project_status": "Developable",
+    "public_status": "Developable"
+  },
+  {
+    "OBJECTID": 7428,
+    "pid": "0000000004",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7435,
+    "pid": "0602641041",
+    "project_status": "Long Term Maintenance Agreement",
+    "public_status": "Long Term Maintenance Agreement"
+  },
+  {
+    "OBJECTID": 7436,
+    "pid": "0000000003",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7429,
+    "pid": "0902980075",
+    "project_status": "Not developable",
+    "public_status": "Not developable"
+  },
+  {
+    "OBJECTID": 7430,
+    "pid": "0902951025",
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 7431,
+    "pid": "0800900010",
+    "project_status": "Not developable",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 7432,
+    "pid": "0602640085",
+    "project_status": "Long Term Maintenance Agreement",
+    "public_status": "Open Space/Community Garden"
+  },
+  {
+    "OBJECTID": 7433,
+    "pid": "0902100010",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 7434,
+    "pid": "0901705000",
+    "project_status": "Ground Leased",
+    "public_status": "Ground Leased"
+  },
+  {
+    "OBJECTID": 8153,
+    "pid": "0305424312",
+    "project_status": "Ground Leased",
+    "public_status": "Commercial lease/license"
+  }
+]
