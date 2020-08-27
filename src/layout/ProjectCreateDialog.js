@@ -172,7 +172,7 @@ const ProjectCreateDialog = withStyles(styles)(props=> {
       const layer = new FeatureLayer({
         // URL to the service
         id:"parcel",
-        url: "https://services.arcgis.com/sFnw0xNflSi8J0uh/ArcGIS/rest/services/Parcels19WMFull/FeatureServer/0",
+        url: "https://services.arcgis.com/sFnw0xNflSi8J0uh/arcgis/rest/services/PARCELS20WMFull/FeatureServer/0",
         outFields:["*"],
         renderer:{
           type: "simple",  // autocasts as new SimpleRenderer()
